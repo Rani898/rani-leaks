@@ -1467,10 +1467,10 @@ function initPasswordGate(){
 }
 
 function checkSitePassword(){
-  const val = document.getElementById('pw-gate-input').value;
+  const val = document.getElementById('pw-gate-input').value.trim();
   const errEl = document.getElementById('pw-gate-error');
-  if(val.length < 8){
-    showGateError('❌ הסיסמה חייבת להכיל לפחות 8 תווים');
+  if(val.length < 2){
+    showGateError('❌ הכנס סיסמה');
     return;
   }
   if(val !== SITE_PASSWORD){
@@ -1497,7 +1497,6 @@ function showGateError(msg){
   const errEl = document.getElementById('pw-gate-error');
   errEl.textContent = msg;
   inp.classList.add('error');
-  inp.value='';
   inp.focus();
   setTimeout(()=>inp.classList.remove('error'),500);
 }
