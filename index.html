@@ -386,6 +386,41 @@ footer{padding:40px 5vw 28px;border-top:1px solid var(--border);color:var(--text
 /* --- CANVAS PARTICLES --- */
 #fx-canvas{position:fixed;inset:0;z-index:9988;pointer-events:none;opacity:0.35;}
 
+/* ===== ADMIN PANEL ===== */
+.admin-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity 0.25s;}
+.admin-overlay.open{opacity:1;pointer-events:all;}
+.admin-panel{background:#141414;border:1px solid #2a2a2a;border-radius:16px;width:100%;max-width:640px;max-height:88vh;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#333 transparent;transform:translateY(20px);transition:transform 0.25s;}
+.admin-overlay.open .admin-panel{transform:translateY(0);}
+.admin-topbar{position:sticky;top:0;background:#141414;border-bottom:1px solid #222;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;z-index:2;}
+.admin-topbar h3{font-size:1rem;font-weight:800;color:#fff;display:flex;align-items:center;gap:8px;}
+.admin-close{background:rgba(255,255,255,0.07);border:none;color:#aaa;width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:1rem;transition:all 0.15s;}
+.admin-close:hover{background:rgba(255,255,255,0.15);color:#fff;}
+.admin-body{padding:22px;}
+.admin-form{background:#0f0f0f;border:1px solid #222;border-radius:12px;padding:20px;margin-bottom:20px;}
+.admin-form h4{font-size:0.8rem;font-weight:700;color:#555;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;}
+.admin-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.admin-field{display:flex;flex-direction:column;gap:6px;}
+.admin-field.full{grid-column:1/-1;}
+.admin-field label{font-size:0.72rem;font-weight:700;color:#555;letter-spacing:1px;text-transform:uppercase;}
+.admin-input{background:#111;border:1px solid #2a2a2a;color:#fff;padding:10px 14px;border-radius:8px;font-family:'Heebo',sans-serif;font-size:0.9rem;outline:none;transition:border-color 0.2s;width:100%;}
+.admin-input:focus{border-color:var(--red);}
+.admin-input::placeholder{color:#333;}
+.admin-select{background:#111;border:1px solid #2a2a2a;color:#fff;padding:10px 14px;border-radius:8px;font-family:'Heebo',sans-serif;font-size:0.9rem;outline:none;width:100%;cursor:pointer;}
+.admin-add-btn{width:100%;padding:12px;background:var(--red);color:#fff;border:none;border-radius:8px;font-family:'Heebo',sans-serif;font-size:0.95rem;font-weight:700;cursor:pointer;transition:background 0.2s;margin-top:6px;}
+.admin-add-btn:hover{background:var(--red-dark);}
+.admin-files-list{display:flex;flex-direction:column;gap:8px;}
+.admin-file-item{background:#0f0f0f;border:1px solid #222;border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:14px;}
+.admin-file-icon{font-size:1.6rem;flex-shrink:0;}
+.admin-file-info{flex:1;min-width:0;}
+.admin-file-name{font-size:0.88rem;font-weight:700;color:#ddd;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.admin-file-url{font-size:0.72rem;color:#555;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px;}
+.admin-file-meta{font-size:0.7rem;color:#38bdf8;margin-top:2px;}
+.admin-file-del{background:rgba(229,9,20,0.1);border:1px solid rgba(229,9,20,0.25);color:var(--red);width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:0.8rem;flex-shrink:0;transition:all 0.15s;}
+.admin-file-del:hover{background:rgba(229,9,20,0.25);}
+.admin-empty{text-align:center;color:#333;font-size:0.85rem;padding:30px 0;}
+.admin-nav-btn{background:rgba(229,9,20,0.1);border:1px solid rgba(229,9,20,0.25);color:var(--red);padding:7px 14px;border-radius:7px;font-family:'Heebo',sans-serif;font-size:0.78rem;font-weight:700;cursor:pointer;transition:all 0.15s;}
+.admin-nav-btn:hover{background:rgba(229,9,20,0.2);}
+
 /* ===== RESPONSIVE ===== */
 @media(max-width:700px){
   .nav-links{display:none;}
@@ -603,6 +638,11 @@ footer{padding:40px 5vw 28px;border-top:1px solid var(--border);color:var(--text
 <!-- ROWS -->
 <div class="rows" id="main-rows">
 
+  <div class="row" id="real-files-row" style="display:none">
+    <div class="row-title">🟢 קבצים אמיתיים <span class="arrow">צפה הכל ›</span></div>
+    <div class="cards-track" id="real-row"></div>
+  </div>
+
   <div class="row">
     <div class="row-title">🔥 הורדות חמות עכשיו <span class="arrow">צפה הכל ›</span></div>
     <div class="cards-track" id="trending-row"></div>
@@ -703,6 +743,7 @@ footer{padding:40px 5vw 28px;border-top:1px solid var(--border);color:var(--text
       <div class="profile-menu-item" onclick="showDownloadHistory()"><div class="profile-menu-icon">📥</div>היסטוריית הורדות</div>
       <div class="profile-menu-item" onclick="showPrivacy()"><div class="profile-menu-icon">🔒</div>פרטיות ואבטחה</div>
       <div class="profile-menu-item" onclick="resetConsent()" style="color:#f59e0b"><div class="profile-menu-icon">📋</div>הצג מדיניות פרטיות</div>
+      <div class="profile-menu-item" onclick="openAdmin()" style="color:#46d369"><div class="profile-menu-icon">⚙️</div>ניהול קבצים</div>
       <div class="profile-menu-item" onclick="logoutUser()" style="color:var(--red)"><div class="profile-menu-icon">🚪</div>התנתק</div>
     </div>
   </div>
@@ -803,6 +844,87 @@ footer{padding:40px 5vw 28px;border-top:1px solid var(--border);color:var(--text
         <div class="ei-icon">🔑</div>
         <div class="ei-title">PBKDF2</div>
         <div class="ei-desc">המפתח נגזר מהסיסמה עם 250,000 איטרציות ו-salt אקראי.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="admin-overlay" id="admin-overlay">
+  <div class="admin-panel">
+    <div class="admin-topbar">
+      <h3>⚙️ פאנל ניהול קבצים</h3>
+      <button class="admin-close" onclick="closeAdmin()">✕</button>
+    </div>
+    <div class="admin-body">
+      <!-- ADD FILE FORM -->
+      <div class="admin-form">
+        <h4>➕ הוסף קובץ חדש</h4>
+        <div class="admin-row">
+          <div class="admin-field">
+            <label>שם הקובץ *</label>
+            <input class="admin-input" id="af-name" placeholder="לדוגמה: LEAKED DOCS 2026">
+          </div>
+          <div class="admin-field">
+            <label>גודל</label>
+            <input class="admin-input" id="af-size" placeholder="לדוגמה: 2.4 GB">
+          </div>
+        </div>
+        <div class="admin-row">
+          <div class="admin-field">
+            <label>אייקון</label>
+            <input class="admin-input" id="af-icon" placeholder="📄" maxlength="4">
+          </div>
+          <div class="admin-field">
+            <label>סיומת קובץ</label>
+            <input class="admin-input" id="af-ext" placeholder="PDF / ZIP / MP4...">
+          </div>
+        </div>
+        <div class="admin-row">
+          <div class="admin-field">
+            <label>קטגוריה</label>
+            <select class="admin-select" id="af-cat">
+              <option value="PDF">PDF</option>
+              <option value="וידאו">וידאו</option>
+              <option value="אודיו">אודיו</option>
+              <option value="תמונות">תמונות</option>
+              <option value="ארכיון">ארכיון</option>
+              <option value="תוכנה">תוכנה</option>
+              <option value="אקסל">אקסל</option>
+              <option value="Word">Word</option>
+              <option value="מצגת">מצגת</option>
+            </select>
+          </div>
+          <div class="admin-field">
+            <label>רקע (g1–g10)</label>
+            <select class="admin-select" id="af-grad">
+              <option value="g1">g1 — כחול כהה</option>
+              <option value="g2">g2 — חום</option>
+              <option value="g3">g3 — ירוק</option>
+              <option value="g4">g4 — סגול</option>
+              <option value="g5">g5 — אדום</option>
+              <option value="g6">g6 — כחול</option>
+              <option value="g7">g7 — ירוק כהה</option>
+              <option value="g8">g8 — זהב</option>
+              <option value="g9">g9 — וורוד</option>
+              <option value="g10">g10 — טורקיז</option>
+            </select>
+          </div>
+        </div>
+        <div class="admin-field full" style="margin-bottom:12px;">
+          <label>קישור הורדה ישיר *</label>
+          <input class="admin-input" id="af-url" placeholder="https://gofile.io/d/... או כל קישור ישיר">
+        </div>
+        <div class="admin-field full" style="margin-bottom:12px;">
+          <label>תיאור</label>
+          <input class="admin-input" id="af-desc" placeholder="תיאור קצר של הקובץ...">
+        </div>
+        <button class="admin-add-btn" onclick="adminAddFile()">➕ הוסף לאתר</button>
+      </div>
+      <!-- FILES LIST -->
+      <h4 style="font-size:0.78rem;font-weight:700;color:#555;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">📁 קבצים אמיתיים (<span id="admin-count">0</span>)</h4>
+      <div class="admin-files-list" id="admin-files-list">
+        <div class="admin-empty">אין קבצים עדיין — הוסף את הראשון</div>
       </div>
     </div>
   </div>
@@ -1157,6 +1279,117 @@ async function loginViaDiscordWebhook(){
   showToast('🎮 ברוך הבא, '+name+'!');
 }
 
+// ===== ADMIN PANEL =====
+function getRealFiles(){return JSON.parse(localStorage.getItem('rl_real_files')||'[]');}
+function saveRealFiles(arr){localStorage.setItem('rl_real_files',JSON.stringify(arr));}
+
+function openAdmin(){
+  closeProfile();
+  document.getElementById('admin-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+  renderAdminList();
+}
+function closeAdmin(){
+  document.getElementById('admin-overlay').classList.remove('open');
+  document.body.style.overflow='';
+  fillRows(); // Refresh main grid with any new real files
+}
+
+function adminAddFile(){
+  const name=document.getElementById('af-name').value.trim();
+  const url=document.getElementById('af-url').value.trim();
+  if(!name||!url){showToast('❌ שם וקישור הורדה הם חובה');return;}
+  const f={
+    id:'rf_'+Date.now(),
+    name:name.toUpperCase(),
+    url:url,
+    size:document.getElementById('af-size').value.trim()||'?',
+    icon:document.getElementById('af-icon').value.trim()||'📄',
+    ext:document.getElementById('af-ext').value.trim().toUpperCase()||'FILE',
+    cat:document.getElementById('af-cat').value,
+    grad:document.getElementById('af-grad').value,
+    desc:document.getElementById('af-desc').value.trim()||'קובץ מ-Rani Leaks',
+    date:new Date().toLocaleDateString('he-IL'),
+    downloads:'0',
+    real:true
+  };
+  const arr=getRealFiles();
+  arr.unshift(f);
+  saveRealFiles(arr);
+  // Clear form
+  ['af-name','af-url','af-size','af-icon','af-ext','af-desc'].forEach(id=>document.getElementById(id).value='');
+  renderAdminList();
+  showToast('✅ '+f.name+' נוסף לאתר!');
+}
+
+function adminDeleteFile(id){
+  if(!confirm('למחוק קובץ זה?')) return;
+  const arr=getRealFiles().filter(f=>f.id!==id);
+  saveRealFiles(arr);
+  renderAdminList();
+  showToast('🗑️ קובץ נמחק');
+}
+
+function renderAdminList(){
+  const arr=getRealFiles();
+  const list=document.getElementById('admin-files-list');
+  const countEl=document.getElementById('admin-count');
+  if(countEl) countEl.textContent=arr.length;
+  if(!arr.length){
+    list.innerHTML='<div class="admin-empty">אין קבצים עדיין — הוסף את הראשון</div>';
+    return;
+  }
+  list.innerHTML=arr.map(f=>`
+    <div class="admin-file-item">
+      <div class="admin-file-icon">${f.icon}</div>
+      <div class="admin-file-info">
+        <div class="admin-file-name">${f.name}</div>
+        <div class="admin-file-url">${f.url}</div>
+        <div class="admin-file-meta">${f.ext} • ${f.size} • ${f.cat}</div>
+      </div>
+      <button class="admin-file-del" onclick="adminDeleteFile('${f.id}')">🗑</button>
+    </div>
+  `).join('');
+}
+
+function downloadRealFile(id){
+  const arr=getRealFiles();
+  const f=arr.find(x=>x.id===id);
+  if(!f) return;
+  // Increment download counter
+  f.downloads=(parseInt(f.downloads||0)+1)+'';
+  saveRealFiles(arr);
+  window.open(f.url,'_blank');
+  showToast('⬇ מוריד: '+f.name);
+}
+
+function openRealFile(id){
+  const f=getRealFiles().find(x=>x.id===id);
+  if(!f) return;
+  // Show in modal
+  const hero=document.getElementById('modal-hero');
+  hero.className='modal-hero '+f.grad;
+  document.getElementById('modal-icon').textContent=f.icon;
+  document.getElementById('modal-ext').textContent=f.ext;
+  document.getElementById('modal-title').textContent=f.name;
+  document.getElementById('modal-meta').innerHTML=
+    `<span class="msize">📦 ${f.size}</span>
+     <span class="mdate">📅 ${f.date}</span>
+     <span class="mcat">${f.cat}</span>
+     <span class="mdate">⬇ ${f.downloads||0} הורדות</span>`;
+  document.getElementById('modal-dl-btn').onclick=()=>{downloadRealFile(id);closeModal();};
+  document.getElementById('modal-dl-btn').textContent='⬇ הורד עכשיו';
+  document.getElementById('modal-desc').textContent=f.desc;
+  document.getElementById('modal-file-info').innerHTML=
+    `<div class="fi-row"><div class="fi-label">סוג</div><div class="fi-val">${f.ext}</div></div>
+     <div class="fi-row"><div class="fi-label">גודל</div><div class="fi-val">${f.size}</div></div>
+     <div class="fi-row"><div class="fi-label">תאריך</div><div class="fi-val">${f.date}</div></div>
+     <div class="fi-row"><div class="fi-label">קטגוריה</div><div class="fi-val">${f.cat}</div></div>
+     <div class="fi-row" style="grid-column:1/-1"><div class="fi-label">קישור</div><div class="fi-val" style="font-size:0.72rem;color:#38bdf8;word-break:break-all;">${f.url}</div></div>`;
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
 // ===== VISIT TRACKER =====
 async function trackVisit(){
   const agreed=localStorage.getItem('rl_consent');
@@ -1301,6 +1534,40 @@ function makeWideCard(f, idx){
 
 // ===== FILL ROWS =====
 function fillRows(){
+  // Real files row (admin-added)
+  const realFiles=getRealFiles();
+  const realRow=document.getElementById('real-row');
+  const realRowSection=document.getElementById('real-files-row');
+  if(realRow){
+    if(realFiles.length){
+      if(realRowSection) realRowSection.style.display='';
+      realRow.innerHTML=realFiles.map((f,i)=>`
+        <div class="card" onclick="openRealFile('${f.id}')">
+          <div class="card-img ${f.grad}">
+            <div class="file-icon">${f.icon}</div>
+            <div class="file-ext-badge">${f.ext}</div>
+          </div>
+          <div class="card-info">
+            <div class="card-info-name">${f.name}</div>
+            <div class="card-info-row">
+              <span class="card-info-size">${f.size}</span>
+              <span class="card-info-dl">⬇ ${f.downloads||0}</span>
+            </div>
+          </div>
+          <div class="card-overlay">
+            <button class="card-dl-btn" onclick="event.stopPropagation();downloadRealFile('${f.id}')">⬇ הורד</button>
+            <div class="card-overlay-type">${f.ext}</div>
+            <div class="card-overlay-size">${f.size}</div>
+          </div>
+          <div class="card-bottom"><div class="card-acts">
+            <button class="act-btn" onclick="event.stopPropagation();downloadRealFile('${f.id}')">⬇ הורד</button>
+          </div></div>
+        </div>`).join('');
+    } else {
+      if(realRowSection) realRowSection.style.display='none';
+    }
+  }
+
   document.getElementById('trending-row').innerHTML=
     files.slice(0,8).map((f,i)=>makeCard(f,i,'m')).join('');
 
