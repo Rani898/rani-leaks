@@ -1455,54 +1455,50 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
 const SITE_PASSWORD = 'rani leaks';
 
 function initPasswordGate(){
-  if(localStorage.getItem('rl_gate')==='1'){
-    document.getElementById('pw-gate').style.display='none';
-    setTimeout(initConsent,0);
+  const passed = localStorage.getItem('rl_gate');
+  if(passed){
+    document.getElementById('pw-gate').classList.add('hidden');
+    initConsent();
   } else {
-    document.getElementById('pw-gate').style.display='flex';
+    document.getElementById('pw-gate').classList.remove('hidden');
     document.body.style.overflow='hidden';
-    setTimeout(()=>{
-      const i=document.getElementById('pw-gate-input');
-      if(i) i.focus();
-    },200);
+    setTimeout(()=>document.getElementById('pw-gate-input').focus(),200);
   }
 }
 
 function checkSitePassword(){
-  const inp = document.getElementById('pw-gate-input');
+  const val = document.getElementById('pw-gate-input').value;
   const errEl = document.getElementById('pw-gate-error');
-  const val = inp.value.trim();
-
-  if(val === SITE_PASSWORD){
-    // נכון!
-    try{ localStorage.setItem('rl_gate','1'); }catch(e){}
-    errEl.textContent='✅ כניסה...';
-    inp.disabled=true;
-    const gate=document.getElementById('pw-gate');
-    gate.style.transition='opacity 0.35s';
-    gate.style.opacity='0';
-    setTimeout(()=>{
-      gate.style.display='none';
-      gate.style.opacity='';
-      gate.style.transition='';
-      document.body.style.overflow='';
-      inp.disabled=false;
-      try{ initConsent(); }catch(e){ console.error(e); }
-    },350);
-  } else {
-    // שגוי
-    errEl.textContent='❌ סיסמה שגויה — נסה שוב';
-    inp.style.borderColor='#ff4444';
-    inp.focus();
-    setTimeout(()=>{ inp.style.borderColor=''; errEl.textContent=''; },2000);
+  if(val.length < 8){
+    showGateError('&#10060; הסיסמה חייבת להכיל לפחות 8 תווים');
+    return;
   }
+  if(val !== SITE_PASSWORD){
+    showGateError('&#10060; סיסמה שגויה — נסה שוב');
+    return;
+  }
+  localStorage.setItem('rl_gate','1');
+  errEl.textContent='';
+  const gate = document.getElementById('pw-gate');
+  gate.style.transition='opacity 0.4s';
+  gate.style.opacity='0';
+  setTimeout(()=>{
+    gate.classList.add('hidden');
+    gate.style.opacity='';
+    gate.style.transition='';
+    document.body.style.overflow='';
+    initConsent();
+  },400);
 }
 
 function showGateError(msg){
-  const errEl = document.getElementById('pw-gate-error');
-  if(errEl) errEl.textContent=msg;
   const inp = document.getElementById('pw-gate-input');
-  if(inp){ inp.style.borderColor='#ff4444'; setTimeout(()=>inp.style.borderColor='',1500); }
+  const errEl = document.getElementById('pw-gate-error');
+  errEl.innerHTML = msg;
+  inp.classList.add('error');
+  inp.value='';
+  inp.focus();
+  setTimeout(()=>inp.classList.remove('error'),500);
 }
 
 function toggleGatePw(){
@@ -1510,7 +1506,7 @@ function toggleGatePw(){
   const btn = document.getElementById('pw-gate-eye');
   const isHidden = inp.type==='password';
   inp.type = isHidden ? 'text' : 'password';
-  btn.textContent = isHidden ? '🙈' : '👁';
+  btn.innerHTML = isHidden ? '&#128584;' : '&#128065;';
   btn.style.color = isHidden ? '#ccc' : '#555';
 }
 
