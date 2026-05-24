@@ -293,63 +293,249 @@ footer{padding:40px 5vw 28px;border-top:1px solid var(--border);color:var(--text
 @media(max-width:600px){.enc-info-grid{grid-template-columns:1fr;}}
 
 /* ===== FIVEM ENCRYPTION ===== */
-.fivem-body{max-width:660px;margin:0 auto;padding:0 5vw 80px;display:none;}
+/* ===== FIVEM LIGHTNING THEME ===== */
+.fivem-body{max-width:680px;margin:0 auto;padding:0 5vw 80px;display:none;position:relative;}
 .fivem-body.active{display:block;}
 .enc-body.hidden{display:none;}
-.fivem-header{text-align:center;margin-bottom:30px;}
-.fivem-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(70,211,105,0.1);border:1px solid rgba(70,211,105,0.3);color:#46d369;padding:6px 16px;border-radius:20px;font-size:0.78rem;font-weight:700;letter-spacing:1px;margin-bottom:16px;}
-.fivem-title{font-family:'Bebas Neue',cursive;font-size:2.5rem;letter-spacing:3px;color:#fff;margin-bottom:8px;}
-.fivem-title span{color:#46d369;}
-.fivem-subtitle{color:#777;font-size:0.9rem;line-height:1.6;}
-.fivem-filetypes{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:16px 0 28px;}
-.fivem-ft{background:rgba(255,255,255,0.04);border:1px solid #2a2a2a;border-radius:8px;padding:8px 14px;font-size:0.78rem;color:#aaa;display:flex;align-items:center;gap:6px;}
+#fivem-lightning-canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;display:none;}
+#fivem-lightning-canvas.fv-on{display:block;}
+.fivem-body>*:not(canvas){position:relative;z-index:1;}
+
+/* Header */
+.fivem-header{text-align:center;margin-bottom:36px;padding-top:10px;}
+.fivem-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(70,211,105,0.07);border:1px solid rgba(70,211,105,0.35);
+  color:#46d369;padding:7px 20px;border-radius:20px;font-size:0.78rem;
+  font-weight:700;letter-spacing:2px;margin-bottom:18px;
+  animation:fvBadgePulse 2.5s ease-in-out infinite;
+}
+@keyframes fvBadgePulse{
+  0%,100%{box-shadow:0 0 10px rgba(70,211,105,0.15);}
+  50%{box-shadow:0 0 28px rgba(70,211,105,0.5),inset 0 0 16px rgba(70,211,105,0.08);}
+}
+.fivem-title{
+  font-family:'Bebas Neue',cursive;font-size:3.2rem;letter-spacing:5px;
+  color:#fff;margin-bottom:10px;line-height:1.1;
+  animation:fvTitleGlow 3s ease-in-out infinite;
+}
+@keyframes fvTitleGlow{
+  0%,100%{text-shadow:0 0 18px rgba(70,211,105,0.35),0 0 50px rgba(70,211,105,0.1);}
+  50%{text-shadow:0 0 40px rgba(70,211,105,0.75),0 0 80px rgba(70,211,105,0.3),0 0 120px rgba(70,211,105,0.1);}
+}
+.fivem-title span{
+  color:#46d369;position:relative;
+  text-shadow:0 0 30px rgba(70,211,105,0.6);
+}
+.fivem-title span::after{
+  content:'';position:absolute;bottom:-4px;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,#46d369,#fff,#46d369,transparent);
+  animation:fvLineFlash 2s ease-in-out infinite;
+}
+@keyframes fvLineFlash{0%,100%{opacity:0.3;transform:scaleX(0.6);}50%{opacity:1;transform:scaleX(1);}}
+.fivem-subtitle{color:#555;font-size:0.88rem;line-height:1.7;}
+.fivem-filetypes{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:18px 0 30px;}
+.fivem-ft{
+  background:rgba(70,211,105,0.04);border:1px solid rgba(70,211,105,0.12);
+  border-radius:8px;padding:7px 14px;font-size:0.78rem;color:#666;
+  display:flex;align-items:center;gap:6px;transition:all 0.2s;cursor:default;
+}
+.fivem-ft:hover{background:rgba(70,211,105,0.1);border-color:rgba(70,211,105,0.3);color:#46d369;transform:translateY(-2px);}
 .fivem-ft span{font-size:1rem;}
-.fivem-section{background:#0f0f0f;border:1px solid #1e1e1e;border-radius:14px;padding:22px;margin-bottom:18px;}
-.fivem-section-title{font-size:0.75rem;font-weight:700;letter-spacing:2px;color:#46d369;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
-.fivem-section-title::after{content:'';flex:1;height:1px;background:rgba(70,211,105,0.2);}
-.fivem-drop{border:2px dashed rgba(70,211,105,0.25);border-radius:12px;padding:40px 24px;text-align:center;cursor:pointer;transition:all 0.2s;position:relative;background:rgba(70,211,105,0.02);}
-.fivem-drop:hover,.fivem-drop.drag-over{border-color:#46d369;background:rgba(70,211,105,0.06);}
+
+/* Sections */
+.fivem-section{
+  background:linear-gradient(145deg,#090e09,#0e160e);
+  border:1px solid rgba(70,211,105,0.1);
+  border-radius:16px;padding:24px;margin-bottom:16px;
+  position:relative;overflow:hidden;transition:border-color 0.3s,box-shadow 0.3s;
+}
+.fivem-section::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(70,211,105,0.4),transparent);
+  opacity:0;transition:opacity 0.3s;
+}
+.fivem-section::after{
+  content:'⚡';position:absolute;top:10px;left:14px;font-size:0.65rem;
+  opacity:0.18;animation:fvBoltPulse 2.5s ease-in-out infinite;
+}
+@keyframes fvBoltPulse{0%,100%{opacity:0.12;}50%{opacity:0.55;text-shadow:0 0 6px #46d369;}}
+.fivem-section:hover{border-color:rgba(70,211,105,0.28);box-shadow:0 0 30px rgba(70,211,105,0.06),0 4px 20px rgba(0,0,0,0.4);}
+.fivem-section:hover::before{opacity:1;}
+
+.fivem-section-title{
+  font-size:0.72rem;font-weight:700;letter-spacing:2.5px;color:#46d369;
+  text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:10px;
+  text-shadow:0 0 10px rgba(70,211,105,0.4);
+}
+.fivem-section-title::after{
+  content:'';flex:1;height:1px;
+  background:linear-gradient(90deg,rgba(70,211,105,0.25),transparent);
+}
+
+/* Drop zone */
+.fivem-drop{
+  border:2px dashed rgba(70,211,105,0.18);border-radius:14px;
+  padding:44px 24px;text-align:center;cursor:pointer;transition:all 0.25s;
+  position:relative;
+  background:radial-gradient(ellipse at 50% 60%,rgba(70,211,105,0.025) 0%,transparent 70%);
+}
+.fivem-drop:hover,.fivem-drop.drag-over{
+  border-color:#46d369;border-style:solid;
+  background:radial-gradient(ellipse at 50% 50%,rgba(70,211,105,0.07) 0%,transparent 70%);
+  box-shadow:0 0 40px rgba(70,211,105,0.12),inset 0 0 30px rgba(70,211,105,0.04);
+}
 .fivem-drop input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
-.fivem-drop-icon{font-size:2.5rem;margin-bottom:10px;display:block;}
-.fivem-drop-title{font-size:1rem;font-weight:700;color:#ddd;margin-bottom:6px;}
-.fivem-drop-sub{font-size:0.82rem;color:#555;}
-.fivem-selected{display:none;align-items:center;gap:14px;background:rgba(70,211,105,0.05);border:1px solid rgba(70,211,105,0.2);border-radius:10px;padding:14px 18px;margin-top:14px;}
-.fivem-selected.show{display:flex;}
-.fivem-sel-icon{font-size:1.8rem;flex-shrink:0;}
+.fivem-drop-icon{
+  font-size:3.2rem;margin-bottom:14px;display:block;
+  filter:drop-shadow(0 0 14px rgba(70,211,105,0.5));
+  animation:fvIconFloat 3.5s ease-in-out infinite;
+}
+@keyframes fvIconFloat{0%,100%{transform:translateY(0) scale(1);}50%{transform:translateY(-7px) scale(1.06);}}
+.fivem-drop-title{font-size:1rem;font-weight:700;color:#bbb;margin-bottom:6px;}
+.fivem-drop-sub{font-size:0.8rem;color:#3a3a3a;}
+
+.fivem-selected{
+  display:none;align-items:center;gap:14px;
+  background:rgba(70,211,105,0.04);border:1px solid rgba(70,211,105,0.18);
+  border-radius:10px;padding:14px 18px;margin-top:14px;
+}
+.fivem-selected.show{display:flex;animation:fvSlideIn 0.3s ease;}
+@keyframes fvSlideIn{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
+.fivem-sel-icon{font-size:2rem;flex-shrink:0;filter:drop-shadow(0 0 8px rgba(70,211,105,0.4));}
 .fivem-sel-info{flex:1;min-width:0;}
-.fivem-sel-name{font-weight:700;font-size:0.9rem;color:#46d369;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.fivem-sel-size{font-size:0.78rem;color:#555;margin-top:3px;}
-.fivem-sel-remove{background:none;border:none;color:#555;cursor:pointer;font-size:1.1rem;}
-.fivem-key-input{width:100%;background:#111;border:1px solid #2a2a2a;color:#fff;padding:12px 16px;border-radius:8px;font-family:'Heebo',sans-serif;font-size:0.95rem;outline:none;transition:border-color 0.2s;direction:ltr;margin-bottom:10px;}
-.fivem-key-input:focus{border-color:#46d369;}
-.fivem-key-input::placeholder{color:#333;}
-.fivem-gen-btn{background:rgba(70,211,105,0.1);border:1px solid rgba(70,211,105,0.3);color:#46d369;padding:9px 18px;border-radius:7px;font-family:'Heebo',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
-.fivem-gen-btn:hover{background:rgba(70,211,105,0.2);}
-.fivem-encrypt-btn{width:100%;padding:14px;background:linear-gradient(135deg,#1a4731,#46d369);color:#fff;border:none;border-radius:10px;font-family:'Heebo',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:all 0.2s;box-shadow:0 0 20px rgba(70,211,105,0.25);}
-.fivem-encrypt-btn:hover{box-shadow:0 0 35px rgba(70,211,105,0.45);transform:translateY(-1px);}
-.fivem-encrypt-btn:disabled{opacity:0.35;cursor:not-allowed;transform:none;box-shadow:none;}
-.fivem-result{display:none;background:rgba(70,211,105,0.06);border:1px solid rgba(70,211,105,0.25);border-radius:12px;padding:22px;text-align:center;margin-top:18px;}
-.fivem-result.show{display:block;}
-.fivem-result-title{font-size:1.1rem;font-weight:800;color:#46d369;margin-bottom:6px;}
-.fivem-result-sub{font-size:0.85rem;color:#888;margin-bottom:18px;}
+.fivem-sel-name{font-weight:700;font-size:0.9rem;color:#46d369;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 0 8px rgba(70,211,105,0.3);}
+.fivem-sel-size{font-size:0.78rem;color:#444;margin-top:3px;}
+.fivem-sel-remove{background:none;border:none;color:#444;cursor:pointer;font-size:1.1rem;transition:color 0.2s;}
+.fivem-sel-remove:hover{color:#ff5555;}
+
+/* Key input */
+.fivem-key-input{
+  flex:1;background:rgba(0,0,0,0.5);
+  border:1px solid rgba(70,211,105,0.14);color:#46d369;
+  padding:12px 16px;border-radius:10px;
+  font-family:'Courier New',monospace;font-size:0.88rem;
+  outline:none;transition:all 0.25s;direction:ltr;letter-spacing:1px;
+  width:100%;margin-bottom:0;
+}
+.fivem-key-input:focus{
+  border-color:rgba(70,211,105,0.6);
+  box-shadow:0 0 22px rgba(70,211,105,0.18),inset 0 0 12px rgba(70,211,105,0.04);
+  text-shadow:0 0 6px rgba(70,211,105,0.35);
+}
+.fivem-key-input::placeholder{color:#252525;letter-spacing:0;font-family:'Heebo',sans-serif;}
+.fivem-gen-btn{
+  background:rgba(70,211,105,0.07);border:1px solid rgba(70,211,105,0.22);
+  color:#46d369;padding:12px 18px;border-radius:10px;
+  font-family:'Heebo',sans-serif;font-size:0.82rem;font-weight:700;
+  cursor:pointer;transition:all 0.2s;white-space:nowrap;
+}
+.fivem-gen-btn:hover{
+  background:rgba(70,211,105,0.18);
+  box-shadow:0 0 20px rgba(70,211,105,0.3);transform:scale(1.04);
+}
+
+/* ⚡⚡⚡ ENCRYPT BUTTON ⚡⚡⚡ */
+.fivem-encrypt-btn{
+  width:100%;padding:17px;
+  background:linear-gradient(135deg,#0a1f0d,#143d1f,#1e6b33,#46d369,#1e6b33,#143d1f,#0a1f0d);
+  background-size:300% 300%;
+  color:#000;border:none;border-radius:12px;
+  font-family:'Bebas Neue',cursive;font-size:1.45rem;letter-spacing:4px;
+  cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden;
+  box-shadow:0 0 30px rgba(70,211,105,0.35),0 6px 30px rgba(0,0,0,0.6);
+  animation:fvBtnShift 4s ease infinite;
+}
+@keyframes fvBtnShift{
+  0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}
+}
+/* scan-line overlay */
+.fivem-encrypt-btn::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.12) 3px,rgba(0,0,0,0.12) 4px);
+  border-radius:12px;z-index:1;
+}
+/* right bolt decoration */
+.fivem-bolt-r{position:absolute;right:18px;top:50%;transform:translateY(-50%);font-size:1.4rem;z-index:2;animation:fvBoltR 1.4s ease-in-out infinite;}
+.fivem-bolt-l{position:absolute;left:18px;top:50%;transform:translateY(-50%);font-size:1.4rem;z-index:2;animation:fvBoltL 1.4s ease-in-out infinite;}
+@keyframes fvBoltR{0%,100%{opacity:0.25;transform:translateY(-50%) scale(0.85);}50%{opacity:1;transform:translateY(-50%) scale(1.3);filter:drop-shadow(0 0 6px #46d369);}}
+@keyframes fvBoltL{0%,100%{opacity:1;transform:translateY(-50%) scale(1.3);filter:drop-shadow(0 0 6px #46d369);}50%{opacity:0.25;transform:translateY(-50%) scale(0.85);}}
+.fivem-btn-text{position:relative;z-index:2;}
+.fivem-encrypt-btn:hover:not(:disabled){
+  box-shadow:0 0 60px rgba(70,211,105,0.65),0 0 120px rgba(70,211,105,0.2),0 8px 40px rgba(0,0,0,0.7);
+  transform:translateY(-2px) scale(1.01);
+}
+.fivem-encrypt-btn:disabled{
+  opacity:0.22;cursor:not-allowed;transform:none;
+  box-shadow:none;animation:none;
+  background:#0e0e0e;color:#2a2a2a;
+}
+/* click spark burst */
+.fivem-spark{
+  position:absolute;inset:0;border-radius:12px;pointer-events:none;z-index:3;
+  background:radial-gradient(ellipse at center,rgba(70,211,105,0.55) 0%,rgba(70,211,105,0.1) 50%,transparent 70%);
+  opacity:0;
+}
+.fivem-spark.boom{animation:fvSparkBoom 0.5s ease forwards;}
+@keyframes fvSparkBoom{0%{opacity:1;transform:scale(0.2);}60%{opacity:0.6;}100%{opacity:0;transform:scale(2.5);}}
+
+/* Result */
+.fivem-result{
+  display:none;margin-top:20px;
+  background:linear-gradient(135deg,rgba(70,211,105,0.04),rgba(70,211,105,0.07));
+  border:1px solid rgba(70,211,105,0.28);border-radius:14px;padding:26px;text-align:center;
+  box-shadow:0 0 50px rgba(70,211,105,0.1);
+}
+.fivem-result.show{display:block;animation:fvResultIn 0.4s ease;}
+@keyframes fvResultIn{from{opacity:0;transform:scale(0.95) translateY(10px);}to{opacity:1;transform:scale(1) translateY(0);}}
+.fivem-result-title{font-size:1.25rem;font-weight:800;color:#46d369;margin-bottom:8px;text-shadow:0 0 20px rgba(70,211,105,0.6);animation:fvTitleGlow 2s ease-in-out infinite;}
+.fivem-result-sub{font-size:0.85rem;color:#666;margin-bottom:18px;}
 .fivem-result-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
-.fivem-dl-btn{display:inline-flex;align-items:center;gap:8px;background:#46d369;color:#000;padding:10px 22px;border-radius:7px;font-family:'Heebo',sans-serif;font-size:0.9rem;font-weight:700;cursor:pointer;border:none;transition:opacity 0.2s;}
-.fivem-dl-btn:hover{opacity:0.85;}
-.fivem-code-btn{display:inline-flex;align-items:center;gap:8px;background:rgba(70,211,105,0.1);border:1px solid rgba(70,211,105,0.3);color:#46d369;padding:10px 20px;border-radius:7px;font-family:'Heebo',sans-serif;font-size:0.9rem;cursor:pointer;border:none;transition:all 0.2s;}
-.fivem-code-btn:hover{background:rgba(70,211,105,0.2);}
-.fivem-lua-box{display:none;background:#0a0a0a;border:1px solid #1e1e1e;border-radius:10px;padding:16px;margin-top:16px;text-align:right;}
-.fivem-lua-box.show{display:block;}
-.fivem-lua-box pre{font-family:monospace;font-size:0.75rem;color:#46d369;line-height:1.6;overflow-x:auto;white-space:pre-wrap;direction:ltr;text-align:left;}
-.fivem-copy-lua{background:rgba(70,211,105,0.1);border:1px solid rgba(70,211,105,0.25);color:#46d369;padding:6px 14px;border-radius:6px;font-family:'Heebo',sans-serif;font-size:0.78rem;cursor:pointer;margin-bottom:10px;}
-.fivem-info-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:24px;}
-.fivem-info-card{background:#0f0f0f;border:1px solid #1a1a1a;border-radius:10px;padding:18px;text-align:center;}
-.fivem-info-card .fi-icon{font-size:1.8rem;margin-bottom:8px;}
-.fivem-info-card .fi-title{font-size:0.85rem;font-weight:700;color:#46d369;margin-bottom:6px;}
-.fivem-info-card .fi-desc{font-size:0.75rem;color:#555;line-height:1.5;}
+.fivem-dl-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,#2a7a3d,#46d369);
+  color:#000;padding:11px 24px;border-radius:8px;
+  font-family:'Heebo',sans-serif;font-size:0.9rem;font-weight:700;cursor:pointer;
+  border:none;transition:all 0.2s;box-shadow:0 0 20px rgba(70,211,105,0.3);
+}
+.fivem-dl-btn:hover{box-shadow:0 0 40px rgba(70,211,105,0.55);transform:translateY(-2px);}
+.fivem-code-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(70,211,105,0.07);border:1px solid rgba(70,211,105,0.28);
+  color:#46d369;padding:11px 20px;border-radius:8px;
+  font-family:'Heebo',sans-serif;font-size:0.9rem;cursor:pointer;transition:all 0.2s;
+}
+.fivem-code-btn:hover{background:rgba(70,211,105,0.16);box-shadow:0 0 20px rgba(70,211,105,0.2);}
+
+/* Lua box */
+.fivem-lua-box{display:none;background:#040804;border:1px solid rgba(70,211,105,0.14);border-radius:12px;padding:18px;margin-top:16px;box-shadow:inset 0 0 30px rgba(70,211,105,0.03);}
+.fivem-lua-box.show{display:block;animation:fvSlideIn 0.3s ease;}
+.fivem-lua-box pre{font-family:'Courier New',monospace;font-size:0.73rem;color:#46d369;line-height:1.7;overflow-x:auto;white-space:pre-wrap;direction:ltr;text-align:left;text-shadow:0 0 5px rgba(70,211,105,0.25);}
+.fivem-copy-lua{background:rgba(70,211,105,0.07);border:1px solid rgba(70,211,105,0.2);color:#46d369;padding:7px 16px;border-radius:6px;font-family:'Heebo',sans-serif;font-size:0.78rem;cursor:pointer;margin-bottom:12px;transition:all 0.2s;}
+.fivem-copy-lua:hover{background:rgba(70,211,105,0.16);}
+
+/* Info cards */
+.fivem-info-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:28px;}
+.fivem-info-card{
+  background:linear-gradient(145deg,#070d07,#0d160d);
+  border:1px solid rgba(70,211,105,0.08);border-radius:12px;padding:20px;
+  text-align:center;transition:all 0.25s;position:relative;overflow:hidden;
+}
+.fivem-info-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(70,211,105,0.3),transparent);opacity:0;transition:opacity 0.3s;}
+.fivem-info-card:hover{border-color:rgba(70,211,105,0.28);box-shadow:0 0 28px rgba(70,211,105,0.09);transform:translateY(-3px);}
+.fivem-info-card:hover::before{opacity:1;}
+.fivem-info-card .fi-icon{font-size:2.2rem;margin-bottom:10px;filter:drop-shadow(0 0 10px rgba(70,211,105,0.5));}
+.fivem-info-card .fi-title{font-size:0.82rem;font-weight:700;color:#46d369;margin-bottom:6px;letter-spacing:1px;text-shadow:0 0 8px rgba(70,211,105,0.3);}
+.fivem-info-card .fi-desc{font-size:0.73rem;color:#3a3a3a;line-height:1.5;}
 @media(max-width:600px){.fivem-info-grid{grid-template-columns:1fr;}}
-.enc-tabs{max-width:420px;}
+.enc-tabs{max-width:460px;}
 .enc-tab.fivem-tab{background:none;color:#555;}
-.enc-tab.fivem-tab.active{background:linear-gradient(135deg,#1a4731,#2d7a4a);color:#46d369;}
+.enc-tab.fivem-tab.active{
+  background:linear-gradient(135deg,#0a1f0d,#143d1f);
+  color:#46d369;border-color:rgba(70,211,105,0.3);
+  box-shadow:0 0 22px rgba(70,211,105,0.25),inset 0 0 10px rgba(70,211,105,0.05);
+  text-shadow:0 0 10px rgba(70,211,105,0.5);
+}
 
 /* ===== ANIMATIONS ===== */
 @keyframes fadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
@@ -909,9 +1095,10 @@ footer{padding:40px 5vw 28px;border-top:1px solid var(--border);color:var(--text
   </div>
 
   <!-- FIVEM BODY -->
+  <canvas id="fivem-lightning-canvas"></canvas>
   <div class="fivem-body" id="fivem-body">
     <div class="fivem-header">
-      <div class="fivem-badge">🎮 FiveM Script Protection</div>
+      <div class="fivem-badge">⚡ FiveM Script Protection ⚡</div>
       <div class="fivem-title">הצפנת סקריפטים<br>ל<span>FiveM</span></div>
       <p class="fivem-subtitle">הגן על סקריפטי ה-Lua, JS וה-Config שלך מגניבה.<br>מבוסס AES-256-GCM — הסטנדרט הצבאי.</p>
       <div class="fivem-filetypes">
@@ -955,7 +1142,12 @@ footer{padding:40px 5vw 28px;border-top:1px solid var(--border);color:var(--text
     <!-- STEP 3: ENCRYPT -->
     <div class="fivem-section">
       <div class="fivem-section-title">שלב 3 — הצפן</div>
-      <button class="fivem-encrypt-btn" id="fivem-enc-btn" onclick="runFivemEncrypt()" disabled>🎮 הצפן עבור FiveM</button>
+      <button class="fivem-encrypt-btn" id="fivem-enc-btn" onclick="runFivemEncrypt()" disabled>
+        <span class="fivem-bolt-l">⚡</span>
+        <span class="fivem-btn-text">הצפן עבור FiveM</span>
+        <span class="fivem-bolt-r">⚡</span>
+        <div class="fivem-spark" id="fivem-spark"></div>
+      </button>
       <div class="fivem-result" id="fivem-result">
         <div style="font-size:2.5rem;margin-bottom:10px;">🎮</div>
         <div class="fivem-result-title">הסקריפט הוצפן בהצלחה!</div>
@@ -1878,10 +2070,12 @@ function switchEncTab(mode){
   if(isFivem){
     encBody.classList.add('hidden');
     fivemBody.classList.add('active');
+    if(window._fvLightningStart) window._fvLightningStart();
     return;
   }
   encBody.classList.remove('hidden');
   fivemBody.classList.remove('active');
+  if(window._fvLightningStop) window._fvLightningStop();
   const isEnc=mode==='encrypt';
   document.getElementById('confirm-field').style.display=isEnc?'block':'none';
   const btn=document.getElementById('enc-action-btn');
@@ -2266,6 +2460,74 @@ document.addEventListener('click',e=>{
   }
 });
 
+// ===== FIVEM LIGHTNING CANVAS =====
+(function(){
+  const canvas=document.getElementById('fivem-lightning-canvas');
+  if(!canvas) return;
+  const ctx=canvas.getContext('2d');
+  let active=false, raf=null, lastBolt=0;
+
+  function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+  window.addEventListener('resize',resize); resize();
+
+  function bolt(ctx,x1,y1,x2,y2,rough,depth){
+    if(depth<=0){ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);return;}
+    const mx=(x1+x2)/2+(Math.random()-0.5)*rough;
+    const my=(y1+y2)/2+(Math.random()-0.5)*rough*0.5;
+    bolt(ctx,x1,y1,mx,my,rough/2,depth-1);
+    bolt(ctx,mx,my,x2,y2,rough/2,depth-1);
+    if(Math.random()<0.28&&depth>2){
+      const bx2=mx+(Math.random()-0.5)*rough*1.5;
+      const by2=my+rough*(0.5+Math.random());
+      bolt(ctx,mx,my,bx2,by2,rough/3,depth-2);
+    }
+  }
+
+  function strike(){
+    const x=40+Math.random()*(canvas.width-80);
+    const y2=canvas.height*(0.2+Math.random()*0.4);
+    // glow pass
+    ctx.save();
+    ctx.beginPath();
+    ctx.strokeStyle='rgba(70,211,105,0.22)';
+    ctx.lineWidth=5;ctx.shadowColor='#46d369';ctx.shadowBlur=24;
+    bolt(ctx,x,0,x+(Math.random()-0.5)*60,y2,90,7);
+    ctx.stroke();
+    // bright pass
+    ctx.beginPath();
+    ctx.strokeStyle='rgba(180,255,200,0.85)';
+    ctx.lineWidth=1.2;ctx.shadowColor='#90ffb0';ctx.shadowBlur=12;
+    bolt(ctx,x,0,x+(Math.random()-0.5)*60,y2,90,7);
+    ctx.stroke();
+    ctx.restore();
+    // flash
+    ctx.fillStyle='rgba(70,211,105,0.04)';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+  }
+
+  function frame(t){
+    if(!active){raf=null;return;}
+    raf=requestAnimationFrame(frame);
+    // fade old
+    ctx.fillStyle='rgba(0,0,0,0.07)';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    const delay=1200+Math.random()*3000;
+    if(t-lastBolt>delay){lastBolt=t;strike();if(Math.random()<0.4){setTimeout(strike,80);}}
+  }
+
+  window._fvLightningStart=function(){
+    if(active) return;
+    active=true;canvas.classList.add('fv-on');
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    raf=requestAnimationFrame(frame);
+  };
+  window._fvLightningStop=function(){
+    active=false;canvas.classList.remove('fv-on');
+    if(raf){cancelAnimationFrame(raf);raf=null;}
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+  };
+})();
+
 // ===== FIVEM ENCRYPTION =====
 let fivemFile=null;
 let fivemResultBlob=null;
@@ -2327,7 +2589,10 @@ async function runFivemEncrypt(){
   if(!fivemFile||key.length<4) return;
   const btn=document.getElementById('fivem-enc-btn');
   btn.disabled=true;
-  btn.innerHTML='⏳ מצפין...';
+  const spark=document.getElementById('fivem-spark');
+  if(spark){spark.classList.remove('boom');void spark.offsetWidth;spark.classList.add('boom');}
+  const btnTxt=btn.querySelector('.fivem-btn-text');
+  if(btnTxt) btnTxt.textContent='⏳ מצפין...';
   try{
     const data=await fivemFile.arrayBuffer();
     const salt=crypto.getRandomValues(new Uint8Array(16));
@@ -2382,7 +2647,7 @@ end)
       setTimeout(()=>URL.revokeObjectURL(url),1000);
       showToast('⬇ '+fivemResultName+' מוריד...');
     };
-    btn.innerHTML='✅ הוצפן — הצפן שוב?';
+    if(btnTxt) btnTxt.textContent='✅ הוצפן — הצפן שוב?';
     btn.disabled=false;
     // notify Discord
     const _username=localStorage.getItem('rl_username')||'אנונימי';
@@ -2390,7 +2655,7 @@ end)
     notifyDiscord(_username,'[FiveM] '+fivemResultName,formatBytes(result.byteLength),_ip,'encrypt');
     showToast('✅ הסקריפט הוצפן בהצלחה!');
   }catch(e){
-    btn.innerHTML='🎮 הצפן עבור FiveM';
+    if(btnTxt) btnTxt.textContent='הצפן עבור FiveM'; else btn.querySelector('.fivem-btn-text').textContent='הצפן עבור FiveM';
     btn.disabled=false;
     showToast('❌ שגיאה: '+(e.message||'נסה שוב'));
   }
