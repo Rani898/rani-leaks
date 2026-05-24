@@ -28,6 +28,7 @@ body::before{
   mask-image:radial-gradient(ellipse 140% 80% at 50% 0%,black 0%,transparent 80%);
   -webkit-mask-image:radial-gradient(ellipse 140% 80% at 50% 0%,black 0%,transparent 80%);
 }
+body>*{position:relative;z-index:1;}
 
 /* ===== NAV ===== */
 nav{
@@ -894,7 +895,7 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
 .pw-gate-input{width:100%;background:#0d0d0d;border:1px solid #2a2a2a;color:#fff;padding:14px 50px 14px 18px;border-radius:10px;font-family:'Heebo',sans-serif;font-size:1rem;outline:none;transition:border-color 0.2s;letter-spacing:1px;direction:ltr;text-align:left;}
 .pw-gate-input:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(229,9,20,0.1);}
 .pw-gate-input.error{border-color:#ff4444;animation:shakeX 0.4s ease;}
-.pw-gate-eye{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:#555;cursor:pointer;font-size:1.1rem;transition:color 0.2s;z-index:5;padding:4px;line-height:1;}
+.pw-gate-eye{position:absolute;left:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:#555;cursor:pointer;font-size:1.1rem;transition:color 0.2s;}
 .pw-gate-eye:hover{color:#ccc;}
 .pw-gate-btn{width:100%;padding:14px;background:var(--red);color:#fff;border:none;border-radius:10px;font-family:'Heebo',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:background 0.2s,box-shadow 0.2s;box-shadow:0 0 18px rgba(229,9,20,0.3);}
 .pw-gate-btn:hover{background:var(--red-dark);box-shadow:0 0 30px rgba(229,9,20,0.55);}
@@ -950,24 +951,24 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
 <div class="pw-gate" id="pw-gate">
   <div class="pw-gate-box">
     <div class="pw-gate-logo">Rani Leaks</div>
-    <div class="pw-gate-icon">&#128272;</div>
-    <h2>אתר פרטי &mdash; נדרשת סיסמה</h2>
+    <div class="pw-gate-icon">🔐</div>
+    <h2>אתר פרטי — נדרשת סיסמה</h2>
     <p>הכנס את הסיסמה כדי להיכנס לאתר</p>
     <div class="pw-gate-input-wrap">
       <input class="pw-gate-input" type="password" id="pw-gate-input" placeholder="הכנס סיסמה..." maxlength="64" onkeydown="if(event.key==='Enter')checkSitePassword()">
-      <button class="pw-gate-eye" onclick="toggleGatePw()" id="pw-gate-eye" title="הצג/הסתר סיסמה">&#128065;</button>
+      <button class="pw-gate-eye" onclick="toggleGatePw()" id="pw-gate-eye" title="הצג/הסתר סיסמה">👁</button>
     </div>
     <button class="pw-gate-listen-btn" onclick="listenPassword()" id="pw-gate-listen-btn" title="האזן לסיסמה">
-      &#128266; האזן לסיסמה
+      🔊 האזן לסיסמה
     </button>
-    <button class="pw-gate-btn" onclick="checkSitePassword()">כניסה לאתר</button>
+    <button class="pw-gate-btn" onclick="checkSitePassword()">🔓 כניסה לאתר</button>
     <div class="pw-gate-error" id="pw-gate-error"></div>
     <div class="pw-gate-hint">גישה מורשית בלבד</div>
   </div>
 </div>
 
 <!-- ===== CONSENT MODAL ===== -->
-<div class="consent-overlay hidden" id="consent-overlay">
+<div class="consent-overlay" id="consent-overlay">
   <div class="consent-modal">
     <div class="consent-logo">Rani Leaks</div>
     <div class="consent-icon">🔐</div>
@@ -1458,7 +1459,6 @@ function initPasswordGate(){
   const passed = localStorage.getItem('rl_gate');
   if(passed){
     document.getElementById('pw-gate').classList.add('hidden');
-    initConsent();
   } else {
     document.getElementById('pw-gate').classList.remove('hidden');
     document.body.style.overflow='hidden';
@@ -1470,13 +1470,14 @@ function checkSitePassword(){
   const val = document.getElementById('pw-gate-input').value;
   const errEl = document.getElementById('pw-gate-error');
   if(val.length < 8){
-    showGateError('&#10060; הסיסמה חייבת להכיל לפחות 8 תווים');
+    showGateError('❌ הסיסמה חייבת להכיל לפחות 8 תווים');
     return;
   }
   if(val !== SITE_PASSWORD){
-    showGateError('&#10060; סיסמה שגויה — נסה שוב');
+    showGateError('❌ סיסמה שגויה — נסה שוב');
     return;
   }
+  // Correct password
   localStorage.setItem('rl_gate','1');
   errEl.textContent='';
   const gate = document.getElementById('pw-gate');
@@ -1487,14 +1488,14 @@ function checkSitePassword(){
     gate.style.opacity='';
     gate.style.transition='';
     document.body.style.overflow='';
-    initConsent();
+    initConsent(); // Now show consent modal if needed
   },400);
 }
 
 function showGateError(msg){
   const inp = document.getElementById('pw-gate-input');
   const errEl = document.getElementById('pw-gate-error');
-  errEl.innerHTML = msg;
+  errEl.textContent = msg;
   inp.classList.add('error');
   inp.value='';
   inp.focus();
@@ -1503,11 +1504,7 @@ function showGateError(msg){
 
 function toggleGatePw(){
   const inp = document.getElementById('pw-gate-input');
-  const btn = document.getElementById('pw-gate-eye');
-  const isHidden = inp.type==='password';
-  inp.type = isHidden ? 'text' : 'password';
-  btn.innerHTML = isHidden ? '&#128584;' : '&#128065;';
-  btn.style.color = isHidden ? '#ccc' : '#555';
+  inp.type = inp.type==='password'?'text':'password';
 }
 
 function listenPassword(){
