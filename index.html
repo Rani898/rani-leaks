@@ -28,7 +28,6 @@ body::before{
   mask-image:radial-gradient(ellipse 140% 80% at 50% 0%,black 0%,transparent 80%);
   -webkit-mask-image:radial-gradient(ellipse 140% 80% at 50% 0%,black 0%,transparent 80%);
 }
-body>*{position:relative;z-index:1;}
 
 /* ===== NAV ===== */
 nav{
@@ -968,7 +967,7 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
 </div>
 
 <!-- ===== CONSENT MODAL ===== -->
-<div class="consent-overlay" id="consent-overlay">
+<div class="consent-overlay hidden" id="consent-overlay">
   <div class="consent-modal">
     <div class="consent-logo">Rani Leaks</div>
     <div class="consent-icon">🔐</div>
@@ -1456,49 +1455,54 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
 const SITE_PASSWORD = 'rani leaks';
 
 function initPasswordGate(){
-  const passed = localStorage.getItem('rl_gate');
-  if(passed){
-    document.getElementById('pw-gate').classList.add('hidden');
+  if(localStorage.getItem('rl_gate')==='1'){
+    document.getElementById('pw-gate').style.display='none';
+    setTimeout(initConsent,0);
   } else {
-    document.getElementById('pw-gate').classList.remove('hidden');
+    document.getElementById('pw-gate').style.display='flex';
     document.body.style.overflow='hidden';
-    setTimeout(()=>document.getElementById('pw-gate-input').focus(),200);
+    setTimeout(()=>{
+      const i=document.getElementById('pw-gate-input');
+      if(i) i.focus();
+    },200);
   }
 }
 
 function checkSitePassword(){
-  const val = document.getElementById('pw-gate-input').value.trim();
+  const inp = document.getElementById('pw-gate-input');
   const errEl = document.getElementById('pw-gate-error');
-  if(val.length < 2){
-    showGateError('❌ הכנס סיסמה');
-    return;
+  const val = inp.value.trim();
+
+  if(val === SITE_PASSWORD){
+    // נכון!
+    try{ localStorage.setItem('rl_gate','1'); }catch(e){}
+    errEl.textContent='✅ כניסה...';
+    inp.disabled=true;
+    const gate=document.getElementById('pw-gate');
+    gate.style.transition='opacity 0.35s';
+    gate.style.opacity='0';
+    setTimeout(()=>{
+      gate.style.display='none';
+      gate.style.opacity='';
+      gate.style.transition='';
+      document.body.style.overflow='';
+      inp.disabled=false;
+      try{ initConsent(); }catch(e){ console.error(e); }
+    },350);
+  } else {
+    // שגוי
+    errEl.textContent='❌ סיסמה שגויה — נסה שוב';
+    inp.style.borderColor='#ff4444';
+    inp.focus();
+    setTimeout(()=>{ inp.style.borderColor=''; errEl.textContent=''; },2000);
   }
-  if(val !== SITE_PASSWORD){
-    showGateError('❌ סיסמה שגויה — נסה שוב');
-    return;
-  }
-  // Correct password
-  localStorage.setItem('rl_gate','1');
-  errEl.textContent='';
-  const gate = document.getElementById('pw-gate');
-  gate.style.transition='opacity 0.4s';
-  gate.style.opacity='0';
-  setTimeout(()=>{
-    gate.classList.add('hidden');
-    gate.style.opacity='';
-    gate.style.transition='';
-    document.body.style.overflow='';
-    initConsent(); // Now show consent modal if needed
-  },400);
 }
 
 function showGateError(msg){
-  const inp = document.getElementById('pw-gate-input');
   const errEl = document.getElementById('pw-gate-error');
-  errEl.textContent = msg;
-  inp.classList.add('error');
-  inp.focus();
-  setTimeout(()=>inp.classList.remove('error'),500);
+  if(errEl) errEl.textContent=msg;
+  const inp = document.getElementById('pw-gate-input');
+  if(inp){ inp.style.borderColor='#ff4444'; setTimeout(()=>inp.style.borderColor='',1500); }
 }
 
 function toggleGatePw(){
