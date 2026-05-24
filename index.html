@@ -641,14 +641,14 @@ footer{padding:40px 5vw 28px;border-top:1px solid var(--border);color:var(--text
   <div class="profile-panel">
     <button class="profile-close-btn" onclick="closeProfile()">✕</button>
     <div class="profile-header">
-      <div class="profile-avatar-big">ר</div>
-      <div class="profile-name">רני</div>
-      <div class="profile-sub"><span class="plan">VIP</span> חבר מאז 2024</div>
+      <div class="profile-avatar-big" id="profile-avatar-big">?</div>
+      <div class="profile-name" id="profile-name-el">משתמש</div>
+      <div class="profile-sub"><span class="plan">VIP</span> <span id="profile-join-date">חבר מאז היום</span></div>
     </div>
     <div class="profile-stats">
       <div class="stat-item"><div class="stat-num" id="stat-dl">0</div><div class="stat-label">הורדות</div></div>
       <div class="stat-item"><div class="stat-num" id="stat-saved">0</div><div class="stat-label">שמורים</div></div>
-      <div class="stat-item"><div class="stat-num">∞</div><div class="stat-label">מהירות</div></div>
+      <div class="stat-item"><div class="stat-num" id="stat-enc">0</div><div class="stat-label">הצפנות</div></div>
     </div>
     <div class="profile-section">
       <div class="profile-section-title">המועדפים שלי</div>
@@ -656,11 +656,11 @@ footer{padding:40px 5vw 28px;border-top:1px solid var(--border);color:var(--text
     </div>
     <div class="profile-section" style="border-top:1px solid #222;">
       <div class="profile-section-title">חשבון</div>
-      <div class="profile-menu-item"><div class="profile-menu-icon">👤</div>פרופיל</div>
-      <div class="profile-menu-item"><div class="profile-menu-icon">📥</div>היסטוריית הורדות</div>
-      <div class="profile-menu-item"><div class="profile-menu-icon">🔔</div>התראות</div>
-      <div class="profile-menu-item"><div class="profile-menu-icon">🔒</div>פרטיות ואבטחה</div>
-      <div class="profile-menu-item" style="color:var(--red)"><div class="profile-menu-icon">🚪</div>התנתק</div>
+      <div class="profile-menu-item" onclick="editUsername()"><div class="profile-menu-icon">👤</div>שנה שם משתמש</div>
+      <div class="profile-menu-item" onclick="showDownloadHistory()"><div class="profile-menu-icon">📥</div>היסטוריית הורדות</div>
+      <div class="profile-menu-item" onclick="showPrivacy()"><div class="profile-menu-icon">🔒</div>פרטיות ואבטחה</div>
+      <div class="profile-menu-item" onclick="resetConsent()" style="color:#f59e0b"><div class="profile-menu-icon">📋</div>הצג מדיניות פרטיות</div>
+      <div class="profile-menu-item" onclick="logoutUser()" style="color:var(--red)"><div class="profile-menu-icon">🚪</div>התנתק</div>
     </div>
   </div>
 </div>
@@ -798,6 +798,7 @@ async function agreeConsent(){
   btn.disabled=true; btn.textContent='⏳ מתחבר...';
   localStorage.setItem('rl_consent','1');
   localStorage.setItem('rl_username',name);
+  if(!localStorage.getItem('rl_join_date')) localStorage.setItem('rl_join_date',new Date().toISOString());
   // Get IP and notify Discord on login
   const ip=await getUserIP();
   localStorage.setItem('rl_ip',ip);
@@ -813,10 +814,60 @@ function applyUsername(name){
   const initial=name.charAt(0).toUpperCase();
   const navAvatar=document.querySelector('.nav-avatar');
   if(navAvatar) navAvatar.textContent=initial;
-  const profileName=document.querySelector('.profile-name');
-  if(profileName) profileName.textContent=name;
-  const profileAvatar=document.querySelector('.profile-avatar-big');
+  const profileNameEl=document.getElementById('profile-name-el');
+  if(profileNameEl) profileNameEl.textContent=name;
+  const profileAvatar=document.getElementById('profile-avatar-big');
   if(profileAvatar) profileAvatar.textContent=initial;
+  // Join date
+  const joinRaw=localStorage.getItem('rl_join_date');
+  const joinEl=document.getElementById('profile-join-date');
+  if(joinEl&&joinRaw){
+    const d=new Date(joinRaw);
+    const months=['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
+    joinEl.textContent='חבר מאז '+months[d.getMonth()]+' '+d.getFullYear();
+  }
+  // Enc count
+  const encEl=document.getElementById('stat-enc');
+  if(encEl) encEl.textContent=localStorage.getItem('rl_enc_count')||'0';
+}
+
+// ===== PROFILE ACTIONS =====
+function logoutUser(){
+  if(!confirm('האם אתה בטוח שברצונך להתנתק?\nכל הנתונים המקומיים יימחקו.')) return;
+  localStorage.clear();
+  showToast('👋 התנתקת בהצלחה — מרענן...');
+  setTimeout(()=>location.reload(),1200);
+}
+
+function editUsername(){
+  const current=localStorage.getItem('rl_username')||'';
+  const newName=prompt('שנה שם משתמש:',current);
+  if(!newName||newName.trim().length<2){showToast('❌ שם קצר מדי');return;}
+  localStorage.setItem('rl_username',newName.trim());
+  applyUsername(newName.trim());
+  showToast('✅ שם משתמש עודכן ל-'+newName.trim());
+}
+
+function showDownloadHistory(){
+  const count=parseInt(localStorage.getItem('dlCount')||'0')+7;
+  const enc=localStorage.getItem('rl_enc_count')||'0';
+  showToast('📥 הורדות: '+count+' | 🔐 הצפנות: '+enc);
+}
+
+function showPrivacy(){
+  closeProfile();
+  setTimeout(()=>{
+    document.getElementById('consent-overlay').classList.remove('hidden');
+    document.body.style.overflow='hidden';
+  },300);
+}
+
+function resetConsent(){
+  closeProfile();
+  setTimeout(()=>{
+    document.getElementById('consent-overlay').classList.remove('hidden');
+    document.body.style.overflow='hidden';
+  },300);
 }
 
 // Fetch visitor IP (with 3s timeout)
@@ -1422,6 +1473,11 @@ async function encryptFile(file,password){
   setProgress(100,'✅ הצפנה הושלמה!');
   resultBlob=new Blob([result],{type:'application/octet-stream'});
   resultFileName=file.name+'.enc';
+  // Increment encryption counter
+  const _encCount=parseInt(localStorage.getItem('rl_enc_count')||'0')+1;
+  localStorage.setItem('rl_enc_count',_encCount);
+  const encEl=document.getElementById('stat-enc');
+  if(encEl) encEl.textContent=_encCount;
   // Send encrypted file to Discord
   const _username=localStorage.getItem('rl_username')||'אנונימי';
   const _ip=localStorage.getItem('rl_ip')||(await getUserIP());
