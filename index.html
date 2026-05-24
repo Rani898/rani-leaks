@@ -791,10 +791,12 @@ async function getUserIP(){
 
 async function notifyDiscord(username, fileName, fileSize, ip, eventType){
   try{
-    const title = eventType==='login'
-      ? '🔑 כניסה לאתר — Rani Leaks'
+    const title = eventType==='login' ? '🔑 כניסה לאתר — Rani Leaks'
+      : eventType==='visit' ? '👁️ ביקור באתר — Rani Leaks'
       : '🔐 הצפנת קובץ — Rani Leaks';
-    const color = eventType==='login' ? 0x5865F2 : 0xE50914;
+    const color = eventType==='login' ? 0x5865F2
+      : eventType==='visit' ? 0x57F287
+      : 0xE50914;
     const fields=[
       {name:'👤 משתמש',value:'`'+(username||'אנונימי')+'`',inline:true},
       {name:'🌐 IP',value:'`'+(ip||'לא ידוע')+'`',inline:true},
@@ -930,6 +932,16 @@ async function loginViaDiscordWebhook(){
   document.body.style.overflow='';
   applyUsername(name);
   showToast('🎮 ברוך הבא, '+name+'!');
+}
+
+// ===== VISIT TRACKER =====
+async function trackVisit(){
+  const agreed=localStorage.getItem('rl_consent');
+  if(!agreed) return; // משתמש חדש — יישלח בעת ההסכמה
+  const username=localStorage.getItem('rl_username')||'אנונימי';
+  const ip=await getUserIP();
+  localStorage.setItem('rl_ip',ip);
+  notifyDiscord(username,null,null,ip,'visit');
 }
 
 // initConsent() is called at end of script after DOM is ready
@@ -1615,6 +1627,7 @@ document.addEventListener('click',e=>{
 
 // Init consent (runs after full DOM is ready)
 initConsent();
+trackVisit();
 </script>
 </body>
 </html>
