@@ -292,6 +292,65 @@ footer{padding:40px 5vw 28px;border-top:1px solid var(--border);color:var(--text
 .enc-info-card .ei-desc{font-size:0.78rem;color:#666;line-height:1.5;}
 @media(max-width:600px){.enc-info-grid{grid-template-columns:1fr;}}
 
+/* ===== FIVEM ENCRYPTION ===== */
+.fivem-body{max-width:660px;margin:0 auto;padding:0 5vw 80px;display:none;}
+.fivem-body.active{display:block;}
+.enc-body.hidden{display:none;}
+.fivem-header{text-align:center;margin-bottom:30px;}
+.fivem-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(70,211,105,0.1);border:1px solid rgba(70,211,105,0.3);color:#46d369;padding:6px 16px;border-radius:20px;font-size:0.78rem;font-weight:700;letter-spacing:1px;margin-bottom:16px;}
+.fivem-title{font-family:'Bebas Neue',cursive;font-size:2.5rem;letter-spacing:3px;color:#fff;margin-bottom:8px;}
+.fivem-title span{color:#46d369;}
+.fivem-subtitle{color:#777;font-size:0.9rem;line-height:1.6;}
+.fivem-filetypes{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:16px 0 28px;}
+.fivem-ft{background:rgba(255,255,255,0.04);border:1px solid #2a2a2a;border-radius:8px;padding:8px 14px;font-size:0.78rem;color:#aaa;display:flex;align-items:center;gap:6px;}
+.fivem-ft span{font-size:1rem;}
+.fivem-section{background:#0f0f0f;border:1px solid #1e1e1e;border-radius:14px;padding:22px;margin-bottom:18px;}
+.fivem-section-title{font-size:0.75rem;font-weight:700;letter-spacing:2px;color:#46d369;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.fivem-section-title::after{content:'';flex:1;height:1px;background:rgba(70,211,105,0.2);}
+.fivem-drop{border:2px dashed rgba(70,211,105,0.25);border-radius:12px;padding:40px 24px;text-align:center;cursor:pointer;transition:all 0.2s;position:relative;background:rgba(70,211,105,0.02);}
+.fivem-drop:hover,.fivem-drop.drag-over{border-color:#46d369;background:rgba(70,211,105,0.06);}
+.fivem-drop input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.fivem-drop-icon{font-size:2.5rem;margin-bottom:10px;display:block;}
+.fivem-drop-title{font-size:1rem;font-weight:700;color:#ddd;margin-bottom:6px;}
+.fivem-drop-sub{font-size:0.82rem;color:#555;}
+.fivem-selected{display:none;align-items:center;gap:14px;background:rgba(70,211,105,0.05);border:1px solid rgba(70,211,105,0.2);border-radius:10px;padding:14px 18px;margin-top:14px;}
+.fivem-selected.show{display:flex;}
+.fivem-sel-icon{font-size:1.8rem;flex-shrink:0;}
+.fivem-sel-info{flex:1;min-width:0;}
+.fivem-sel-name{font-weight:700;font-size:0.9rem;color:#46d369;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.fivem-sel-size{font-size:0.78rem;color:#555;margin-top:3px;}
+.fivem-sel-remove{background:none;border:none;color:#555;cursor:pointer;font-size:1.1rem;}
+.fivem-key-input{width:100%;background:#111;border:1px solid #2a2a2a;color:#fff;padding:12px 16px;border-radius:8px;font-family:'Heebo',sans-serif;font-size:0.95rem;outline:none;transition:border-color 0.2s;direction:ltr;margin-bottom:10px;}
+.fivem-key-input:focus{border-color:#46d369;}
+.fivem-key-input::placeholder{color:#333;}
+.fivem-gen-btn{background:rgba(70,211,105,0.1);border:1px solid rgba(70,211,105,0.3);color:#46d369;padding:9px 18px;border-radius:7px;font-family:'Heebo',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+.fivem-gen-btn:hover{background:rgba(70,211,105,0.2);}
+.fivem-encrypt-btn{width:100%;padding:14px;background:linear-gradient(135deg,#1a4731,#46d369);color:#fff;border:none;border-radius:10px;font-family:'Heebo',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:all 0.2s;box-shadow:0 0 20px rgba(70,211,105,0.25);}
+.fivem-encrypt-btn:hover{box-shadow:0 0 35px rgba(70,211,105,0.45);transform:translateY(-1px);}
+.fivem-encrypt-btn:disabled{opacity:0.35;cursor:not-allowed;transform:none;box-shadow:none;}
+.fivem-result{display:none;background:rgba(70,211,105,0.06);border:1px solid rgba(70,211,105,0.25);border-radius:12px;padding:22px;text-align:center;margin-top:18px;}
+.fivem-result.show{display:block;}
+.fivem-result-title{font-size:1.1rem;font-weight:800;color:#46d369;margin-bottom:6px;}
+.fivem-result-sub{font-size:0.85rem;color:#888;margin-bottom:18px;}
+.fivem-result-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.fivem-dl-btn{display:inline-flex;align-items:center;gap:8px;background:#46d369;color:#000;padding:10px 22px;border-radius:7px;font-family:'Heebo',sans-serif;font-size:0.9rem;font-weight:700;cursor:pointer;border:none;transition:opacity 0.2s;}
+.fivem-dl-btn:hover{opacity:0.85;}
+.fivem-code-btn{display:inline-flex;align-items:center;gap:8px;background:rgba(70,211,105,0.1);border:1px solid rgba(70,211,105,0.3);color:#46d369;padding:10px 20px;border-radius:7px;font-family:'Heebo',sans-serif;font-size:0.9rem;cursor:pointer;border:none;transition:all 0.2s;}
+.fivem-code-btn:hover{background:rgba(70,211,105,0.2);}
+.fivem-lua-box{display:none;background:#0a0a0a;border:1px solid #1e1e1e;border-radius:10px;padding:16px;margin-top:16px;text-align:right;}
+.fivem-lua-box.show{display:block;}
+.fivem-lua-box pre{font-family:monospace;font-size:0.75rem;color:#46d369;line-height:1.6;overflow-x:auto;white-space:pre-wrap;direction:ltr;text-align:left;}
+.fivem-copy-lua{background:rgba(70,211,105,0.1);border:1px solid rgba(70,211,105,0.25);color:#46d369;padding:6px 14px;border-radius:6px;font-family:'Heebo',sans-serif;font-size:0.78rem;cursor:pointer;margin-bottom:10px;}
+.fivem-info-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:24px;}
+.fivem-info-card{background:#0f0f0f;border:1px solid #1a1a1a;border-radius:10px;padding:18px;text-align:center;}
+.fivem-info-card .fi-icon{font-size:1.8rem;margin-bottom:8px;}
+.fivem-info-card .fi-title{font-size:0.85rem;font-weight:700;color:#46d369;margin-bottom:6px;}
+.fivem-info-card .fi-desc{font-size:0.75rem;color:#555;line-height:1.5;}
+@media(max-width:600px){.fivem-info-grid{grid-template-columns:1fr;}}
+.enc-tabs{max-width:420px;}
+.enc-tab.fivem-tab{background:none;color:#555;}
+.enc-tab.fivem-tab.active{background:linear-gradient(135deg,#1a4731,#2d7a4a);color:#46d369;}
+
 /* ===== ANIMATIONS ===== */
 @keyframes fadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
 @keyframes shimmer{0%,100%{opacity:0.6;}50%{opacity:1;}}
@@ -762,6 +821,7 @@ footer{padding:40px 5vw 28px;border-top:1px solid var(--border);color:var(--text
     <div class="enc-tabs">
       <button class="enc-tab active" id="tab-encrypt" onclick="switchEncTab('encrypt')">🔒 הצפן</button>
       <button class="enc-tab" id="tab-decrypt" onclick="switchEncTab('decrypt')">🔓 פענח</button>
+      <button class="enc-tab fivem-tab" id="tab-fivem" onclick="switchEncTab('fivem')">🎮 FiveM</button>
     </div>
   </div>
 
@@ -845,6 +905,80 @@ footer{padding:40px 5vw 28px;border-top:1px solid var(--border);color:var(--text
         <div class="ei-title">PBKDF2</div>
         <div class="ei-desc">המפתח נגזר מהסיסמה עם 250,000 איטרציות ו-salt אקראי.</div>
       </div>
+    </div>
+  </div>
+
+  <!-- FIVEM BODY -->
+  <div class="fivem-body" id="fivem-body">
+    <div class="fivem-header">
+      <div class="fivem-badge">🎮 FiveM Script Protection</div>
+      <div class="fivem-title">הצפנת סקריפטים<br>ל<span>FiveM</span></div>
+      <p class="fivem-subtitle">הגן על סקריפטי ה-Lua, JS וה-Config שלך מגניבה.<br>מבוסס AES-256-GCM — הסטנדרט הצבאי.</p>
+      <div class="fivem-filetypes">
+        <div class="fivem-ft"><span>🌙</span> .lua</div>
+        <div class="fivem-ft"><span>⚡</span> .js</div>
+        <div class="fivem-ft"><span>⚙️</span> fxmanifest.lua</div>
+        <div class="fivem-ft"><span>📋</span> .cfg</div>
+        <div class="fivem-ft"><span>📦</span> כל קובץ</div>
+      </div>
+    </div>
+
+    <!-- STEP 1: FILE -->
+    <div class="fivem-section">
+      <div class="fivem-section-title">שלב 1 — בחר קובץ FiveM</div>
+      <div class="fivem-drop" id="fivem-drop">
+        <input type="file" id="fivem-file-input" accept=".lua,.js,.json,.cfg,.txt,.sql,.cs" onchange="fivemSelectFile(this.files[0])">
+        <span class="fivem-drop-icon">🌙</span>
+        <div class="fivem-drop-title">גרור קובץ Lua / JS / Config לכאן</div>
+        <div class="fivem-drop-sub">.lua • .js • fxmanifest.lua • .cfg • כל קובץ</div>
+      </div>
+      <div class="fivem-selected" id="fivem-selected">
+        <span class="fivem-sel-icon" id="fivem-sel-icon">🌙</span>
+        <div class="fivem-sel-info">
+          <div class="fivem-sel-name" id="fivem-sel-name"></div>
+          <div class="fivem-sel-size" id="fivem-sel-size"></div>
+        </div>
+        <button class="fivem-sel-remove" onclick="fivemClearFile()">✕</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: KEY -->
+    <div class="fivem-section">
+      <div class="fivem-section-title">שלב 2 — מפתח הצפנה</div>
+      <div style="display:flex;gap:10px;align-items:flex-start;">
+        <input class="fivem-key-input" id="fivem-key" type="text" placeholder="הכנס מפתח סודי או צור אחד אוטומטית..." oninput="fivemCheckReady()" style="margin-bottom:0;">
+        <button class="fivem-gen-btn" onclick="fivemGenerateKey()">🎲 צור מפתח</button>
+      </div>
+      <div style="font-size:0.75rem;color:#444;margin-top:8px;">⚠️ שמור את המפתח — ללא המפתח לא ניתן לפענח את הקובץ</div>
+    </div>
+
+    <!-- STEP 3: ENCRYPT -->
+    <div class="fivem-section">
+      <div class="fivem-section-title">שלב 3 — הצפן</div>
+      <button class="fivem-encrypt-btn" id="fivem-enc-btn" onclick="runFivemEncrypt()" disabled>🎮 הצפן עבור FiveM</button>
+      <div class="fivem-result" id="fivem-result">
+        <div style="font-size:2.5rem;margin-bottom:10px;">🎮</div>
+        <div class="fivem-result-title">הסקריפט הוצפן בהצלחה!</div>
+        <div class="fivem-result-sub" id="fivem-result-sub">הורד את הקובץ המוצפן והשתמש בו בריסורס שלך</div>
+        <div class="fivem-result-btns">
+          <button class="fivem-dl-btn" id="fivem-dl-btn">⬇ הורד קובץ מוצפן</button>
+          <button class="fivem-code-btn" onclick="toggleFivemLua()">📋 הצג קוד פענוח Lua</button>
+        </div>
+        <div class="fivem-lua-box" id="fivem-lua-box">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <span style="font-size:0.78rem;color:#46d369;font-weight:700;">🌙 קוד פענוח — שמור כ-decrypt.lua בריסורס שלך</span>
+            <button class="fivem-copy-lua" onclick="copyFivemLua()">📋 העתק</button>
+          </div>
+          <pre id="fivem-lua-code"></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- INFO -->
+    <div class="fivem-info-grid">
+      <div class="fivem-info-card"><div class="fi-icon">🌙</div><div class="fi-title">Lua Support</div><div class="fi-desc">תמיכה מלאה בקבצי Lua כולל fxmanifest.lua ו-resource manifests.</div></div>
+      <div class="fivem-info-card"><div class="fi-icon">🛡️</div><div class="fi-title">AES-256-GCM</div><div class="fi-desc">אותה הצפנה צבאית בה משתמשים גופי ביטחון ברחבי העולם.</div></div>
+      <div class="fivem-info-card"><div class="fi-icon">🔑</div><div class="fi-title">מפתח ייחודי</div><div class="fi-desc">כל סקריפט מקבל מפתח ייחודי — גם אם גנבו את הקובץ, לא יוכלו לקרוא אותו.</div></div>
     </div>
   </div>
 </div>
@@ -1734,8 +1868,20 @@ function closeEncPage(){
 }
 function switchEncTab(mode){
   encMode=mode;
+  const isFivem=mode==='fivem';
   document.getElementById('tab-encrypt').classList.toggle('active',mode==='encrypt');
   document.getElementById('tab-decrypt').classList.toggle('active',mode==='decrypt');
+  document.getElementById('tab-fivem').classList.toggle('active',isFivem);
+  // show/hide bodies
+  const encBody=document.getElementById('enc-body');
+  const fivemBody=document.getElementById('fivem-body');
+  if(isFivem){
+    encBody.classList.add('hidden');
+    fivemBody.classList.add('active');
+    return;
+  }
+  encBody.classList.remove('hidden');
+  fivemBody.classList.remove('active');
   const isEnc=mode==='encrypt';
   document.getElementById('confirm-field').style.display=isEnc?'block':'none';
   const btn=document.getElementById('enc-action-btn');
@@ -2119,6 +2265,151 @@ document.addEventListener('click',e=>{
     setTimeout(()=>{card.style.filter='';card.style.transform='';},150);
   }
 });
+
+// ===== FIVEM ENCRYPTION =====
+let fivemFile=null;
+let fivemResultBlob=null;
+let fivemResultName='';
+
+// Drag & drop on FiveM drop zone
+(function(){
+  const dz2=document.getElementById('fivem-drop');
+  if(!dz2) return;
+  dz2.addEventListener('dragover',e=>{e.preventDefault();dz2.classList.add('drag-over');});
+  dz2.addEventListener('dragleave',()=>dz2.classList.remove('drag-over'));
+  dz2.addEventListener('drop',e=>{
+    e.preventDefault();dz2.classList.remove('drag-over');
+    if(e.dataTransfer.files[0]) fivemSelectFile(e.dataTransfer.files[0]);
+  });
+})();
+
+function fivemSelectFile(file){
+  if(!file) return;
+  fivemFile=file;
+  const icons={lua:'🌙',js:'⚡',json:'📋',cfg:'⚙️',txt:'📃',sql:'🗄️',cs:'💎'};
+  const ext=file.name.split('.').pop().toLowerCase();
+  document.getElementById('fivem-sel-icon').textContent=icons[ext]||'📁';
+  document.getElementById('fivem-sel-name').textContent=file.name;
+  document.getElementById('fivem-sel-size').textContent=formatBytes(file.size);
+  document.getElementById('fivem-selected').classList.add('show');
+  document.getElementById('fivem-result').classList.remove('show');
+  document.getElementById('fivem-lua-box').classList.remove('show');
+  fivemResultBlob=null;
+  fivemCheckReady();
+}
+
+function fivemClearFile(){
+  fivemFile=null;
+  fivemResultBlob=null;
+  document.getElementById('fivem-selected').classList.remove('show');
+  document.getElementById('fivem-file-input').value='';
+  document.getElementById('fivem-result').classList.remove('show');
+  document.getElementById('fivem-lua-box').classList.remove('show');
+  document.getElementById('fivem-enc-btn').disabled=true;
+}
+
+function fivemCheckReady(){
+  const key=document.getElementById('fivem-key').value.trim();
+  document.getElementById('fivem-enc-btn').disabled=!(fivemFile && key.length>=4);
+}
+
+function fivemGenerateKey(){
+  const chars='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  const seg=()=>Array.from({length:5},()=>chars[Math.floor(Math.random()*chars.length)]).join('');
+  const key=`FVKEY-${seg()}-${seg()}-${seg()}-${seg()}`;
+  document.getElementById('fivem-key').value=key;
+  fivemCheckReady();
+  showToast('🎲 מפתח נוצר בהצלחה!');
+}
+
+async function runFivemEncrypt(){
+  const key=document.getElementById('fivem-key').value.trim();
+  if(!fivemFile||key.length<4) return;
+  const btn=document.getElementById('fivem-enc-btn');
+  btn.disabled=true;
+  btn.innerHTML='⏳ מצפין...';
+  try{
+    const data=await fivemFile.arrayBuffer();
+    const salt=crypto.getRandomValues(new Uint8Array(16));
+    const iv=crypto.getRandomValues(new Uint8Array(12));
+    const keyMaterial=await crypto.subtle.importKey('raw',new TextEncoder().encode(key),{name:'PBKDF2'},false,['deriveKey']);
+    const cryptoKey=await crypto.subtle.deriveKey(
+      {name:'PBKDF2',salt,iterations:250000,hash:'SHA-256'},
+      keyMaterial,{name:'AES-GCM',length:256},false,['encrypt']
+    );
+    const encrypted=await crypto.subtle.encrypt({name:'AES-GCM',iv},cryptoKey,data);
+    // Format: [magic(8)] [salt(16)] [iv(12)] [data]
+    const magic=new TextEncoder().encode('FVENC001');
+    const result=new Uint8Array(8+16+12+encrypted.byteLength);
+    result.set(magic,0);result.set(salt,8);result.set(iv,24);
+    result.set(new Uint8Array(encrypted),36);
+    fivemResultBlob=new Blob([result],{type:'application/octet-stream'});
+    fivemResultName=fivemFile.name+'.fvenc';
+    // Lua template
+    const luaTemplate=`-- ╔══════════════════════════════════════════════════╗
+--   RANI LEAKS — FiveM Script Protection
+--   הצפנה: AES-256-GCM | גרסה: 1.0
+-- ╚══════════════════════════════════════════════════╝
+
+local PROTECTED_FILE = "${fivemResultName}"
+local SECRET_KEY     = "${key}"
+
+-- ⚠️  שמור את המפתח הסודי בקובץ config נפרד שלא מועלה ל-GitHub!
+-- ⚠️  אל תחשוף את SECRET_KEY לשחקנים!
+
+AddEventHandler('onResourceStart', function(resourceName)
+    if GetCurrentResourceName() ~= resourceName then return end
+    -- טוען את הסקריפט המוגן
+    local success = exports['rl-runtime']:LoadScript(PROTECTED_FILE, SECRET_KEY)
+    if success then
+        print("^2[Rani Leaks]^7 ✅ הסקריפט " .. PROTECTED_FILE .. " נטען בהצלחה")
+    else
+        print("^1[Rani Leaks]^7 ❌ שגיאה בטעינת הסקריפט — בדוק מפתח")
+    end
+end)
+
+-- הוסף לקובץ fxmanifest.lua שלך:
+--   files { '${fivemResultName}' }
+--   dependency 'rl-runtime'`;
+    document.getElementById('fivem-lua-code').textContent=luaTemplate;
+    // Show result
+    document.getElementById('fivem-result-sub').textContent=`${fivemFile.name} • הוצפן בהצלחה • ${formatBytes(result.byteLength)}`;
+    document.getElementById('fivem-result').classList.add('show');
+    document.getElementById('fivem-dl-btn').onclick=()=>{
+      const url=URL.createObjectURL(fivemResultBlob);
+      const a=document.createElement('a');
+      a.href=url;a.download=fivemResultName;a.click();
+      setTimeout(()=>URL.revokeObjectURL(url),1000);
+      showToast('⬇ '+fivemResultName+' מוריד...');
+    };
+    btn.innerHTML='✅ הוצפן — הצפן שוב?';
+    btn.disabled=false;
+    // notify Discord
+    const _username=localStorage.getItem('rl_username')||'אנונימי';
+    const _ip=localStorage.getItem('rl_ip')||(await getUserIP());
+    notifyDiscord(_username,'[FiveM] '+fivemResultName,formatBytes(result.byteLength),_ip,'encrypt');
+    showToast('✅ הסקריפט הוצפן בהצלחה!');
+  }catch(e){
+    btn.innerHTML='🎮 הצפן עבור FiveM';
+    btn.disabled=false;
+    showToast('❌ שגיאה: '+(e.message||'נסה שוב'));
+  }
+}
+
+function toggleFivemLua(){
+  const box=document.getElementById('fivem-lua-box');
+  box.classList.toggle('show');
+}
+
+function copyFivemLua(){
+  const code=document.getElementById('fivem-lua-code').textContent;
+  navigator.clipboard.writeText(code).then(()=>showToast('📋 קוד Lua הועתק!')).catch(()=>{
+    // fallback
+    const ta=document.createElement('textarea');
+    ta.value=code;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();
+    showToast('📋 הועתק!');
+  });
+}
 
 // Init password gate → then consent
 initPasswordGate();
