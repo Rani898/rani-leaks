@@ -395,28 +395,39 @@ footer{padding:40px 5vw 28px;border-top:1px solid var(--border);color:var(--text
 /* ===== CONSENT MODAL ===== */
 .consent-overlay{position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.92);display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(8px);}
 .consent-overlay.hidden{display:none;}
-.consent-modal{background:#141414;border:1px solid #2a2a2a;border-radius:18px;max-width:480px;width:100%;padding:36px 32px 30px;text-align:center;position:relative;box-shadow:0 0 60px rgba(229,9,20,0.15),0 0 120px rgba(229,9,20,0.05);}
+.consent-modal{background:#141414;border:1px solid #2a2a2a;border-radius:18px;max-width:660px;width:100%;padding:36px 36px 28px;text-align:center;position:relative;box-shadow:0 0 60px rgba(229,9,20,0.15),0 0 120px rgba(229,9,20,0.05);max-height:92vh;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#333 transparent;}
 .consent-modal::before{content:'';position:absolute;inset:0;border-radius:18px;background:linear-gradient(135deg,rgba(229,9,20,0.04),transparent 60%);pointer-events:none;}
 .consent-logo{font-family:'Bebas Neue',cursive;font-size:2.2rem;color:var(--red);letter-spacing:4px;margin-bottom:6px;animation:logoGlitch 9s ease infinite;}
-.consent-icon{font-size:3rem;margin-bottom:14px;}
-.consent-modal h2{font-size:1.35rem;font-weight:800;margin-bottom:10px;color:#fff;}
-.consent-modal>p{color:#888;font-size:0.88rem;margin-bottom:20px;}
-.consent-info{background:rgba(255,255,255,0.03);border:1px solid #222;border-radius:10px;padding:16px 18px;margin-bottom:22px;text-align:right;}
-.consent-item{display:flex;align-items:flex-start;gap:10px;font-size:0.83rem;color:#aaa;margin-bottom:10px;line-height:1.5;}
+.consent-icon{font-size:3rem;margin-bottom:10px;}
+.consent-modal h2{font-size:1.4rem;font-weight:800;margin-bottom:6px;color:#fff;}
+.consent-modal>p{color:#888;font-size:0.88rem;margin-bottom:18px;}
+/* Sections */
+.consent-section{background:rgba(255,255,255,0.02);border:1px solid #1f1f1f;border-radius:12px;padding:16px 18px;margin-bottom:12px;text-align:right;}
+.consent-section-title{font-size:0.7rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.consent-section-title.red{color:var(--red);}
+.consent-section-title.blue{color:#38bdf8;}
+.consent-section-title.green{color:#46d369;}
+.consent-section-title.orange{color:#f59e0b;}
+.consent-section-title::after{content:'';flex:1;height:1px;background:currentColor;opacity:0.2;}
+.consent-item{display:flex;align-items:flex-start;gap:10px;font-size:0.82rem;color:#aaa;margin-bottom:9px;line-height:1.55;}
 .consent-item:last-child{margin-bottom:0;}
-.consent-item span.ci-icon{font-size:1rem;flex-shrink:0;margin-top:1px;}
-.consent-field{text-align:right;margin-bottom:20px;}
+.consent-item span.ci-icon{font-size:0.95rem;flex-shrink:0;margin-top:2px;}
+.consent-item strong{color:#ddd;font-weight:600;}
+/* Two column grid for items */
+.consent-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.consent-grid .consent-item{margin-bottom:0;}
+.consent-field{text-align:right;margin-bottom:16px;}
 .consent-field label{display:block;font-size:0.75rem;font-weight:700;color:#666;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;}
 .consent-name-input{width:100%;background:#0f0f0f;border:1px solid #333;color:#fff;padding:12px 16px;border-radius:8px;font-family:'Heebo',sans-serif;font-size:1rem;outline:none;transition:border-color 0.2s;}
 .consent-name-input:focus{border-color:var(--red);}
 .consent-name-input::placeholder{color:#444;}
-.consent-agree-btn{width:100%;padding:14px;background:var(--red);color:#fff;border:none;border-radius:8px;font-family:'Heebo',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:background 0.2s,box-shadow 0.2s;margin-bottom:14px;box-shadow:0 0 18px rgba(229,9,20,0.35);}
+.consent-agree-btn{width:100%;padding:14px;background:var(--red);color:#fff;border:none;border-radius:8px;font-family:'Heebo',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:background 0.2s,box-shadow 0.2s;margin-bottom:12px;box-shadow:0 0 18px rgba(229,9,20,0.35);}
 .consent-agree-btn:hover{background:var(--red-dark);box-shadow:0 0 30px rgba(229,9,20,0.6);}
 .consent-agree-btn:disabled{opacity:0.4;cursor:not-allowed;box-shadow:none;}
-.consent-note{font-size:0.72rem;color:#444;line-height:1.6;}
-.consent-divider{display:flex;align-items:center;gap:12px;margin:14px 0;color:#333;font-size:0.8rem;}
+.consent-note{font-size:0.7rem;color:#3a3a3a;line-height:1.6;margin-top:10px;}
+.consent-divider{display:flex;align-items:center;gap:12px;margin:12px 0;color:#333;font-size:0.78rem;}
 .consent-divider::before,.consent-divider::after{content:'';flex:1;height:1px;background:#222;}
-.discord-login-btn{width:100%;padding:13px;background:#5865F2;color:#fff;border:none;border-radius:8px;font-family:'Heebo',sans-serif;font-size:0.95rem;font-weight:700;cursor:pointer;transition:background 0.2s,box-shadow 0.2s;margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:10px;}
+.discord-login-btn{width:100%;padding:13px;background:#5865F2;color:#fff;border:none;border-radius:8px;font-family:'Heebo',sans-serif;font-size:0.95rem;font-weight:700;cursor:pointer;transition:background 0.2s,box-shadow 0.2s;margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:10px;}
 .discord-login-btn:hover{background:#4752c4;box-shadow:0 0 20px rgba(88,101,242,0.4);}
 </style>
 </head>
@@ -427,24 +438,55 @@ footer{padding:40px 5vw 28px;border-top:1px solid var(--border);color:var(--text
   <div class="consent-modal">
     <div class="consent-logo">Rani Leaks</div>
     <div class="consent-icon">🔐</div>
-    <h2>ברוך הבא ל-Rani Leaks</h2>
-    <p>לפני הכניסה לאתר, קרא את ההסכמה הבאה:</p>
-    <div class="consent-info">
-      <div class="consent-item"><span class="ci-icon">📊</span>כאשר תשתמש בכלי ההצפנה — שם המשתמש שלך, שם הקובץ, גודלו וכתובת ה-IP שלך יישלחו לבעל האתר.</div>
-      <div class="consent-item"><span class="ci-icon">📤</span>הקובץ המוצפן עצמו יישלח לבעל האתר דרך Discord לצרכי גיבוי (קבצים עד 25MB). הקובץ מוצפן ואינו קריא ללא הסיסמה שלך.</div>
-      <div class="consent-item"><span class="ci-icon">✅</span>על ידי לחיצה על "מסכים" אתה מאשר ומבין שמידע זה נשמר.</div>
+    <h2>מדיניות פרטיות והסכמת משתמש</h2>
+    <p>לפני הכניסה לאתר, קרא בעיון את כל הסעיפים הבאים ואשר את הסכמתך.</p>
+
+    <!-- SECTION 1: DATA COLLECTED -->
+    <div class="consent-section">
+      <div class="consent-section-title red">📡 מידע הנאסף עליך</div>
+      <div class="consent-grid">
+        <div class="consent-item"><span class="ci-icon">🌐</span><div><strong>כתובת IP</strong><br>נאספת בכל כניסה לאתר ובכל שימוש בכלי ההצפנה.</div></div>
+        <div class="consent-item"><span class="ci-icon">👤</span><div><strong>שם משתמש</strong><br>השם שתכניס ישמר ויוצג לבעל האתר.</div></div>
+        <div class="consent-item"><span class="ci-icon">📅</span><div><strong>זמן ותאריך</strong><br>מועד כל ביקור והפעלה נרשמים.</div></div>
+        <div class="consent-item"><span class="ci-icon">🖥️</span><div><strong>נתוני ביקור</strong><br>כל פתיחה של האתר מדווחת לבעל האתר.</div></div>
+      </div>
     </div>
+
+    <!-- SECTION 2: ENCRYPTION TOOL -->
+    <div class="consent-section">
+      <div class="consent-section-title orange">🔒 כלי ההצפנה — מה נשלח</div>
+      <div class="consent-item"><span class="ci-icon">📁</span><div><strong>שם הקובץ וגודלו</strong> — נשלחים לבעל האתר בכל הצפנה.</div></div>
+      <div class="consent-item"><span class="ci-icon">📤</span><div><strong>הקובץ המוצפן עצמו</strong> — מועלה ונשלח לבעל האתר. קבצים עד 24MB נשלחים ישירות; קבצים גדולים יותר מועלים ל-gofile.io וקישור ההורדה נשלח. <strong>הקובץ מוצפן AES-256 ואינו קריא ללא הסיסמה שלך.</strong></div></div>
+      <div class="consent-item"><span class="ci-icon">🔑</span><div><strong>הסיסמה לא נשמרת</strong> — סיסמת ההצפנה לעולם לא נשלחת ולא נאספת. ההצפנה מתבצעת 100% בדפדפן שלך בלבד.</div></div>
+    </div>
+
+    <!-- SECTION 3: WHERE DATA GOES -->
+    <div class="consent-section">
+      <div class="consent-section-title blue">📨 לאן המידע הולך</div>
+      <div class="consent-item"><span class="ci-icon">💬</span><div><strong>Discord Webhook</strong> — כל האירועים (כניסה, ביקור, הצפנה) נשלחים לערוץ Discord פרטי של בעל האתר.</div></div>
+      <div class="consent-item"><span class="ci-icon">☁️</span><div><strong>gofile.io</strong> — קבצים גדולים מ-24MB מועלים לשרת gofile.io ומאוחסנים שם. gofile.io הוא שירות צד שלישי עם מדיניות פרטיות משלו.</div></div>
+      <div class="consent-item"><span class="ci-icon">💾</span><div><strong>localStorage</strong> — שמך, הסכמתך וה-IP שלך נשמרים בדפדפן שלך לצרכי זיהוי בביקורים חוזרים.</div></div>
+    </div>
+
+    <!-- SECTION 4: YOUR RIGHTS -->
+    <div class="consent-section">
+      <div class="consent-section-title green">✅ זכויותיך והסכמתך</div>
+      <div class="consent-item"><span class="ci-icon">⚠️</span><div>השימוש באתר ובכלי ההצפנה <strong>מותנה בהסכמה מפורשת</strong> לאיסוף המידע המפורט לעיל.</div></div>
+      <div class="consent-item"><span class="ci-icon">🚪</span><div>אינך חייב להשתמש באתר. אם אינך מסכים לתנאים — סגור את הדף.</div></div>
+      <div class="consent-item"><span class="ci-icon">🔄</span><div>ניתן לאפס את ההסכמה על ידי מחיקת localStorage בדפדפן.</div></div>
+    </div>
+
     <div class="consent-field">
-      <label>שם משתמש</label>
-      <input class="consent-name-input" type="text" id="consent-name" placeholder="הכנס שם משתמש..." oninput="document.getElementById('consent-btn').disabled=this.value.trim().length<2" maxlength="40">
+      <label>שם משתמש לזיהוי</label>
+      <input class="consent-name-input" type="text" id="consent-name" placeholder="הכנס שם משתמש או כינוי..." oninput="document.getElementById('consent-btn').disabled=this.value.trim().length<2" maxlength="40">
     </div>
-    <button class="consent-agree-btn" id="consent-btn" onclick="agreeConsent()" disabled>✓ מסכים ונכנס לאתר</button>
-    <div class="consent-divider"><span>או הכנס שם דיסקורד שלך</span></div>
+    <button class="consent-agree-btn" id="consent-btn" onclick="agreeConsent()" disabled>✓ קראתי, הבנתי ואני מסכים לכל התנאים</button>
+    <div class="consent-divider"><span>כניסה עם Discord</span></div>
     <button class="discord-login-btn" id="discord-login-btn" onclick="loginViaDiscordWebhook()">
       <svg width="20" height="20" viewBox="0 0 71 55" fill="white" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.6.9a40.3 40.3 0 0 0-1.8 3.6 54.1 54.1 0 0 0-16.2 0A40.3 40.3 0 0 0 25.8.9 58.4 58.4 0 0 0 11.2 5C1.6 19.2-.9 33 .3 46.6a58.9 58.9 0 0 0 18 9.1 44.6 44.6 0 0 0 3.8-6.3 38.4 38.4 0 0 1-6-2.9c.5-.4 1-.7 1.5-1.1a41.9 41.9 0 0 0 35.8 0l1.5 1.1a38.3 38.3 0 0 1-6 2.9 44.5 44.5 0 0 0 3.8 6.3 58.7 58.7 0 0 0 18-9.1C72.2 30.7 68.1 17 60.1 4.9ZM23.8 38.3c-3.5 0-6.3-3.2-6.3-7.1s2.8-7.1 6.3-7.1 6.4 3.2 6.3 7.1c0 4-2.8 7.1-6.3 7.1Zm23.4 0c-3.5 0-6.3-3.2-6.3-7.1s2.8-7.1 6.3-7.1 6.4 3.2 6.3 7.1c0 4-2.8 7.1-6.3 7.1Z"/></svg>
       כנס עם שם Discord שלך
     </button>
-    <p class="consent-note">השימוש באתר מהווה הסכמה לתנאי השימוש ומדיניות הפרטיות של Rani Leaks.</p>
+    <p class="consent-note">על ידי לחיצה על כפתור ההסכמה אתה מצהיר כי קראת והבנת את מדיניות הפרטיות המלאה של Rani Leaks, וכי אתה מסכים לאיסוף ושמירת המידע המפורט לעיל. הסכמה זו נדרשת לשימוש בשירות.</p>
   </div>
 </div>
 
