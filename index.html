@@ -737,6 +737,17 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
   text-shadow:0 0 10px rgba(70,211,105,0.5);
 }
 
+/* ===== EMPTY STATE ===== */
+.empty-state{
+  text-align:center;padding:80px 20px;
+  background:linear-gradient(135deg,rgba(255,255,255,0.015),rgba(255,255,255,0.008));
+  border:1px dashed rgba(255,255,255,0.08);
+  border-radius:16px;
+}
+.empty-icon{font-size:3.5rem;margin-bottom:16px;opacity:0.4;filter:grayscale(1);}
+.empty-title{font-size:1.1rem;font-weight:700;color:#444;margin-bottom:8px;}
+.empty-sub{font-size:0.85rem;color:#2d2d2d;line-height:1.6;}
+
 /* ===== ANIMATIONS ===== */
 @keyframes fadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
 @keyframes shimmer{0%,100%{opacity:0.6;}50%{opacity:1;}}
@@ -1084,38 +1095,16 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
 <div class="rows" id="main-rows">
 
   <div class="row" id="real-files-row" style="display:none">
-    <div class="row-title">🟢 קבצים אמיתיים <span class="arrow">צפה הכל ›</span></div>
+    <div class="row-title">🟢 קבצים זמינים להורדה <span class="arrow">צפה הכל ›</span></div>
     <div class="cards-track" id="real-row"></div>
   </div>
 
-  <div class="row">
-    <div class="row-title">🔥 הורדות חמות עכשיו <span class="arrow">צפה הכל ›</span></div>
-    <div class="cards-track" id="trending-row"></div>
-  </div>
-
-  <div class="row">
-    <div class="row-title">🏆 TOP 10 הורדות השבוע <span class="arrow">צפה הכל ›</span></div>
-    <div class="cards-track" id="top10-row"></div>
-  </div>
-
-  <div class="row">
-    <div class="row-title">▶ הורדות אחרונות שלי <span class="arrow">צפה הכל ›</span></div>
-    <div class="cards-track" id="recent-row"></div>
-  </div>
-
-  <div class="row">
-    <div class="row-title">⭐ מומלצים בשבילך <span class="arrow">צפה הכל ›</span></div>
-    <div class="cards-track" id="featured-row"></div>
-  </div>
-
-  <div class="row">
-    <div class="row-title">✨ חדש ב-Rani Leaks <span class="arrow">צפה הכל ›</span></div>
-    <div class="cards-track" id="new-row"></div>
-  </div>
-
-  <div class="row">
-    <div class="row-title">📄 מסמכים ממשלתיים <span class="arrow">צפה הכל ›</span></div>
-    <div class="cards-track" id="docs-row"></div>
+  <div class="row" id="empty-state-row">
+    <div class="empty-state">
+      <div class="empty-icon">📂</div>
+      <div class="empty-title">אין קבצים עדיין</div>
+      <div class="empty-sub">מנהל האתר יוסיף קבצים בקרוב — חזור מאוחר יותר</div>
+    </div>
   </div>
 
 </div>
@@ -1929,29 +1918,9 @@ async function trackVisit(){
 // initConsent() is called at end of script after DOM is ready
 
 // ===== FILE DATA =====
-const files = [
-  {name:"GOVERNMENT FILES 2024",icon:"📄",ext:"PDF",grad:"g1",size:"4.7 GB",date:"24.05.26",cat:"PDF",downloads:"182K",desc:"מסמכים ממשלתיים סודיים שדלפו — חוזים, תמלילי ישיבות סגורות ונתונים שלא נועדו לפרסום.",hash:"SHA256: a3f9...c7d2",format:"PDF/A",pages:"3,842"},
-  {name:"LEAKED CORP DATA",icon:"📊",ext:"XLSX",grad:"g6",size:"890 MB",date:"23.05.26",cat:"אקסל",downloads:"94K",desc:"נתוני תאגיד ענק — שכר מנהלים, עסקאות פנימיות ורשימות לקוחות.",hash:"SHA256: b1e4...88fa",format:"Excel 2021",pages:"14 גיליונות"},
-  {name:"SECRET RECORDINGS",icon:"🎥",ext:"MP4",grad:"g5",size:"12.3 GB",date:"22.05.26",cat:"וידאו",downloads:"231K",desc:"הקלטות וידאו סודיות מישיבות פנימיות שנחשפו — ללא עריכה.",hash:"SHA256: c9f2...11ab",format:"H.264 1080p",pages:"4:32:00 שעות"},
-  {name:"FINANCIAL REPORTS",icon:"💰",ext:"PDF",grad:"g8",size:"2.1 GB",date:"21.05.26",cat:"PDF",downloads:"67K",desc:"דוחות כספיים מניפולטיביים שהוסתרו מהציבור — ניתוח מלא.",hash:"SHA256: d7c3...45ef",format:"PDF",pages:"1,204"},
-  {name:"AUDIO LEAKS VOL.1",icon:"🎵",ext:"MP3",grad:"g4",size:"6.8 GB",date:"20.05.26",cat:"אודיו",downloads:"118K",desc:"הקלטות שמע של שיחות טלפון פרטיות ופגישות — 48 שעות חומר.",hash:"SHA256: e2b1...90cd",format:"MP3 320kbps",pages:"48 שעות"},
-  {name:"CLASSIFIED IMAGES",icon:"🖼️",ext:"ZIP",grad:"g3",size:"18.5 GB",date:"19.05.26",cat:"תמונות",downloads:"305K",desc:"קולקציה של 12,000+ תמונות מסווגות שדלפו ממאגרים פנימיים.",hash:"SHA256: f5a7...23bc",format:"JPG/PNG",pages:"12,450 קבצים"},
-  {name:"SOURCE CODE DUMP",icon:"💻",ext:"ZIP",grad:"g2",size:"3.4 GB",date:"18.05.26",cat:"ארכיון",downloads:"159K",desc:"קוד מקור של מערכות ממשלתיות — backend, API ומסדי נתונים.",hash:"SHA256: a8d4...67ef",format:"ZIP/TAR.GZ",pages:"890K שורות קוד"},
-  {name:"MINISTRY DOCS",icon:"🏛️",ext:"DOCX",grad:"g9",size:"1.2 GB",date:"17.05.26",cat:"Word",downloads:"44K",desc:"מסמכי משרד ממשלתי — הנחיות פנימיות, מכתבים סודיים ופרוטוקולים.",hash:"SHA256: b3f6...12cd",format:"Word 2019",pages:"3,100"},
-  {name:"PRESENTATION PACK",icon:"📊",ext:"PPTX",grad:"g7",size:"950 MB",date:"16.05.26",cat:"מצגת",downloads:"37K",desc:"מצגות פנימיות שחשפו אסטרטגיה סודית — 200+ שקפים מפורטים.",hash:"SHA256: c1e9...45ab",format:"PowerPoint",pages:"214 שקפים"},
-  {name:"PHONE TAPS 2023",icon:"📞",ext:"MP3",grad:"g10",size:"8.9 GB",date:"15.05.26",cat:"אודיו",downloads:"276K",desc:"האזנות טלפוניות שנחשפו — 600+ שיחות מוקלטות.",hash:"SHA256: d4b2...78ef",format:"MP3 256kbps",pages:"600+ שיחות"},
-  {name:"DATABASE EXPORT",icon:"🗄️",ext:"SQL",grad:"g1",size:"22.1 GB",date:"14.05.26",cat:"ארכיון",downloads:"88K",desc:"ייצוא מלא של מסד נתונים עם 4 מיליון רשומות — לקוחות, עסקאות, סיסמאות.",hash:"SHA256: e7c5...90bc",format:"SQL/CSV",pages:"4.2M רשומות"},
-  {name:"HIDDEN SOFTWARE",icon:"⚙️",ext:"EXE",grad:"g6",size:"750 MB",date:"13.05.26",cat:"תוכנה",downloads:"211K",desc:"תוכנת ריגול שנמצאה במכשירים ממשלתיים — עם קוד המקור.",hash:"SHA256: f2a8...34cd",format:"Windows/Linux",pages:"v3.2.1"},
-];
-
-const featuredFiles = [
-  {name:"MEGA LEAK ARCHIVE",icon:"🗂️",ext:"ZIP",grad:"g5",size:"48.7 GB",date:"24.05.26",cat:"ארכיון",downloads:"521K",desc:"הדלפת ענק — כל הקבצים בארכיון אחד מוצפן. הגדולה בשנת 2026."},
-  {name:"CORPORATE EMAILS",icon:"📧",ext:"PST",grad:"g4",size:"5.2 GB",date:"22.05.26",cat:"ארכיון",downloads:"143K",desc:"תיבת דואר אלקטרוני מלאה של בכיר תאגידי — 80,000+ מיילים."},
-  {name:"RAW SURVEILLANCE",icon:"📹",ext:"MKV",grad:"g8",size:"31.0 GB",date:"21.05.26",cat:"וידאו",downloads:"198K",desc:"חומרי מצלמות אבטחה גולמיים שנגנבו מרשת ניטור פנימית."},
-  {name:"CRYPTO WALLET KEYS",icon:"🔑",ext:"TXT",grad:"g2",size:"12 MB",date:"20.05.26",cat:"PDF",downloads:"88K",desc:"רשימת מפתחות של ארנקי קריפטו — 200+ כתובות עם יתרות."},
-];
-
-const recentProgress = [45, 100, 100, 30, 72];
+const files = [];
+const featuredFiles = [];
+const recentProgress = [];
 
 // ===== MY LIST =====
 function getMyList(){return JSON.parse(localStorage.getItem('rlList')||'[]');}
@@ -2094,25 +2063,11 @@ function fillRows(){
     }
   }
 
-  document.getElementById('trending-row').innerHTML=
-    files.slice(0,8).map((f,i)=>makeCard(f,i,'m')).join('');
-
-  document.getElementById('top10-row').innerHTML=
-    files.slice(0,10).map((f,i)=>makeTop10Card(f,i,i+1)).join('');
-
-  const recentItems=[files[2],files[5],files[7],files[0],files[9]];
-  document.getElementById('recent-row').innerHTML=
-    recentItems.map((f,i)=>makeCard(f,files.indexOf(f),'m',recentProgress[i])).join('');
-
-  document.getElementById('featured-row').innerHTML=
-    featuredFiles.map((f,i)=>makeWideCard(f,i)).join('');
-
-  document.getElementById('new-row').innerHTML=
-    files.slice(6,12).map((f,i)=>makeCard(f,i+6,'m')).join('');
-
-  document.getElementById('docs-row').innerHTML=
-    files.filter(f=>f.cat==='PDF'||f.cat==='Word')
-      .map(f=>makeCard(f,files.indexOf(f),'m')).join('');
+  // show/hide empty state
+  const emptyRow=document.getElementById('empty-state-row');
+  const realRow=document.getElementById('real-files-row');
+  const hasReal=getRealFiles().length>0;
+  if(emptyRow) emptyRow.style.display=hasReal?'none':'block';
 }
 fillRows();
 document.getElementById('stat-dl').textContent=dlCount+7;
@@ -2207,27 +2162,34 @@ function closeProfile(){
 function handleSearch(val){
   val=val.trim().toLowerCase();
   if(!val){fillRows();return;}
-  const res=files.filter(f=>f.name.toLowerCase().includes(val)||f.cat.toLowerCase().includes(val)||f.ext.toLowerCase().includes(val));
-  document.getElementById('trending-row').innerHTML=
-    res.length?res.map(f=>makeCard(f,files.indexOf(f),'m')).join('')
-      :'<div style="color:#555;padding:20px">אין תוצאות לחיפוש זה</div>';
-  ['top10-row','recent-row','featured-row','new-row','docs-row'].forEach(id=>{
-    document.getElementById(id).innerHTML='';
-  });
+  // search real files only
+  const realFiles=getRealFiles();
+  const res=realFiles.filter(f=>f.name.toLowerCase().includes(val)||f.category.toLowerCase().includes(val));
+  const realRow=document.getElementById('real-row');
+  const realRowSection=document.getElementById('real-files-row');
+  const emptyRow=document.getElementById('empty-state-row');
+  if(res.length){
+    realRowSection.style.display='block';
+    emptyRow.style.display='none';
+    realRow.innerHTML=res.map(rf=>`<div class="card" onclick="openRealFile('${rf.id}')">
+      <div class="card-img g3"><span class="file-icon">📄</span><span class="file-ext-badge">${rf.ext||rf.name.split('.').pop().toUpperCase()}</span></div>
+      <div class="card-info"><div class="card-info-name">${rf.name}</div>
+      <div class="card-info-row"><span class="card-info-size">${rf.size||''}</span></div></div>
+      <div class="card-overlay"><button class="card-dl-btn" onclick="event.stopPropagation();downloadRealFile('${rf.id}')">⬇ הורד</button></div>
+    </div>`).join('');
+  } else {
+    realRowSection.style.display='none';
+    emptyRow.style.display='block';
+    emptyRow.querySelector('.empty-title').textContent='אין תוצאות לחיפוש';
+    emptyRow.querySelector('.empty-sub').textContent=`לא נמצאו קבצים עבור "${val}"`;
+  }
 }
 
 // ===== CATEGORY FILTER =====
 function filterCat(btn,cat){
   document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  if(cat==='הכל'){fillRows();return;}
-  const res=files.filter(f=>f.cat===cat);
-  document.getElementById('trending-row').innerHTML=
-    res.length?res.map(f=>makeCard(f,files.indexOf(f),'m')).join('')
-      :'<div style="color:#555;padding:20px">אין קבצים בקטגוריה זו</div>';
-  ['top10-row','recent-row','featured-row','new-row','docs-row'].forEach(id=>{
-    document.getElementById(id).innerHTML='';
-  });
+  fillRows();
 }
 
 // ===== NAVBAR SCROLL =====
