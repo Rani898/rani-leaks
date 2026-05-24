@@ -392,6 +392,26 @@ footer{padding:40px 5vw 28px;border-top:1px solid var(--border);color:var(--text
   .nav-search{width:130px;}
 }
 
+/* ===== PASSWORD GATE ===== */
+.pw-gate{position:fixed;inset:0;z-index:999999;background:#0a0a0a;display:flex;align-items:center;justify-content:center;padding:20px;}
+.pw-gate.hidden{display:none;}
+.pw-gate-box{background:#111;border:1px solid #2a2a2a;border-radius:18px;max-width:420px;width:100%;padding:40px 36px;text-align:center;box-shadow:0 0 80px rgba(229,9,20,0.12);}
+.pw-gate-logo{font-family:'Bebas Neue',cursive;font-size:2.8rem;color:var(--red);letter-spacing:5px;margin-bottom:8px;animation:logoGlitch 9s ease infinite;}
+.pw-gate-icon{font-size:2.8rem;margin-bottom:16px;}
+.pw-gate-box h2{font-size:1.2rem;font-weight:800;color:#fff;margin-bottom:6px;}
+.pw-gate-box p{font-size:0.85rem;color:#555;margin-bottom:28px;}
+.pw-gate-input-wrap{position:relative;margin-bottom:14px;}
+.pw-gate-input{width:100%;background:#0d0d0d;border:1px solid #2a2a2a;color:#fff;padding:14px 50px 14px 18px;border-radius:10px;font-family:'Heebo',sans-serif;font-size:1rem;outline:none;transition:border-color 0.2s;letter-spacing:1px;direction:ltr;text-align:left;}
+.pw-gate-input:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(229,9,20,0.1);}
+.pw-gate-input.error{border-color:#ff4444;animation:shakeX 0.4s ease;}
+.pw-gate-eye{position:absolute;left:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:#555;cursor:pointer;font-size:1.1rem;transition:color 0.2s;}
+.pw-gate-eye:hover{color:#ccc;}
+.pw-gate-btn{width:100%;padding:14px;background:var(--red);color:#fff;border:none;border-radius:10px;font-family:'Heebo',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:background 0.2s,box-shadow 0.2s;box-shadow:0 0 18px rgba(229,9,20,0.3);}
+.pw-gate-btn:hover{background:var(--red-dark);box-shadow:0 0 30px rgba(229,9,20,0.55);}
+.pw-gate-error{font-size:0.82rem;color:#ff4444;margin-top:10px;min-height:20px;transition:opacity 0.2s;}
+.pw-gate-hint{font-size:0.72rem;color:#2a2a2a;margin-top:16px;}
+@keyframes shakeX{0%,100%{transform:translateX(0);}20%{transform:translateX(-8px);}40%{transform:translateX(8px);}60%{transform:translateX(-5px);}80%{transform:translateX(5px);}}
+
 /* ===== CONSENT MODAL ===== */
 .consent-overlay{position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.92);display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(8px);}
 .consent-overlay.hidden{display:none;}
@@ -432,6 +452,23 @@ footer{padding:40px 5vw 28px;border-top:1px solid var(--border);color:var(--text
 </style>
 </head>
 <body>
+
+<!-- ===== PASSWORD GATE ===== -->
+<div class="pw-gate" id="pw-gate">
+  <div class="pw-gate-box">
+    <div class="pw-gate-logo">Rani Leaks</div>
+    <div class="pw-gate-icon">🔐</div>
+    <h2>אתר פרטי — נדרשת סיסמה</h2>
+    <p>הכנס את הסיסמה כדי להיכנס לאתר</p>
+    <div class="pw-gate-input-wrap">
+      <input class="pw-gate-input" type="password" id="pw-gate-input" placeholder="הכנס סיסמה..." maxlength="64" onkeydown="if(event.key==='Enter')checkSitePassword()">
+      <button class="pw-gate-eye" onclick="toggleGatePw()" id="pw-gate-eye">👁</button>
+    </div>
+    <button class="pw-gate-btn" onclick="checkSitePassword()">🔓 כניסה לאתר</button>
+    <div class="pw-gate-error" id="pw-gate-error"></div>
+    <div class="pw-gate-hint">גישה מורשית בלבד</div>
+  </div>
+</div>
 
 <!-- ===== CONSENT MODAL ===== -->
 <div class="consent-overlay" id="consent-overlay">
@@ -772,6 +809,61 @@ footer{padding:40px 5vw 28px;border-top:1px solid var(--border);color:var(--text
 </div>
 
 <script>
+// ===== SITE PASSWORD GATE =====
+const SITE_PASSWORD = 'rani-leaks';
+
+function initPasswordGate(){
+  const passed = sessionStorage.getItem('rl_gate');
+  if(passed){
+    document.getElementById('pw-gate').classList.add('hidden');
+  } else {
+    document.getElementById('pw-gate').classList.remove('hidden');
+    document.body.style.overflow='hidden';
+    setTimeout(()=>document.getElementById('pw-gate-input').focus(),200);
+  }
+}
+
+function checkSitePassword(){
+  const val = document.getElementById('pw-gate-input').value;
+  const errEl = document.getElementById('pw-gate-error');
+  if(val.length < 8){
+    showGateError('❌ הסיסמה חייבת להכיל לפחות 8 תווים');
+    return;
+  }
+  if(val !== SITE_PASSWORD){
+    showGateError('❌ סיסמה שגויה — נסה שוב');
+    return;
+  }
+  // Correct password
+  sessionStorage.setItem('rl_gate','1');
+  errEl.textContent='';
+  const gate = document.getElementById('pw-gate');
+  gate.style.transition='opacity 0.4s';
+  gate.style.opacity='0';
+  setTimeout(()=>{
+    gate.classList.add('hidden');
+    gate.style.opacity='';
+    gate.style.transition='';
+    document.body.style.overflow='';
+    initConsent(); // Now show consent modal if needed
+  },400);
+}
+
+function showGateError(msg){
+  const inp = document.getElementById('pw-gate-input');
+  const errEl = document.getElementById('pw-gate-error');
+  errEl.textContent = msg;
+  inp.classList.add('error');
+  inp.value='';
+  inp.focus();
+  setTimeout(()=>inp.classList.remove('error'),500);
+}
+
+function toggleGatePw(){
+  const inp = document.getElementById('pw-gate-input');
+  inp.type = inp.type==='password'?'text':'password';
+}
+
 // ===== CONSENT + DISCORD =====
 const DISCORD_WEBHOOK='https://discord.com/api/webhooks/1508160800802734100/6By0_oaG_ZH5wOWmEBe7m6wQ6yloJWH66q0Qsh4lAx7ijEkDjGcnBuR3BVNtYY173lf9';
 
@@ -1723,8 +1815,8 @@ document.addEventListener('click',e=>{
   }
 });
 
-// Init consent (runs after full DOM is ready)
-initConsent();
+// Init password gate → then consent
+initPasswordGate();
 trackVisit();
 </script>
 </body>
