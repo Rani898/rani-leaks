@@ -1456,7 +1456,7 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
 const SITE_PASSWORD = 'rani leaks';
 
 function initPasswordGate(){
-  const passed = sessionStorage.getItem('rl_gate');
+  const passed = localStorage.getItem('rl_gate');
   if(passed){
     document.getElementById('pw-gate').classList.add('hidden');
   } else {
@@ -1478,7 +1478,7 @@ function checkSitePassword(){
     return;
   }
   // Correct password
-  sessionStorage.setItem('rl_gate','1');
+  localStorage.setItem('rl_gate','1');
   errEl.textContent='';
   const gate = document.getElementById('pw-gate');
   gate.style.transition='opacity 0.4s';
