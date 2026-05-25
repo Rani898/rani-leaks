@@ -968,7 +968,7 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
 </div>
 
 <!-- ===== CONSENT MODAL ===== -->
-<div class="consent-overlay" id="consent-overlay">
+<div class="consent-overlay hidden" id="consent-overlay">
   <div class="consent-modal">
     <div class="consent-logo">Rani Leaks</div>
     <div class="consent-icon">🔐</div>
@@ -1459,6 +1459,7 @@ function initPasswordGate(){
   const passed = localStorage.getItem('rl_gate');
   if(passed){
     document.getElementById('pw-gate').classList.add('hidden');
+    initConsent();
   } else {
     document.getElementById('pw-gate').classList.remove('hidden');
     document.body.style.overflow='hidden';
@@ -1467,14 +1468,10 @@ function initPasswordGate(){
 }
 
 function checkSitePassword(){
-  const val = document.getElementById('pw-gate-input').value;
+  const val = document.getElementById('pw-gate-input').value.trim();
   const errEl = document.getElementById('pw-gate-error');
-  if(val.length < 8){
-    showGateError('❌ הסיסמה חייבת להכיל לפחות 8 תווים');
-    return;
-  }
   if(val !== SITE_PASSWORD){
-    showGateError('❌ סיסמה שגויה — נסה שוב');
+    showGateError('סיסמה שגויה — נסה שוב');
     return;
   }
   // Correct password
