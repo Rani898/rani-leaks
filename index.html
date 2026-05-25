@@ -942,11 +942,16 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
 }
 
 @keyframes shakeX{0%,100%{transform:translateX(0);}20%{transform:translateX(-8px);}40%{transform:translateX(8px);}60%{transform:translateX(-5px);}80%{transform:translateX(5px);}}
+@keyframes slideUpConsent{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
 
-/* ===== CONSENT MODAL ===== */
-.consent-overlay{position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.92);display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(8px);}
+/* ===== CONSENT BANNER ===== */
+.consent-overlay{
+  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:9999;
+  padding:0;display:flex;align-items:center;justify-content:center;
+  pointer-events:none;width:auto;max-width:95vw;
+}
 .consent-overlay.hidden{display:none;}
-.consent-modal{background:#141414;border:1px solid #2a2a2a;border-radius:18px;max-width:660px;width:100%;padding:36px 36px 28px;text-align:center;position:relative;box-shadow:0 0 60px rgba(229,9,20,0.15),0 0 120px rgba(229,9,20,0.05);max-height:92vh;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#333 transparent;}
+.consent-modal{background:#141414;border:1px solid rgba(229,9,20,0.25);border-radius:18px;max-width:480px;width:100%;padding:28px 28px 22px;text-align:center;position:relative;box-shadow:0 0 60px rgba(229,9,20,0.2),0 8px 40px rgba(0,0,0,0.7);pointer-events:all;max-height:80vh;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#333 transparent;animation:slideUpConsent 0.4s ease;}
 .consent-modal::before{content:'';position:absolute;inset:0;border-radius:18px;background:linear-gradient(135deg,rgba(229,9,20,0.04),transparent 60%);pointer-events:none;}
 .consent-logo{font-family:'Bebas Neue',cursive;font-size:2.2rem;color:var(--red);letter-spacing:4px;margin-bottom:6px;animation:logoGlitch 9s ease infinite;}
 .consent-icon{font-size:3rem;margin-bottom:10px;}
@@ -1482,7 +1487,6 @@ function initConsent(){
     if(name) applyUsername(name);
   } else {
     document.getElementById('consent-overlay').classList.remove('hidden');
-    document.body.style.overflow='hidden';
     setTimeout(()=>{
       const inp=document.getElementById('consent-name');
       if(inp) inp.focus();
@@ -1503,7 +1507,6 @@ async function agreeConsent(){
   localStorage.setItem('rl_ip',ip);
   notifyDiscord(name,null,null,ip,'login');
   document.getElementById('consent-overlay').classList.add('hidden');
-  document.body.style.overflow='';
   applyUsername(name);
   showToast('👋 ברוך הבא, '+name+'!');
 }
@@ -1557,7 +1560,6 @@ function showPrivacy(){
   closeProfile();
   setTimeout(()=>{
     document.getElementById('consent-overlay').classList.remove('hidden');
-    document.body.style.overflow='hidden';
   },300);
 }
 
@@ -1565,7 +1567,6 @@ function resetConsent(){
   closeProfile();
   setTimeout(()=>{
     document.getElementById('consent-overlay').classList.remove('hidden');
-    document.body.style.overflow='hidden';
   },300);
 }
 
