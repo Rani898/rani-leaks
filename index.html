@@ -2561,12 +2561,7 @@ document.addEventListener('mousemove',e=>{
 document.addEventListener('mousedown',()=>{fxRing.style.transform='translate(-50%,-50%) scale(0.6)';fxRing.style.borderColor='rgba(229,9,20,0.8)';});
 document.addEventListener('mouseup',()=>{fxRing.style.transform='translate(-50%,-50%) scale(1)';fxRing.style.borderColor='rgba(229,9,20,0.35)';});
 
-// --- CLICK FLASH ---
-const fxFlash=document.getElementById('fx-flash');
-document.addEventListener('click',()=>{
-  fxFlash.classList.add('on');
-  setTimeout(()=>fxFlash.classList.remove('on'),70);
-});
+// --- CLICK FLASH (disabled) ---
 
 // --- PARTICLE CANVAS ---
 (function(){
