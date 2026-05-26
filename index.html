@@ -1534,71 +1534,155 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
   </div>
 </div>
 
-<!-- ADMIN PAGE -->
+<!-- RANI PANEL -->
 <div class="admin-page" id="admin-page">
   <div class="adm-topbar">
-    <div class="adm-topbar-title">👑 ADMIN PANEL</div>
-    <button class="adm-close" onclick="closeAdmin()">✕ סגור</button>
+    <div class="adm-topbar-title">👑 RANI PANEL</div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <span style="color:#666;font-size:0.7rem;" id="adm-login-status">🔒 נעול</span>
+      <button class="adm-close" onclick="closeAdmin()">✕ סגור</button>
+    </div>
   </div>
   <div class="adm-content">
-    <div class="adm-section">
-      <div class="adm-section-title">🎫 יצירת קוד VIP</div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
-        <select class="adm-input" id="adm-vip-type" style="width:auto;flex:1;">
-          <option value="bronze">🥉 ברונזה — x1.5 קזינו, 150 בונוס</option>
-          <option value="silver">🥈 כסף — x2 קזינו, 300 בונוס, אפקטים בלעדיים</option>
-          <option value="gold" selected>🥇 זהב — x3 קזינו, 500 בונוס, הכל פתוח</option>
-        </select>
-      </div>
-      <div style="display:flex;gap:8px;margin-bottom:12px;">
-        <input class="adm-input" id="adm-vip-uses" type="number" value="1" min="1" max="100" placeholder="כמות שימושים" style="width:100px;">
-        <button class="adm-btn gold" onclick="admCreateVipCode()">🎫 צור קוד VIP</button>
-      </div>
-      <div class="adm-code-list" id="adm-code-list"></div>
+
+    <!-- LOGIN GATE -->
+    <div id="adm-login-gate" style="text-align:center;padding:60px 20px;">
+      <div style="font-size:4rem;margin-bottom:14px;">🔐</div>
+      <h2 style="font-family:'Bebas Neue',cursive;font-size:2.2rem;letter-spacing:3px;color:#c084fc;text-shadow:0 0 20px rgba(168,85,247,0.5);">RANI PANEL</h2>
+      <p style="color:#555;font-size:0.82rem;margin:10px 0 24px;">הפאנל הזה מיועד לאדמין בלבד. הכנס קוד גישה.</p>
+      <input class="adm-input" id="adm-pass-input" type="password" placeholder="🔑 קוד גישה..." style="max-width:300px;margin:0 auto 12px;text-align:center;font-size:1.1rem;letter-spacing:3px;">
+      <br>
+      <button class="adm-btn" onclick="admTryLogin()" style="padding:12px 40px;font-size:1rem;">🔓 כנס</button>
+      <div id="adm-login-msg" style="margin-top:14px;font-size:0.82rem;min-height:20px;"></div>
     </div>
 
-    <div class="adm-section">
-      <div class="adm-section-title">👑 VIP ישיר למשתמש</div>
-      <p style="color:#666;font-size:0.75rem;margin-bottom:10px;">הכנס Discord ID או שם משתמש ותן VIP ישירות</p>
-      <div style="display:flex;gap:8px;margin-bottom:8px;">
-        <input class="adm-input" id="adm-direct-user" placeholder="Discord ID או שם משתמש..." style="flex:1;">
-        <select class="adm-input" id="adm-direct-type" style="width:auto;">
-          <option value="bronze">🥉 ברונזה</option>
-          <option value="silver">🥈 כסף</option>
-          <option value="gold">🥇 זהב</option>
-        </select>
-      </div>
-      <div style="display:flex;gap:8px;">
-        <button class="adm-btn green" onclick="admGrantVip()">👑 תן VIP</button>
-        <button class="adm-btn red" onclick="admRevokeVip()">❌ הסר VIP</button>
-      </div>
-      <div id="adm-direct-msg" style="margin-top:8px;font-size:0.8rem;min-height:20px;"></div>
-    </div>
+    <!-- ADMIN CONTENT (hidden until login) -->
+    <div id="adm-main-content" style="display:none;">
 
-    <div class="adm-section">
-      <div class="adm-section-title">🪙 מתן מטבעות</div>
-      <div style="display:flex;gap:8px;">
-        <input class="adm-input" id="adm-coins-user" placeholder="Discord ID או שם..." style="flex:1;">
-        <input class="adm-input" id="adm-coins-amount" type="number" value="500" min="1" placeholder="כמות" style="width:100px;">
-        <button class="adm-btn gold" onclick="admGiveCoins()">🪙 תן מטבעות</button>
+      <!-- QUICK STATS -->
+      <div class="adm-section" style="border-color:rgba(168,85,247,0.25);">
+        <div class="adm-section-title">📊 סטטיסטיקות מהירות</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;">
+          <div style="background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.15);border-radius:12px;padding:14px;text-align:center;">
+            <div style="font-size:1.5rem;font-weight:900;color:#c084fc;" id="adm-stat-vips">0</div>
+            <div style="font-size:0.68rem;color:#666;">VIP פעילים</div>
+          </div>
+          <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.15);border-radius:12px;padding:14px;text-align:center;">
+            <div style="font-size:1.5rem;font-weight:900;color:#fbbf24;" id="adm-stat-codes">0</div>
+            <div style="font-size:0.68rem;color:#666;">קודים פעילים</div>
+          </div>
+          <div style="background:rgba(70,211,105,0.08);border:1px solid rgba(70,211,105,0.15);border-radius:12px;padding:14px;text-align:center;">
+            <div style="font-size:1.5rem;font-weight:900;color:#4ade80;" id="adm-stat-visits">0</div>
+            <div style="font-size:0.68rem;color:#666;">כניסות לאתר</div>
+          </div>
+        </div>
       </div>
-      <div id="adm-coins-msg" style="margin-top:8px;font-size:0.8rem;min-height:20px;"></div>
-    </div>
 
-    <div class="adm-section">
-      <div class="adm-section-title">📊 VIP משתמשים פעילים</div>
-      <div class="adm-users-list" id="adm-vip-users"></div>
-    </div>
+      <!-- VIP CODES -->
+      <div class="adm-section">
+        <div class="adm-section-title">🎫 יצירת קוד VIP</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
+          <select class="adm-input" id="adm-vip-type" style="width:auto;flex:1;">
+            <option value="bronze">🥉 ברונזה — x1.5 קזינו, 150 בונוס</option>
+            <option value="silver">🥈 כסף — x2 קזינו, 300 בונוס</option>
+            <option value="gold" selected>🥇 זהב — x3 קזינו, 500 בונוס</option>
+            <option value="diamond">💎 יהלום — x5 קזינו, 1000 בונוס, הכל פתוח</option>
+          </select>
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:12px;">
+          <input class="adm-input" id="adm-vip-uses" type="number" value="1" min="1" max="100" placeholder="כמות שימושים" style="width:100px;">
+          <input class="adm-input" id="adm-vip-days" type="number" value="30" min="1" max="365" placeholder="ימים" style="width:100px;">
+          <button class="adm-btn gold" onclick="admCreateVipCode()">🎫 צור קוד</button>
+        </div>
+        <div class="adm-code-list" id="adm-code-list"></div>
+      </div>
 
-    <div class="adm-section">
-      <div class="adm-section-title">⚙️ הגדרות אתר</div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <button class="adm-btn" onclick="admBroadcastMsg()">📢 שלח הודעה לכולם</button>
-        <button class="adm-btn red" onclick="admResetAllCodes()">🗑️ מחק כל הקודים</button>
+      <!-- DIRECT VIP -->
+      <div class="adm-section">
+        <div class="adm-section-title">👑 VIP ישיר למשתמש</div>
+        <p style="color:#666;font-size:0.75rem;margin-bottom:10px;">הכנס Discord ID או שם משתמש ותן VIP ישירות</p>
+        <div style="display:flex;gap:8px;margin-bottom:8px;">
+          <input class="adm-input" id="adm-direct-user" placeholder="Discord ID או שם משתמש..." style="flex:1;">
+          <select class="adm-input" id="adm-direct-type" style="width:auto;">
+            <option value="bronze">🥉 ברונזה</option>
+            <option value="silver">🥈 כסף</option>
+            <option value="gold">🥇 זהב</option>
+            <option value="diamond">💎 יהלום</option>
+          </select>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="adm-btn green" onclick="admGrantVip()">👑 תן VIP</button>
+          <button class="adm-btn red" onclick="admRevokeVip()">❌ הסר VIP</button>
+        </div>
+        <div id="adm-direct-msg" style="margin-top:8px;font-size:0.8rem;min-height:20px;"></div>
       </div>
-      <div style="margin-top:10px;">
-        <input class="adm-input" id="adm-broadcast-text" placeholder="הודעה לכל המשתמשים...">
+
+      <!-- GIVE COINS -->
+      <div class="adm-section">
+        <div class="adm-section-title">🪙 מתן מטבעות</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <input class="adm-input" id="adm-coins-user" placeholder="Discord ID או שם..." style="flex:1;min-width:140px;">
+          <input class="adm-input" id="adm-coins-amount" type="number" value="500" min="1" placeholder="כמות" style="width:100px;">
+          <button class="adm-btn gold" onclick="admGiveCoins()">🪙 תן מטבעות</button>
+        </div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;">
+          <button class="adm-btn" onclick="document.getElementById('adm-coins-amount').value=100" style="padding:5px 12px;font-size:0.72rem;background:#333;">100</button>
+          <button class="adm-btn" onclick="document.getElementById('adm-coins-amount').value=500" style="padding:5px 12px;font-size:0.72rem;background:#333;">500</button>
+          <button class="adm-btn" onclick="document.getElementById('adm-coins-amount').value=1000" style="padding:5px 12px;font-size:0.72rem;background:#333;">1,000</button>
+          <button class="adm-btn" onclick="document.getElementById('adm-coins-amount').value=5000" style="padding:5px 12px;font-size:0.72rem;background:#333;">5,000</button>
+          <button class="adm-btn" onclick="document.getElementById('adm-coins-amount').value=10000" style="padding:5px 12px;font-size:0.72rem;background:#333;">10,000</button>
+        </div>
+        <div id="adm-coins-msg" style="margin-top:8px;font-size:0.8rem;min-height:20px;"></div>
       </div>
+
+      <!-- GIVE XP/LEVEL -->
+      <div class="adm-section">
+        <div class="adm-section-title">⚡ מתן XP / רמה</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <input class="adm-input" id="adm-xp-user" placeholder="Discord ID או שם..." style="flex:1;min-width:140px;">
+          <input class="adm-input" id="adm-xp-amount" type="number" value="100" min="1" placeholder="XP" style="width:100px;">
+          <button class="adm-btn" onclick="admGiveXP()" style="background:linear-gradient(135deg,#2563eb,#0ea5e9);">⚡ תן XP</button>
+        </div>
+        <div id="adm-xp-msg" style="margin-top:8px;font-size:0.8rem;min-height:20px;"></div>
+      </div>
+
+      <!-- BAN USER -->
+      <div class="adm-section">
+        <div class="adm-section-title">🚫 באן / חסימת משתמש</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <input class="adm-input" id="adm-ban-user" placeholder="Discord ID או שם..." style="flex:1;min-width:140px;">
+          <input class="adm-input" id="adm-ban-reason" placeholder="סיבה..." style="flex:1;min-width:140px;">
+          <button class="adm-btn red" onclick="admBanUser()">🚫 באן</button>
+          <button class="adm-btn green" onclick="admUnbanUser()">✅ הסר באן</button>
+        </div>
+        <div id="adm-ban-msg" style="margin-top:8px;font-size:0.8rem;min-height:20px;"></div>
+        <div id="adm-ban-list" style="margin-top:10px;"></div>
+      </div>
+
+      <!-- VIP USERS -->
+      <div class="adm-section">
+        <div class="adm-section-title">📊 VIP משתמשים פעילים</div>
+        <div class="adm-users-list" id="adm-vip-users"></div>
+      </div>
+
+      <!-- BROADCAST & SETTINGS -->
+      <div class="adm-section">
+        <div class="adm-section-title">📢 הודעה לכולם</div>
+        <div style="display:flex;gap:8px;">
+          <input class="adm-input" id="adm-broadcast-text" placeholder="הודעה לכל המשתמשים..." style="flex:1;">
+          <button class="adm-btn" onclick="admBroadcastMsg()">📢 שדר</button>
+        </div>
+      </div>
+
+      <div class="adm-section">
+        <div class="adm-section-title">⚙️ כלים</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="adm-btn red" onclick="admResetAllCodes()">🗑️ מחק כל הקודים</button>
+          <button class="adm-btn" onclick="admExportData()" style="background:#333;">📋 ייצוא נתונים</button>
+          <button class="adm-btn" onclick="admChangePass()" style="background:#333;">🔑 שנה קוד גישה</button>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -1741,6 +1825,7 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
     <li><a href="#" onclick="openDash();document.querySelector('.nav-links').classList.remove('mobile-open');return false" style="color:#0ea5e9;text-shadow:0 0 10px rgba(14,165,233,0.4);">📊 דשבורד</a></li>
     <li><a href="#" onclick="openCasino();document.querySelector('.nav-links').classList.remove('mobile-open');return false" style="color:#f59e0b;text-shadow:0 0 10px rgba(245,158,11,0.4);">🎰 קזינו</a></li>
     <li><a href="#" onclick="openVipRedeem();document.querySelector('.nav-links').classList.remove('mobile-open');return false" style="color:#fbbf24;text-shadow:0 0 10px rgba(245,158,11,0.4);">👑 VIP</a></li>
+    <li><a href="#" onclick="openAdmin();document.querySelector('.nav-links').classList.remove('mobile-open');return false" style="color:#c084fc;text-shadow:0 0 10px rgba(168,85,247,0.5);font-weight:700;">👑 רני</a></li>
   </ul>
   <div class="nav-right">
     <input class="nav-search" type="text" placeholder="🔍 חפש קבצים..." id="searchInput" oninput="handleSearch(this.value)">
@@ -4334,18 +4419,68 @@ desExport=function(){
   _origDesExport();
 };
 
-// ===== ADMIN + VIP SYSTEM =====
-const ADM_PASS='rani2024';
+// ===== RANI PANEL + VIP SYSTEM =====
+let admLoggedIn=false;
+function admGetPass(){return localStorage.getItem('rl_adm_pass')||'rani2024';}
 
 function openAdmin(){
-  const pass=prompt('🔑 סיסמת אדמין:');
-  if(pass!==ADM_PASS){if(pass!==null)alert('❌ סיסמה שגויה');return;}
   document.getElementById('admin-page').classList.add('open');
-  admRefreshCodes();
-  admRefreshVipUsers();
-  dashLogActivity('👑','פתח פאנל אדמין');
+  if(admLoggedIn){
+    document.getElementById('adm-login-gate').style.display='none';
+    document.getElementById('adm-main-content').style.display='block';
+    admRefreshAll();
+  }else{
+    document.getElementById('adm-login-gate').style.display='';
+    document.getElementById('adm-main-content').style.display='none';
+    document.getElementById('adm-login-status').textContent='🔒 נעול';
+    setTimeout(()=>{const inp=document.getElementById('adm-pass-input');if(inp)inp.focus();},300);
+  }
 }
 function closeAdmin(){document.getElementById('admin-page').classList.remove('open');}
+
+function admTryLogin(){
+  const inp=document.getElementById('adm-pass-input');
+  const pass=inp?inp.value.trim():'';
+  if(pass===admGetPass()){
+    admLoggedIn=true;
+    document.getElementById('adm-login-gate').style.display='none';
+    document.getElementById('adm-main-content').style.display='block';
+    document.getElementById('adm-login-status').innerHTML='<span style="color:#4ade80;">🔓 מחובר</span>';
+    admRefreshAll();
+    dashLogActivity('👑','כניסה לפאנל רני');
+    if(inp) inp.value='';
+  }else{
+    document.getElementById('adm-login-msg').innerHTML='<span style="color:#f87171;">❌ קוד שגוי!</span>';
+    if(inp){inp.style.borderColor='#ef4444';setTimeout(()=>{inp.style.borderColor='';},1500);}
+  }
+}
+// Enter key on password input
+document.addEventListener('keydown',function(e){
+  if(e.key==='Enter'){
+    const inp=document.getElementById('adm-pass-input');
+    if(inp&&document.activeElement===inp) admTryLogin();
+  }
+});
+
+function admRefreshAll(){
+  admRefreshCodes();admRefreshVipUsers();admRefreshBanList();admRefreshStats();
+}
+function admRefreshStats(){
+  const users=admGetVipUsers();
+  const codes=admGetCodes().filter(c=>c.usedBy.length<c.maxUses);
+  const visits=localStorage.getItem('rl_total_visits')||'0';
+  const el1=document.getElementById('adm-stat-vips');if(el1)el1.textContent=Object.keys(users).length;
+  const el2=document.getElementById('adm-stat-codes');if(el2)el2.textContent=codes.length;
+  const el3=document.getElementById('adm-stat-visits');if(el3)el3.textContent=visits;
+}
+
+function admChangePass(){
+  const newPass=prompt('הכנס קוד גישה חדש:');
+  if(!newPass||newPass.length<4){alert('❌ קוד חייב להיות לפחות 4 תווים');return;}
+  localStorage.setItem('rl_adm_pass',newPass);
+  alert('✅ קוד גישה שונה!');
+  admSendToDiscord('🔑 קוד גישה שונה','קוד חדש הוגדר לפאנל רני');
+}
 
 // VIP Codes stored in localStorage as JSON array
 function admGetCodes(){try{return JSON.parse(localStorage.getItem('rl_vip_codes')||'[]');}catch(e){return[];}}
@@ -4357,26 +4492,29 @@ function admSaveVipUsers(users){localStorage.setItem('rl_vip_users',JSON.stringi
 function admCreateVipCode(){
   const type=document.getElementById('adm-vip-type').value;
   const uses=parseInt(document.getElementById('adm-vip-uses').value)||1;
+  const days=parseInt(document.getElementById('adm-vip-days').value)||30;
   const code='VIP-'+type.charAt(0).toUpperCase()+'-'+Math.random().toString(36).substr(2,8).toUpperCase();
   const codes=admGetCodes();
-  codes.push({code,type,maxUses:uses,usedBy:[],created:Date.now()});
+  codes.push({code,type,maxUses:uses,days,usedBy:[],created:Date.now()});
   admSaveCodes(codes);
-  admRefreshCodes();
-  // Send to Discord
-  admSendToDiscord('🎫 קוד VIP חדש','קוד: `'+code+'`\nסוג: **'+admVipLabel(type)+'**\nשימושים: '+uses);
+  admRefreshCodes();admRefreshStats();
+  admSendToDiscord('🎫 קוד VIP חדש','קוד: `'+code+'`\nסוג: **'+admVipLabel(type)+'**\nשימושים: '+uses+'\nימים: '+days);
 }
 
 function admVipLabel(type){
+  if(type==='diamond') return '💎 יהלום';
   if(type==='gold') return '🥇 זהב';
   if(type==='silver') return '🥈 כסף';
   return '🥉 ברונזה';
 }
 function admVipMulti(type){
+  if(type==='diamond') return 5;
   if(type==='gold') return 3;
   if(type==='silver') return 2;
   return 1.5;
 }
 function admVipBonus(type){
+  if(type==='diamond') return 1000;
   if(type==='gold') return 500;
   if(type==='silver') return 300;
   return 150;
@@ -4533,6 +4671,71 @@ function vipUpdateUI(){
   }
 }
 
+// Ban system
+function admGetBans(){try{return JSON.parse(localStorage.getItem('rl_bans')||'{}');}catch(e){return{};}}
+function admSaveBans(b){localStorage.setItem('rl_bans',JSON.stringify(b));}
+
+function admBanUser(){
+  const user=document.getElementById('adm-ban-user').value.trim();
+  const reason=document.getElementById('adm-ban-reason').value.trim()||'ללא סיבה';
+  if(!user){document.getElementById('adm-ban-msg').innerHTML='<span style="color:#f87171;">❌ הכנס שם או ID</span>';return;}
+  const bans=admGetBans();
+  bans[user]={reason,date:Date.now()};
+  admSaveBans(bans);
+  document.getElementById('adm-ban-msg').innerHTML='<span style="color:#f87171;">🚫 '+user+' נחסם — '+reason+'</span>';
+  admRefreshBanList();
+  admSendToDiscord('🚫 משתמש נחסם','משתמש: **'+user+'**\nסיבה: '+reason);
+}
+function admUnbanUser(){
+  const user=document.getElementById('adm-ban-user').value.trim();
+  if(!user) return;
+  const bans=admGetBans();
+  delete bans[user];
+  admSaveBans(bans);
+  document.getElementById('adm-ban-msg').innerHTML='<span style="color:#4ade80;">✅ '+user+' שוחרר</span>';
+  admRefreshBanList();
+  admSendToDiscord('✅ באן הוסר','משתמש: **'+user+'**');
+}
+function admRefreshBanList(){
+  const bans=admGetBans();
+  const el=document.getElementById('adm-ban-list');
+  if(!el) return;
+  const keys=Object.keys(bans);
+  if(!keys.length){el.innerHTML='';return;}
+  el.innerHTML='<div style="font-size:0.72rem;color:#666;margin-bottom:6px;">חסומים:</div>'+keys.map(k=>'<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.12);border-radius:8px;margin-bottom:4px;font-size:0.78rem;"><span style="color:#f87171;">🚫 '+k+'</span><span style="color:#555;">'+bans[k].reason+'</span></div>').join('');
+}
+
+// XP system
+function admGiveXP(){
+  const user=document.getElementById('adm-xp-user').value.trim();
+  const amount=parseInt(document.getElementById('adm-xp-amount').value)||0;
+  if(!user||amount<1){document.getElementById('adm-xp-msg').innerHTML='<span style="color:#f87171;">❌ הכנס פרטים תקינים</span>';return;}
+  const myName=localStorage.getItem('rl_username')||'';
+  const myId=localStorage.getItem('rl_discord_id')||'';
+  if(user===myName||user===myId){
+    const xp=parseInt(localStorage.getItem('rl_xp')||'0')+amount;
+    localStorage.setItem('rl_xp',''+xp);
+  }
+  document.getElementById('adm-xp-msg').innerHTML='<span style="color:#4ade80;">✅ '+amount+' XP ניתנו ל-'+user+'</span>';
+  admSendToDiscord('⚡ XP ניתן','משתמש: **'+user+'**\nכמות: **'+amount+'** XP');
+}
+
+// Export data
+function admExportData(){
+  const data={
+    vipUsers:admGetVipUsers(),
+    codes:admGetCodes(),
+    bans:admGetBans(),
+    totalVisits:localStorage.getItem('rl_total_visits')||'0',
+    exportDate:new Date().toISOString()
+  };
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download='rani-panel-export-'+Date.now()+'.json';a.click();
+  URL.revokeObjectURL(url);
+}
+
 // Check broadcast messages
 function vipCheckBroadcast(){
   try{
@@ -4545,19 +4748,6 @@ function vipCheckBroadcast(){
     }
   }catch(e){}
 }
-
-// Secret admin trigger: type "admin" in search
-(function(){
-  const _origSearch=typeof handleSearch==='function'?handleSearch:null;
-  const si=document.getElementById('searchInput');
-  if(si){
-    si.addEventListener('keydown',function(e){
-      if(e.key==='Enter'&&si.value.trim().toLowerCase()==='admin'){
-        e.preventDefault();si.value='';openAdmin();
-      }
-    });
-  }
-})();
 
 // ===== CASINO =====
 let casFlipSide='heads';
@@ -4576,6 +4766,7 @@ function closeCasino(){document.getElementById('casino-page').classList.remove('
 
 function casVipMulti(){
   const t=vipGetType();
+  if(t==='diamond') return 5;
   if(t==='gold') return 3;
   if(t==='silver') return 2;
   if(t==='bronze') return 1.5;
