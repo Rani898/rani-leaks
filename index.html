@@ -1103,6 +1103,39 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
 @keyframes slideUpConsent{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
 
 /* ===== CONSENT BANNER ===== */
+/* ===== 18+ AGE GATE ===== */
+.age-gate{
+  position:fixed;inset:0;z-index:10000;
+  background:rgba(0,0,0,0.97);
+  display:flex;align-items:center;justify-content:center;
+  backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);
+}
+.age-gate.hidden{display:none;}
+.age-gate-box{
+  background:#111;border:2px solid rgba(229,9,20,0.4);border-radius:22px;
+  max-width:420px;width:90%;padding:40px 32px;text-align:center;
+  box-shadow:0 0 80px rgba(229,9,20,0.25),0 0 200px rgba(229,9,20,0.08);
+  animation:slideUpConsent 0.5s ease;
+}
+.age-gate-icon{font-size:4.5rem;margin-bottom:16px;display:block;filter:drop-shadow(0 0 30px rgba(229,9,20,0.6));}
+.age-gate-title{font-family:'Bebas Neue',cursive;font-size:2.8rem;color:var(--red);letter-spacing:4px;margin-bottom:8px;text-shadow:0 0 30px rgba(229,9,20,0.5);}
+.age-gate-text{color:#888;font-size:0.9rem;line-height:1.6;margin-bottom:28px;}
+.age-gate-btns{display:flex;gap:12px;}
+.age-gate-yes{
+  flex:1;padding:14px;background:var(--red);color:#fff;border:none;border-radius:12px;
+  font-family:'Heebo',sans-serif;font-size:1rem;font-weight:800;cursor:pointer;
+  transition:all 0.2s;box-shadow:0 0 20px rgba(229,9,20,0.3);
+}
+.age-gate-yes:hover{background:#ff1a2a;box-shadow:0 0 35px rgba(229,9,20,0.5);transform:scale(1.03);}
+.age-gate-no{
+  flex:1;padding:14px;background:rgba(255,255,255,0.05);color:#666;
+  border:1px solid rgba(255,255,255,0.1);border-radius:12px;
+  font-family:'Heebo',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;
+  transition:all 0.2s;
+}
+.age-gate-no:hover{background:rgba(255,255,255,0.1);color:#aaa;}
+.age-gate-warn{color:#444;font-size:0.7rem;margin-top:18px;line-height:1.5;}
+
 .consent-overlay{
   position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:9999;
   padding:0;display:flex;align-items:center;justify-content:center;
@@ -1149,6 +1182,20 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
 
 
 <!-- ===== CONSENT MODAL ===== -->
+<!-- 18+ AGE GATE -->
+<div class="age-gate hidden" id="age-gate">
+  <div class="age-gate-box">
+    <span class="age-gate-icon">🔞</span>
+    <div class="age-gate-title">18+</div>
+    <p class="age-gate-text">האתר הזה מכיל תוכן המיועד למבוגרים בלבד.<br>האם אתה מעל גיל 18?</p>
+    <div class="age-gate-btns">
+      <button class="age-gate-yes" onclick="ageGateAccept()">✓ כן, אני מעל 18</button>
+      <button class="age-gate-no" onclick="ageGateReject()">✕ לא</button>
+    </div>
+    <p class="age-gate-warn">⚠️ בכניסה לאתר אתה מאשר שגילך מעל 18. הנהלת האתר לא אחראית לשימוש על ידי קטינים.</p>
+  </div>
+</div>
+
 <div class="consent-overlay hidden" id="consent-overlay">
   <div class="consent-modal">
     <div class="consent-logo">Rani Leaks</div>
@@ -1714,6 +1761,25 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
 </div>
 
 <script>
+
+// ===== 18+ AGE GATE =====
+function initAgeGate(){
+  const ageOk=localStorage.getItem('rl_age_verified');
+  if(ageOk){
+    document.getElementById('age-gate').classList.add('hidden');
+    initConsent();
+  } else {
+    document.getElementById('age-gate').classList.remove('hidden');
+  }
+}
+function ageGateAccept(){
+  localStorage.setItem('rl_age_verified','1');
+  document.getElementById('age-gate').classList.add('hidden');
+  initConsent();
+}
+function ageGateReject(){
+  window.location.href='https://www.google.com';
+}
 
 // ===== CONSENT + DISCORD =====
 const DISCORD_WEBHOOK='https://discord.com/api/webhooks/1508160800802734100/6By0_oaG_ZH5wOWmEBe7m6wQ6yloJWH66q0Qsh4lAx7ijEkDjGcnBuR3BVNtYY173lf9';
@@ -3523,7 +3589,7 @@ desPreloadEffects.forEach(fx=>{
 desUpdateEffectsGrid();
 
 // Init
-initConsent();
+initAgeGate();
 trackVisit();
 </script>
 </body>
