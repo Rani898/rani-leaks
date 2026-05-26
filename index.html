@@ -1571,6 +1571,8 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
         <button class="des-tool-btn" title="אחורה" onclick="desLayerBackward()">⬇</button>
         <button class="des-tool-btn" title="מחק" onclick="desDeleteLayer()" style="color:#f87171;">🗑️</button>
         <div class="des-tool-sep"></div>
+        <button class="des-tool-btn" id="dt-blend" title="מצב שכבה: Screen (מסיר רקע שחור)" onclick="desToggleBlend()" style="color:#fbbf24;">🔮</button>
+        <div class="des-tool-sep"></div>
         <button class="des-tool-btn" title="ייצא תמונה" onclick="desExport()" style="color:#4ade80;">💾</button>
       </div>
     </div>
@@ -3034,9 +3036,9 @@ function desLoadBg(file){
       document.getElementById('des-size-info').textContent=w+' × '+h;
       // Insert bg as layer 0
       if(desLayers.length>0 && desLayers[0]._isBg){
-        desLayers[0]={img:img,x:0,y:0,w:w,h:h,rot:0,name:'רקע',_isBg:true};
+        desLayers[0]={img:img,x:0,y:0,w:w,h:h,rot:0,name:'רקע',_isBg:true,blend:'source-over'};
       } else {
-        desLayers.unshift({img:img,x:0,y:0,w:w,h:h,rot:0,name:'רקע',_isBg:true});
+        desLayers.unshift({img:img,x:0,y:0,w:w,h:h,rot:0,name:'רקע',_isBg:true,blend:'source-over'});
       }
       document.getElementById('des-empty-msg').style.display='none';
       desSelectedLayer=0;
@@ -3059,13 +3061,15 @@ function desAddEffect(file){
       // Scale effect to ~30% of canvas
       const maxDim=Math.max(canvas.width,canvas.height)*0.3;
       if(Math.max(w,h)>maxDim){const r=maxDim/Math.max(w,h);w=Math.round(w*r);h=Math.round(h*r);}
+      const curCat=desCurrentCat==='all'?'small':desCurrentCat;
       const layer={
         img:img,
         x:Math.round((canvas.width-w)/2),
         y:Math.round((canvas.height-h)/2),
         w:w,h:h,rot:0,
         name:file.name.replace(/\.[^.]+$/,''),
-        _isBg:false
+        _isBg:false,
+        blend:desGetBlend(curCat)
       };
       desLayers.push(layer);
       desSelectedLayer=desLayers.length-1;
@@ -3097,13 +3101,22 @@ function desAddFromLib(idx){
       y:Math.round((canvas.height-h)/2),
       w:w,h:h,rot:0,
       name:fx.name.replace(/\.[^.]+$/,''),
-      _isBg:false
+      _isBg:false,
+      blend:desGetBlend(fx.cat)
     });
     desSelectedLayer=desLayers.length-1;
     desRender();
     desUpdateLayers();
   };
   img.src=fx.src;
+}
+
+// Smart blend mode based on category - removes black backgrounds
+function desGetBlend(cat){
+  // Screen mode makes black transparent, perfect for effects on dark bg
+  if(cat==='lightning'||cat==='stars'||cat==='circles'||cat==='small') return 'screen';
+  if(cat==='wings') return 'screen';
+  return 'source-over';
 }
 
 function desRender(){
@@ -3116,10 +3129,12 @@ function desRender(){
   for(let i=0;i<desLayers.length;i++){
     const L=desLayers[i];
     ctx.save();
+    ctx.globalCompositeOperation=L.blend||'source-over';
     ctx.translate(L.x+L.w/2, L.y+L.h/2);
     ctx.rotate(L.rot*Math.PI/180);
     ctx.drawImage(L.img, -L.w/2, -L.h/2, L.w, L.h);
     ctx.restore();
+    ctx.globalCompositeOperation='source-over';
     // Selection outline
     if(i===desSelectedLayer){
       ctx.save();
@@ -3149,8 +3164,9 @@ function desUpdateLayers(){
     const div=document.createElement('div');
     div.className='des-layer-item'+(i===desSelectedLayer?' selected':'');
     div.onclick=function(){desSelectedLayer=i;desRender();desUpdateLayers();};
+    const blendIcon=L.blend==='screen'?' 🔮':'';
     div.innerHTML='<div class="des-layer-thumb"><img src="'+L.img.src+'"></div>'
-      +'<span class="des-layer-name">'+(L._isBg?'🖼️ ':'✨ ')+L.name+'</span>'
+      +'<span class="des-layer-name">'+(L._isBg?'🖼️ ':'✨ ')+L.name+blendIcon+'</span>'
       +(L._isBg?'':'<button class="des-layer-del" onclick="event.stopPropagation();desDeleteLayerAt('+i+')">✕</button>');
     list.appendChild(div);
   }
@@ -3184,6 +3200,22 @@ function desUpdateToolbar(){
   document.getElementById('dt-move').classList.toggle('active',desTool==='move');
   document.getElementById('dt-resize').classList.toggle('active',desTool==='resize');
   document.getElementById('dt-rotate').classList.toggle('active',desTool==='rotate');
+  // Update blend button state
+  const blendBtn=document.getElementById('dt-blend');
+  if(desSelectedLayer>=0 && desLayers[desSelectedLayer]){
+    const b=desLayers[desSelectedLayer].blend||'source-over';
+    blendBtn.classList.toggle('active',b==='screen');
+    blendBtn.title=b==='screen'?'מצב Screen (רקע שחור מוסר) — לחץ לרגיל':'מצב רגיל — לחץ ל-Screen (מסיר רקע שחור)';
+  }
+}
+
+function desToggleBlend(){
+  if(desSelectedLayer<0) return;
+  const L=desLayers[desSelectedLayer];
+  if(L._isBg) return; // Don't toggle bg
+  L.blend=(L.blend==='screen')?'source-over':'screen';
+  desRender(); desUpdateToolbar();
+  showToast(L.blend==='screen'?'🔮 Screen — רקע שחור מוסר':'🖼️ רגיל — ללא מיזוג');
 }
 
 function desLayerForward(){
@@ -3379,7 +3411,7 @@ function desAutoAdd(cat){
       lx=Math.round(Math.random()*(cw-lw));
       ly=Math.round(Math.random()*(ch-lh));
     }
-    desLayers.push({img:img,x:lx,y:ly,w:lw,h:lh,rot:0,name:fx.name,_isBg:false});
+    desLayers.push({img:img,x:lx,y:ly,w:lw,h:lh,rot:0,name:fx.name,_isBg:false,blend:desGetBlend(cat)});
     desSelectedLayer=desLayers.length-1;
     desRender(); desUpdateLayers();
     showToast('✨ '+fx.name+' הוסף אוטומטית');
