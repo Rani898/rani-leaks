@@ -1119,6 +1119,94 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
 @keyframes slideUpConsent{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
 
 /* ===== CONSENT BANNER ===== */
+/* ===== CASINO PAGE ===== */
+.casino-page{
+  position:fixed;inset:0;z-index:300;background:#050505;overflow-y:auto;
+  transform:translateY(100%);transition:transform 0.45s cubic-bezier(.2,.8,.3,1);
+  scrollbar-width:thin;scrollbar-color:#2a2a2a transparent;
+}
+.casino-page::before{
+  content:'';position:fixed;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 60% 40% at 30% 10%,rgba(245,158,11,0.08) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 35% at 70% 20%,rgba(229,9,20,0.06) 0%,transparent 60%);
+}
+.casino-page.open{transform:translateY(0);}
+.cas-topbar{
+  position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:14px 5vw;
+  background:rgba(5,5,5,0.92);backdrop-filter:blur(24px);border-bottom:1px solid rgba(245,158,11,0.2);
+}
+.cas-topbar-title{font-family:'Bebas Neue',cursive;font-size:1.6rem;color:#f59e0b;letter-spacing:3px;text-shadow:0 0 22px rgba(245,158,11,0.6);}
+.cas-coins-display{
+  display:flex;align-items:center;gap:8px;
+  background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);
+  padding:6px 16px;border-radius:20px;font-family:'Bebas Neue',cursive;font-size:1.2rem;
+  color:#fbbf24;letter-spacing:2px;text-shadow:0 0 10px rgba(245,158,11,0.4);
+}
+.cas-close{background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.2);color:#fbbf24;padding:8px 20px;border-radius:8px;font-family:'Heebo',sans-serif;font-size:0.88rem;cursor:pointer;transition:all 0.2s;}
+.cas-close:hover{background:rgba(245,158,11,0.15);color:#fff;}
+.cas-content{max-width:800px;margin:0 auto;padding:30px 5vw 60px;position:relative;z-index:1;}
+.cas-hero{text-align:center;margin-bottom:30px;}
+.cas-hero-icon{font-size:4rem;margin-bottom:8px;display:block;animation:float 3s ease-in-out infinite;filter:drop-shadow(0 0 30px rgba(245,158,11,0.5));}
+.cas-hero h2{font-family:'Bebas Neue',cursive;font-size:2.5rem;letter-spacing:3px;}
+.cas-hero h2 span{color:#f59e0b;text-shadow:0 0 25px rgba(245,158,11,0.5);}
+.cas-games{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.cas-game{
+  background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:16px;
+  padding:24px 20px;text-align:center;transition:all 0.25s;cursor:default;
+}
+.cas-game:hover{border-color:rgba(245,158,11,0.25);box-shadow:0 0 25px rgba(245,158,11,0.08);}
+.cas-game-icon{font-size:2.5rem;margin-bottom:10px;display:block;}
+.cas-game-title{font-family:'Bebas Neue',cursive;font-size:1.3rem;letter-spacing:2px;color:#fff;margin-bottom:6px;}
+.cas-game-desc{font-size:0.72rem;color:#666;margin-bottom:14px;}
+.cas-bet-row{display:flex;align-items:center;gap:8px;justify-content:center;margin-bottom:12px;}
+.cas-bet-input{
+  width:80px;text-align:center;padding:8px;background:#111;border:1px solid rgba(245,158,11,0.2);
+  color:#fbbf24;border-radius:8px;font-family:'Bebas Neue',cursive;font-size:1rem;letter-spacing:2px;outline:none;
+}
+.cas-bet-input:focus{border-color:rgba(245,158,11,0.5);}
+.cas-bet-label{font-size:0.72rem;color:#888;}
+.cas-play-btn{
+  padding:10px 28px;background:linear-gradient(135deg,#f59e0b,#d97706);color:#000;border:none;
+  border-radius:10px;font-family:'Heebo',sans-serif;font-size:0.9rem;font-weight:800;cursor:pointer;
+  transition:all 0.2s;box-shadow:0 0 15px rgba(245,158,11,0.3);
+}
+.cas-play-btn:hover{transform:scale(1.05);box-shadow:0 0 25px rgba(245,158,11,0.5);}
+.cas-play-btn:disabled{opacity:0.4;cursor:not-allowed;transform:none;}
+.cas-result{
+  margin-top:12px;font-size:1rem;font-weight:700;min-height:30px;
+  transition:all 0.3s;
+}
+.cas-result.win{color:#4ade80;text-shadow:0 0 15px rgba(74,222,128,0.5);animation:shakeX 0.5s;}
+.cas-result.lose{color:#f87171;text-shadow:0 0 15px rgba(248,113,113,0.5);}
+.cas-slots-display{display:flex;gap:8px;justify-content:center;margin:14px 0;}
+.cas-slot{
+  width:60px;height:70px;background:#111;border:2px solid rgba(245,158,11,0.2);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;font-size:2rem;
+  transition:all 0.15s;
+}
+.cas-slot.spinning{animation:slotSpin 0.1s linear infinite;}
+@keyframes slotSpin{0%{transform:translateY(-3px);}50%{transform:translateY(3px);}100%{transform:translateY(-3px);}}
+.cas-roulette-wheel{
+  width:180px;height:180px;border-radius:50%;margin:14px auto;
+  background:conic-gradient(#E50914 0deg 9.7deg,#111 9.7deg 19.5deg,#E50914 19.5deg 29.2deg,#111 29.2deg 38.9deg,#E50914 38.9deg 48.6deg,#111 48.6deg 58.4deg,#E50914 58.4deg 68.1deg,#111 68.1deg 77.8deg,#E50914 77.8deg 87.6deg,#111 87.6deg 97.3deg,#E50914 97.3deg 107deg,#111 107deg 116.8deg,#E50914 116.8deg 126.5deg,#111 126.5deg 136.2deg,#E50914 136.2deg 145.9deg,#111 145.9deg 155.7deg,#E50914 155.7deg 165.4deg,#111 165.4deg 175.1deg,#46d369 175.1deg 184.9deg,#E50914 184.9deg 194.6deg,#111 194.6deg 204.3deg,#E50914 204.3deg 214deg,#111 214deg 223.8deg,#E50914 223.8deg 233.5deg,#111 233.5deg 243.2deg,#E50914 243.2deg 253deg,#111 253deg 262.7deg,#E50914 262.7deg 272.4deg,#111 272.4deg 282.2deg,#E50914 282.2deg 291.9deg,#111 291.9deg 301.6deg,#E50914 301.6deg 311.4deg,#111 311.4deg 321.1deg,#E50914 321.1deg 330.8deg,#111 330.8deg 340.5deg,#E50914 340.5deg 350.3deg,#111 350.3deg 360deg);
+  border:4px solid rgba(245,158,11,0.4);box-shadow:0 0 30px rgba(245,158,11,0.2);
+  transition:transform 3s cubic-bezier(0.2,0.8,0.3,1);position:relative;
+}
+.cas-roulette-pointer{
+  position:absolute;top:-12px;left:50%;transform:translateX(-50%);
+  font-size:1.5rem;z-index:2;filter:drop-shadow(0 0 8px rgba(245,158,11,0.8));
+}
+.cas-color-btns{display:flex;gap:8px;justify-content:center;margin-bottom:10px;}
+.cas-color-btn{
+  padding:8px 20px;border-radius:8px;font-family:'Heebo',sans-serif;font-weight:700;font-size:0.82rem;
+  cursor:pointer;transition:all 0.2s;border:2px solid transparent;
+}
+.cas-color-btn.red{background:rgba(229,9,20,0.2);color:#ff6b6b;border-color:rgba(229,9,20,0.3);}
+.cas-color-btn.black{background:rgba(255,255,255,0.05);color:#ccc;border-color:rgba(255,255,255,0.15);}
+.cas-color-btn.green{background:rgba(70,211,105,0.15);color:#4ade80;border-color:rgba(70,211,105,0.3);}
+.cas-color-btn.active{transform:scale(1.08);box-shadow:0 0 15px currentColor;}
+@media(max-width:600px){.cas-games{grid-template-columns:1fr;}}
+
 /* ===== DASHBOARD PAGE ===== */
 .dash-page{
   position:fixed;inset:0;z-index:300;
@@ -1263,6 +1351,105 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
 
 
 <!-- ===== CONSENT MODAL ===== -->
+<!-- CASINO PAGE -->
+<div class="casino-page" id="casino-page">
+  <div class="cas-topbar">
+    <div class="cas-topbar-title">🎰 RANI CASINO</div>
+    <div class="cas-coins-display">🪙 <span id="cas-coins">0</span></div>
+    <button class="cas-close" onclick="closeCasino()">✕ סגור</button>
+  </div>
+  <div class="cas-content">
+    <div class="cas-hero">
+      <span class="cas-hero-icon">🎰</span>
+      <h2>ברוכים הבאים ל<span>קזינו</span></h2>
+      <p style="color:#666;font-size:0.85rem;">הימר עם מטבעות וירטואליים — מרוויחים מטבעות על פעילות באתר!</p>
+      <div style="margin-top:12px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+        <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.15);padding:6px 14px;border-radius:8px;font-size:0.7rem;color:#fbbf24;">🎁 100 מטבעות בונוס יומי</div>
+        <button onclick="casDailyBonus()" style="background:#f59e0b;color:#000;border:none;padding:6px 18px;border-radius:8px;font-family:'Heebo',sans-serif;font-size:0.78rem;font-weight:800;cursor:pointer;">🎁 אסוף בונוס!</button>
+      </div>
+    </div>
+    <div class="cas-games">
+
+      <!-- COIN FLIP -->
+      <div class="cas-game">
+        <span class="cas-game-icon">🪙</span>
+        <div class="cas-game-title">הטלת מטבע</div>
+        <div class="cas-game-desc">בחר עץ או פלי — x2 על ניצחון</div>
+        <div class="cas-bet-row">
+          <span class="cas-bet-label">הימור:</span>
+          <input class="cas-bet-input" id="cas-flip-bet" type="number" value="10" min="1">
+          <span class="cas-bet-label">🪙</span>
+        </div>
+        <div style="display:flex;gap:8px;justify-content:center;margin-bottom:10px;">
+          <button class="cas-color-btn black active" id="cas-flip-heads" onclick="casFlipChoice('heads')">👑 עץ</button>
+          <button class="cas-color-btn red" id="cas-flip-tails" onclick="casFlipChoice('tails')">🦅 פלי</button>
+        </div>
+        <button class="cas-play-btn" onclick="casFlipPlay()">🪙 הטל!</button>
+        <div class="cas-result" id="cas-flip-result"></div>
+      </div>
+
+      <!-- DICE -->
+      <div class="cas-game">
+        <span class="cas-game-icon">🎲</span>
+        <div class="cas-game-title">קוביות</div>
+        <div class="cas-game-desc">מעל 7 = x2 | בדיוק 7 = x5 | שאר = הפסד</div>
+        <div class="cas-bet-row">
+          <span class="cas-bet-label">הימור:</span>
+          <input class="cas-bet-input" id="cas-dice-bet" type="number" value="10" min="1">
+          <span class="cas-bet-label">🪙</span>
+        </div>
+        <div style="display:flex;gap:12px;justify-content:center;margin:10px 0;font-size:2.5rem;">
+          <span id="cas-dice-1">🎲</span>
+          <span id="cas-dice-2">🎲</span>
+        </div>
+        <button class="cas-play-btn" onclick="casDicePlay()">🎲 הטל קוביות!</button>
+        <div class="cas-result" id="cas-dice-result"></div>
+      </div>
+
+      <!-- SLOTS -->
+      <div class="cas-game">
+        <span class="cas-game-icon">🍒</span>
+        <div class="cas-game-title">סלוטים</div>
+        <div class="cas-game-desc">3 זהים = x10 | 2 זהים = x3</div>
+        <div class="cas-bet-row">
+          <span class="cas-bet-label">הימור:</span>
+          <input class="cas-bet-input" id="cas-slots-bet" type="number" value="10" min="1">
+          <span class="cas-bet-label">🪙</span>
+        </div>
+        <div class="cas-slots-display">
+          <div class="cas-slot" id="cas-s1">🍒</div>
+          <div class="cas-slot" id="cas-s2">🍋</div>
+          <div class="cas-slot" id="cas-s3">🔔</div>
+        </div>
+        <button class="cas-play-btn" onclick="casSlotsPlay()">🍒 סובב!</button>
+        <div class="cas-result" id="cas-slots-result"></div>
+      </div>
+
+      <!-- ROULETTE -->
+      <div class="cas-game">
+        <span class="cas-game-icon">🎡</span>
+        <div class="cas-game-title">רולטה</div>
+        <div class="cas-game-desc">אדום/שחור = x2 | ירוק = x14</div>
+        <div class="cas-bet-row">
+          <span class="cas-bet-label">הימור:</span>
+          <input class="cas-bet-input" id="cas-roul-bet" type="number" value="10" min="1">
+          <span class="cas-bet-label">🪙</span>
+        </div>
+        <div class="cas-color-btns">
+          <button class="cas-color-btn red active" id="cas-roul-red" onclick="casRoulChoice('red')">🔴 אדום</button>
+          <button class="cas-color-btn black" id="cas-roul-black" onclick="casRoulChoice('black')">⚫ שחור</button>
+          <button class="cas-color-btn green" id="cas-roul-green" onclick="casRoulChoice('green')">🟢 ירוק</button>
+        </div>
+        <div style="position:relative;"><div class="cas-roulette-pointer">⬇️</div>
+        <div class="cas-roulette-wheel" id="cas-wheel"></div></div>
+        <button class="cas-play-btn" onclick="casRoulPlay()">🎡 סובב!</button>
+        <div class="cas-result" id="cas-roul-result"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <!-- DASHBOARD PAGE -->
 <div class="dash-page" id="dash-page">
   <div class="dash-topbar">
@@ -1399,6 +1586,7 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
     <li><a href="#" onclick="openEncPage();document.querySelector('.nav-links').classList.remove('mobile-open');return false" style="color:#38bdf8;text-shadow:0 0 10px rgba(14,165,233,0.4);">🔐 הצפנה</a></li>
     <li><a href="#" onclick="openDesigner();document.querySelector('.nav-links').classList.remove('mobile-open');return false" style="color:#a855f7;text-shadow:0 0 10px rgba(168,85,247,0.4);">🎨 עיצוב תמונות</a></li>
     <li><a href="#" onclick="openDash();document.querySelector('.nav-links').classList.remove('mobile-open');return false" style="color:#0ea5e9;text-shadow:0 0 10px rgba(14,165,233,0.4);">📊 דשבורד</a></li>
+    <li><a href="#" onclick="openCasino();document.querySelector('.nav-links').classList.remove('mobile-open');return false" style="color:#f59e0b;text-shadow:0 0 10px rgba(245,158,11,0.4);">🎰 קזינו</a></li>
   </ul>
   <div class="nav-right">
     <input class="nav-search" type="text" placeholder="🔍 חפש קבצים..." id="searchInput" oninput="handleSearch(this.value)">
@@ -1529,6 +1717,7 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
       <div class="profile-menu-item" onclick="closeProfile();openDash()" style="color:#0ea5e9"><div class="profile-menu-icon">📊</div>דשבורד</div>
       <div class="profile-menu-item" onclick="closeProfile();openDesigner()" style="color:#a855f7"><div class="profile-menu-icon">🎨</div>עיצוב תמונות</div>
       <div class="profile-menu-item" onclick="closeProfile();openEncPage()" style="color:#38bdf8"><div class="profile-menu-icon">🔐</div>הצפנה</div>
+      <div class="profile-menu-item" onclick="closeProfile();openCasino()" style="color:#f59e0b"><div class="profile-menu-icon">🎰</div>קזינו</div>
       <div class="profile-menu-item" onclick="editUsername()"><div class="profile-menu-icon">👤</div>שנה שם משתמש</div>
       <div class="profile-menu-item" onclick="showDownloadHistory()"><div class="profile-menu-icon">📥</div>היסטוריית הורדות</div>
       <div class="profile-menu-item" onclick="showPrivacy()"><div class="profile-menu-icon">🔒</div>פרטיות ואבטחה</div>
@@ -3989,6 +4178,229 @@ desExport=function(){
   dashLogActivity('🎨','ייצוא עיצוב #'+c);
   _origDesExport();
 };
+
+// ===== CASINO =====
+let casFlipSide='heads';
+let casRoulColor='red';
+let casPlaying=false;
+
+function casGetCoins(){return parseInt(localStorage.getItem('rl_coins')||'0');}
+function casSetCoins(n){localStorage.setItem('rl_coins',n);document.getElementById('cas-coins').textContent=n;}
+
+function openCasino(){
+  document.getElementById('casino-page').classList.add('open');
+  casSetCoins(casGetCoins());
+  dashLogActivity('🎰','פתח קזינו');
+}
+function closeCasino(){document.getElementById('casino-page').classList.remove('open');}
+
+function casDailyBonus(){
+  const last=localStorage.getItem('rl_daily_bonus');
+  const today=new Date().toDateString();
+  if(last===today){
+    casShowResult('cas-flip-result','❌ כבר אספת בונוס היום! חזור מחר','lose');
+    return;
+  }
+  localStorage.setItem('rl_daily_bonus',today);
+  const coins=casGetCoins()+100;
+  casSetCoins(coins);
+  casShowResult('cas-flip-result','🎁 קיבלת 100 מטבעות בונוס!','win');
+  dashLogActivity('🎁','בונוס יומי — 100 מטבעות');
+}
+
+function casShowResult(id,text,type){
+  const el=document.getElementById(id);
+  el.textContent=text;
+  el.className='cas-result '+(type||'');
+  setTimeout(()=>{el.textContent='';el.className='cas-result';},4000);
+}
+
+function casFlipChoice(side){
+  casFlipSide=side;
+  document.getElementById('cas-flip-heads').classList.toggle('active',side==='heads');
+  document.getElementById('cas-flip-tails').classList.toggle('active',side==='tails');
+}
+
+function casFlipPlay(){
+  if(casPlaying) return;
+  const bet=parseInt(document.getElementById('cas-flip-bet').value)||0;
+  const coins=casGetCoins();
+  if(bet<1){casShowResult('cas-flip-result','❌ הימור מינימלי: 1','lose');return;}
+  if(bet>coins){casShowResult('cas-flip-result','❌ אין מספיק מטבעות! יש לך '+coins,'lose');return;}
+  casPlaying=true;
+  const result=Math.random()<0.5?'heads':'tails';
+  const won=result===casFlipSide;
+  const resultEmoji=result==='heads'?'👑':'🦅';
+  const resultText=result==='heads'?'עץ':'פלי';
+  if(won){
+    casSetCoins(coins+bet);
+    casShowResult('cas-flip-result',resultEmoji+' '+resultText+' — ניצחת! +'+bet+' 🪙','win');
+    dashLogActivity('🪙','הטלת מטבע — ניצחון +'+bet);
+  }else{
+    casSetCoins(coins-bet);
+    casShowResult('cas-flip-result',resultEmoji+' '+resultText+' — הפסדת -'+bet+' 🪙','lose');
+    dashLogActivity('🪙','הטלת מטבע — הפסד -'+bet);
+  }
+  casPlaying=false;
+}
+
+function casDicePlay(){
+  if(casPlaying) return;
+  const bet=parseInt(document.getElementById('cas-dice-bet').value)||0;
+  const coins=casGetCoins();
+  if(bet<1){casShowResult('cas-dice-result','❌ הימור מינימלי: 1','lose');return;}
+  if(bet>coins){casShowResult('cas-dice-result','❌ אין מספיק מטבעות! יש לך '+coins,'lose');return;}
+  casPlaying=true;
+  const d1=Math.floor(Math.random()*6)+1;
+  const d2=Math.floor(Math.random()*6)+1;
+  const diceEmojis=['','⚀','⚁','⚂','⚃','⚄','⚅'];
+  document.getElementById('cas-dice-1').textContent=diceEmojis[d1];
+  document.getElementById('cas-dice-2').textContent=diceEmojis[d2];
+  const sum=d1+d2;
+  if(sum===7){
+    const win=bet*5;
+    casSetCoins(coins+win);
+    casShowResult('cas-dice-result','🎲 '+d1+'+'+d2+'=7 בדיוק! +'+win+' 🪙','win');
+    dashLogActivity('🎲','קוביות 7 בדיוק — +'+win);
+  }else if(sum>7){
+    casSetCoins(coins+bet);
+    casShowResult('cas-dice-result','🎲 '+d1+'+'+d2+'='+sum+' מעל 7! +'+bet+' 🪙','win');
+    dashLogActivity('🎲','קוביות '+sum+' — ניצחון +'+bet);
+  }else{
+    casSetCoins(coins-bet);
+    casShowResult('cas-dice-result','🎲 '+d1+'+'+d2+'='+sum+' מתחת ל-7 — הפסד -'+bet+' 🪙','lose');
+    dashLogActivity('🎲','קוביות '+sum+' — הפסד -'+bet);
+  }
+  casPlaying=false;
+}
+
+function casSlotsPlay(){
+  if(casPlaying) return;
+  const bet=parseInt(document.getElementById('cas-slots-bet').value)||0;
+  const coins=casGetCoins();
+  if(bet<1){casShowResult('cas-slots-result','❌ הימור מינימלי: 1','lose');return;}
+  if(bet>coins){casShowResult('cas-slots-result','❌ אין מספיק מטבעות! יש לך '+coins,'lose');return;}
+  casPlaying=true;
+  const symbols=['🍒','🍋','🔔','💎','7️⃣','🍀','⭐'];
+  const s1el=document.getElementById('cas-s1');
+  const s2el=document.getElementById('cas-s2');
+  const s3el=document.getElementById('cas-s3');
+  s1el.classList.add('spinning');s2el.classList.add('spinning');s3el.classList.add('spinning');
+  let spins=0;
+  const spinInterval=setInterval(()=>{
+    s1el.textContent=symbols[Math.floor(Math.random()*symbols.length)];
+    s2el.textContent=symbols[Math.floor(Math.random()*symbols.length)];
+    s3el.textContent=symbols[Math.floor(Math.random()*symbols.length)];
+    spins++;
+    if(spins>15){
+      clearInterval(spinInterval);
+      const r1=symbols[Math.floor(Math.random()*symbols.length)];
+      const r2=symbols[Math.floor(Math.random()*symbols.length)];
+      const r3=symbols[Math.floor(Math.random()*symbols.length)];
+      s1el.textContent=r1;s2el.textContent=r2;s3el.textContent=r3;
+      s1el.classList.remove('spinning');s2el.classList.remove('spinning');s3el.classList.remove('spinning');
+      if(r1===r2&&r2===r3){
+        const win=bet*10;
+        casSetCoins(coins+win);
+        casShowResult('cas-slots-result','🎰 '+r1+r2+r3+' ג\'קפוט! +'+win+' 🪙','win');
+        dashLogActivity('🍒','סלוטים ג\'קפוט — +'+win);
+      }else if(r1===r2||r2===r3||r1===r3){
+        const win=bet*3;
+        casSetCoins(coins+win);
+        casShowResult('cas-slots-result','✨ '+r1+r2+r3+' זוג! +'+win+' 🪙','win');
+        dashLogActivity('🍒','סלוטים זוג — +'+win);
+      }else{
+        casSetCoins(coins-bet);
+        casShowResult('cas-slots-result','😔 '+r1+r2+r3+' — הפסד -'+bet+' 🪙','lose');
+        dashLogActivity('🍒','סלוטים — הפסד -'+bet);
+      }
+      casPlaying=false;
+    }
+  },80);
+}
+
+function casRoulChoice(color){
+  casRoulColor=color;
+  document.getElementById('cas-roul-red').classList.toggle('active',color==='red');
+  document.getElementById('cas-roul-black').classList.toggle('active',color==='black');
+  document.getElementById('cas-roul-green').classList.toggle('active',color==='green');
+}
+
+function casRoulPlay(){
+  if(casPlaying) return;
+  const bet=parseInt(document.getElementById('cas-roul-bet').value)||0;
+  const coins=casGetCoins();
+  if(bet<1){casShowResult('cas-roul-result','❌ הימור מינימלי: 1','lose');return;}
+  if(bet>coins){casShowResult('cas-roul-result','❌ אין מספיק מטבעות! יש לך '+coins,'lose');return;}
+  casPlaying=true;
+  const wheel=document.getElementById('cas-wheel');
+  const roulNums=[
+    {n:0,c:'green'},{n:32,c:'red'},{n:15,c:'black'},{n:19,c:'red'},{n:4,c:'black'},
+    {n:21,c:'red'},{n:2,c:'black'},{n:25,c:'red'},{n:17,c:'black'},{n:34,c:'red'},
+    {n:6,c:'black'},{n:27,c:'red'},{n:13,c:'black'},{n:36,c:'red'},{n:11,c:'black'},
+    {n:30,c:'red'},{n:8,c:'black'},{n:23,c:'red'},{n:10,c:'black'},{n:5,c:'red'},
+    {n:24,c:'black'},{n:16,c:'red'},{n:33,c:'black'},{n:1,c:'red'},{n:20,c:'black'},
+    {n:14,c:'red'},{n:31,c:'black'},{n:9,c:'red'},{n:22,c:'black'},{n:18,c:'red'},
+    {n:29,c:'black'},{n:7,c:'red'},{n:28,c:'black'},{n:12,c:'red'},{n:35,c:'black'},
+    {n:3,c:'red'},{n:26,c:'black'}
+  ];
+  // Build wheel HTML
+  if(!wheel.children.length){
+    wheel.innerHTML=roulNums.map(r=>{
+      const bg=r.c==='red'?'#e50914':r.c==='green'?'#22c55e':'#333';
+      return '<div style="display:inline-block;min-width:42px;padding:8px 4px;text-align:center;font-size:0.85rem;font-weight:700;background:'+bg+';color:#fff;border-radius:6px;">'+r.n+'</div>';
+    }).join('');
+  }
+  const resultIdx=Math.floor(Math.random()*roulNums.length);
+  const resultNum=roulNums[resultIdx];
+  // Animate scroll
+  const itemW=50;
+  const totalW=roulNums.length*itemW;
+  const target=totalW*3+resultIdx*itemW;
+  wheel.style.transition='none';
+  wheel.scrollLeft=0;
+  requestAnimationFrame(()=>{
+    wheel.style.transition='none';
+    let start=null;
+    const duration=3000;
+    const finalPos=target;
+    function animWheel(ts){
+      if(!start)start=ts;
+      const p=Math.min((ts-start)/duration,1);
+      const ease=1-Math.pow(1-p,3);
+      wheel.scrollLeft=ease*finalPos;
+      if(p<1) requestAnimationFrame(animWheel);
+      else{
+        const colorNames={red:'🔴 אדום',black:'⚫ שחור',green:'🟢 ירוק'};
+        if(resultNum.c===casRoulColor){
+          const multi=casRoulColor==='green'?14:2;
+          const win=bet*multi;
+          casSetCoins(coins+win);
+          casShowResult('cas-roul-result',colorNames[resultNum.c]+' '+resultNum.n+' — ניצחת! +'+win+' 🪙','win');
+          dashLogActivity('🎡','רולטה '+resultNum.n+' '+resultNum.c+' — ניצחון +'+win);
+        }else{
+          casSetCoins(coins-bet);
+          casShowResult('cas-roul-result',colorNames[resultNum.c]+' '+resultNum.n+' — הפסדת -'+bet+' 🪙','lose');
+          dashLogActivity('🎡','רולטה '+resultNum.n+' '+resultNum.c+' — הפסד -'+bet);
+        }
+        casPlaying=false;
+      }
+    }
+    requestAnimationFrame(animWheel);
+  });
+}
+
+// Give coins for site activity
+(function(){
+  const origLog=dashLogActivity;
+  dashLogActivity=function(icon,text){
+    origLog(icon,text);
+    if(!text.includes('קזינו')&&!text.includes('מטבע')&&!text.includes('סלוטים')&&!text.includes('קוביות')&&!text.includes('רולטה')&&!text.includes('בונוס')){
+      const c=casGetCoins()+2;
+      casSetCoins(c);
+    }
+  };
+})();
 
 // Init
 initAgeGate();
