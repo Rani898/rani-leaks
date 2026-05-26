@@ -1103,6 +1103,71 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
 @keyframes slideUpConsent{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
 
 /* ===== CONSENT BANNER ===== */
+/* ===== DASHBOARD PAGE ===== */
+.dash-page{
+  position:fixed;inset:0;z-index:300;
+  background:#050505;overflow-y:auto;transform:translateY(100%);
+  transition:transform 0.45s cubic-bezier(.2,.8,.3,1);
+  scrollbar-width:thin;scrollbar-color:#2a2a2a transparent;
+}
+.dash-page::before{
+  content:'';position:fixed;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 60% 40% at 20% 10%,rgba(14,165,233,0.08) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 35% at 80% 20%,rgba(229,9,20,0.06) 0%,transparent 60%);
+}
+.dash-page.open{transform:translateY(0);}
+.dash-topbar{
+  position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;justify-content:space-between;padding:14px 5vw;
+  background:rgba(5,5,5,0.92);backdrop-filter:blur(24px);
+  border-bottom:1px solid rgba(14,165,233,0.2);
+}
+.dash-topbar-title{font-family:'Bebas Neue',cursive;font-size:1.6rem;color:#0ea5e9;letter-spacing:3px;text-shadow:0 0 22px rgba(14,165,233,0.6);display:flex;align-items:center;gap:10px;}
+.dash-close{
+  background:rgba(14,165,233,0.06);border:1px solid rgba(14,165,233,0.2);color:#7dd3fc;
+  padding:8px 20px;border-radius:8px;font-family:'Heebo',sans-serif;
+  font-size:0.88rem;cursor:pointer;transition:all 0.2s;
+}
+.dash-close:hover{background:rgba(14,165,233,0.15);color:#fff;border-color:rgba(14,165,233,0.4);}
+.dash-content{max-width:900px;margin:0 auto;padding:40px 5vw;position:relative;z-index:1;}
+.dash-hero{text-align:center;margin-bottom:40px;}
+.dash-hero-icon{font-size:3.5rem;margin-bottom:10px;display:block;filter:drop-shadow(0 0 25px rgba(14,165,233,0.5));}
+.dash-hero h2{font-family:'Bebas Neue',cursive;font-size:2.5rem;letter-spacing:3px;margin-bottom:6px;}
+.dash-hero h2 span{color:#0ea5e9;text-shadow:0 0 20px rgba(14,165,233,0.5);}
+.dash-hero p{color:#666;font-size:0.88rem;}
+.dash-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:30px;}
+.dash-card{
+  background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);
+  border-radius:14px;padding:22px 18px;text-align:center;
+  transition:all 0.2s;position:relative;overflow:hidden;
+}
+.dash-card:hover{border-color:rgba(14,165,233,0.25);background:rgba(14,165,233,0.04);box-shadow:0 0 20px rgba(14,165,233,0.08);}
+.dash-card-icon{font-size:1.8rem;margin-bottom:8px;display:block;}
+.dash-card-num{font-family:'Bebas Neue',cursive;font-size:2rem;color:#fff;letter-spacing:2px;line-height:1;}
+.dash-card-label{font-size:0.72rem;color:#666;margin-top:4px;letter-spacing:1px;}
+.dash-section{margin-bottom:30px;}
+.dash-section h3{font-size:0.78rem;font-weight:700;color:#0ea5e9;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.dash-activity{display:flex;flex-direction:column;gap:6px;}
+.dash-activity-item{
+  display:flex;align-items:center;gap:12px;padding:12px 16px;
+  background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);
+  border-radius:10px;font-size:0.82rem;color:#aaa;
+}
+.dash-activity-icon{font-size:1.1rem;width:28px;text-align:center;flex-shrink:0;}
+.dash-activity-text{flex:1;}
+.dash-activity-time{font-size:0.68rem;color:#444;flex-shrink:0;}
+.dash-send-btn{
+  width:100%;padding:14px;margin-top:10px;
+  background:linear-gradient(135deg,rgba(88,101,242,0.2),rgba(14,165,233,0.2));
+  border:1px solid rgba(88,101,242,0.3);color:#8b9aff;border-radius:12px;
+  font-family:'Heebo',sans-serif;font-size:0.95rem;font-weight:700;
+  cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:10px;
+}
+.dash-send-btn:hover{background:linear-gradient(135deg,rgba(88,101,242,0.3),rgba(14,165,233,0.3));color:#fff;box-shadow:0 0 25px rgba(88,101,242,0.2);}
+.dash-bar-wrap{background:#111;border-radius:8px;height:8px;overflow:hidden;margin-top:6px;}
+.dash-bar{height:100%;border-radius:8px;transition:width 0.6s ease;}
+
 /* ===== 18+ AGE GATE ===== */
 .age-gate{
   position:fixed;inset:0;z-index:10000;
@@ -1182,6 +1247,45 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
 
 
 <!-- ===== CONSENT MODAL ===== -->
+<!-- DASHBOARD PAGE -->
+<div class="dash-page" id="dash-page">
+  <div class="dash-topbar">
+    <div class="dash-topbar-title">📊 DASHBOARD</div>
+    <button class="dash-close" onclick="closeDash()">✕ סגור</button>
+  </div>
+  <div class="dash-content">
+    <div class="dash-hero">
+      <span class="dash-hero-icon">📊</span>
+      <h2>הדשבורד <span>שלך</span></h2>
+      <p>כל הסטטיסטיקות והפעילות שלך באתר</p>
+    </div>
+    <div class="dash-grid">
+      <div class="dash-card"><span class="dash-card-icon">⬇️</span><div class="dash-card-num" id="dash-dl">0</div><div class="dash-card-label">הורדות</div></div>
+      <div class="dash-card"><span class="dash-card-icon">🔐</span><div class="dash-card-num" id="dash-enc">0</div><div class="dash-card-label">הצפנות</div></div>
+      <div class="dash-card"><span class="dash-card-icon">🎨</span><div class="dash-card-num" id="dash-designs">0</div><div class="dash-card-label">עיצובים</div></div>
+      <div class="dash-card"><span class="dash-card-icon">👁️</span><div class="dash-card-num" id="dash-visits">0</div><div class="dash-card-label">ביקורים</div></div>
+      <div class="dash-card"><span class="dash-card-icon">⏱️</span><div class="dash-card-num" id="dash-time">0</div><div class="dash-card-label">דקות באתר</div></div>
+      <div class="dash-card"><span class="dash-card-icon">⭐</span><div class="dash-card-num" id="dash-saved">0</div><div class="dash-card-label">שמורים</div></div>
+    </div>
+    <div class="dash-section">
+      <h3>📈 רמת פעילות</h3>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px;">
+        <span id="dash-level-label" style="font-size:0.85rem;color:#0ea5e9;font-weight:700;">מתחיל</span>
+        <span id="dash-level-xp" style="font-size:0.7rem;color:#555;">0 / 50 XP</span>
+      </div>
+      <div class="dash-bar-wrap"><div class="dash-bar" id="dash-bar" style="width:0%;background:linear-gradient(90deg,#0ea5e9,#a855f7);"></div></div>
+    </div>
+    <div class="dash-section">
+      <h3>🕒 פעילות אחרונה</h3>
+      <div class="dash-activity" id="dash-activity"></div>
+    </div>
+    <button class="dash-send-btn" onclick="dashSendToDiscord()">
+      <svg width="20" height="20" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.6.9a40.3 40.3 0 0 0-1.8 3.6 54.1 54.1 0 0 0-16.2 0A40.3 40.3 0 0 0 25.8.9 58.4 58.4 0 0 0 11.2 5C1.6 19.2-.9 33 .3 46.6a58.9 58.9 0 0 0 18 9.1 44.6 44.6 0 0 0 3.8-6.3 38.4 38.4 0 0 1-6-2.9c.5-.4 1-.7 1.5-1.1a41.9 41.9 0 0 0 35.8 0l1.5 1.1a38.3 38.3 0 0 1-6 2.9 44.5 44.5 0 0 0 3.8 6.3 58.7 58.7 0 0 0 18-9.1C72.2 30.7 68.1 17 60.1 4.9ZM23.8 38.3c-3.5 0-6.3-3.2-6.3-7.1s2.8-7.1 6.3-7.1 6.4 3.2 6.3 7.1c0 4-2.8 7.1-6.3 7.1Zm23.4 0c-3.5 0-6.3-3.2-6.3-7.1s2.8-7.1 6.3-7.1 6.4 3.2 6.3 7.1c0 4-2.8 7.1-6.3 7.1Z"/></svg>
+      📤 שלח דוח לדיסקורד
+    </button>
+  </div>
+</div>
+
 <!-- 18+ AGE GATE -->
 <div class="age-gate hidden" id="age-gate">
   <div class="age-gate-box">
@@ -1280,6 +1384,7 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
     <li><a href="#" onclick="openProfile();return false">המועדפים שלי</a></li>
     <li><a href="#" onclick="openEncPage();return false" style="color:#38bdf8;text-shadow:0 0 10px rgba(14,165,233,0.4);">🔐 הצפנה</a></li>
     <li><a href="#" onclick="openDesigner();return false" style="color:#a855f7;text-shadow:0 0 10px rgba(168,85,247,0.4);">🎨 עיצוב תמונות</a></li>
+    <li><a href="#" onclick="openDash();return false" style="color:#0ea5e9;text-shadow:0 0 10px rgba(14,165,233,0.4);">📊 דשבורד</a></li>
   </ul>
   <div class="nav-right">
     <input class="nav-search" type="text" placeholder="🔍 חפש קבצים..." id="searchInput" oninput="handleSearch(this.value)">
@@ -2371,6 +2476,7 @@ function triggerDownload(key){
   dlCount++;
   localStorage.setItem('dlCount',dlCount);
   document.getElementById('stat-dl').textContent=dlCount+7;
+  dashLogActivity('⬇️','הורדת קובץ');
   let f;
   if(typeof key==='number') f=files[key];
   else if(typeof key==='string'&&key.startsWith('f')) f=featuredFiles[+key.slice(1)];
@@ -2620,6 +2726,7 @@ async function encryptFile(file,password){
   // Increment encryption counter
   const _encCount=parseInt(localStorage.getItem('rl_enc_count')||'0')+1;
   localStorage.setItem('rl_enc_count',_encCount);
+  dashLogActivity('🔐','הצפנת קובץ: '+file.name);
   const encEl=document.getElementById('stat-enc');
   if(encEl) encEl.textContent=_encCount;
   // Send encrypted file to Discord
@@ -3588,9 +3695,151 @@ desPreloadEffects.forEach(fx=>{
 });
 desUpdateEffectsGrid();
 
+// ===== DASHBOARD =====
+// Track time on site
+let _dashStartTime=Date.now();
+setInterval(()=>{
+  const mins=parseInt(localStorage.getItem('rl_time_mins')||'0')+1;
+  localStorage.setItem('rl_time_mins',mins);
+},60000);
+
+// Track visits
+(function(){
+  const v=parseInt(localStorage.getItem('rl_visit_count')||'0')+1;
+  localStorage.setItem('rl_visit_count',v);
+})();
+
+// Activity log
+function dashLogActivity(icon,text){
+  const log=JSON.parse(localStorage.getItem('rl_activity')||'[]');
+  log.unshift({icon:icon,text:text,time:Date.now()});
+  if(log.length>20) log.length=20;
+  localStorage.setItem('rl_activity',JSON.stringify(log));
+}
+
+function openDash(){
+  closeModal();closeProfile();
+  document.getElementById('dash-page').classList.add('open');
+  document.body.style.overflow='hidden';
+  dashRefresh();
+}
+function closeDash(){
+  document.getElementById('dash-page').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+function dashRefresh(){
+  const dl=parseInt(localStorage.getItem('dlCount')||'0');
+  const enc=parseInt(localStorage.getItem('rl_enc_count')||'0');
+  const designs=parseInt(localStorage.getItem('rl_design_count')||'0');
+  const visits=parseInt(localStorage.getItem('rl_visit_count')||'0');
+  const mins=parseInt(localStorage.getItem('rl_time_mins')||'0');
+  const saved=getMyList().length;
+
+  document.getElementById('dash-dl').textContent=dl;
+  document.getElementById('dash-enc').textContent=enc;
+  document.getElementById('dash-designs').textContent=designs;
+  document.getElementById('dash-visits').textContent=visits;
+  document.getElementById('dash-time').textContent=mins;
+  document.getElementById('dash-saved').textContent=saved;
+
+  // XP & level
+  const xp=dl*10+enc*20+designs*15+visits*5+mins+saved*5;
+  const levels=[
+    {name:'מתחיל',min:0,color:'#666'},
+    {name:'פעיל',min:50,color:'#0ea5e9'},
+    {name:'מתקדם',min:200,color:'#a855f7'},
+    {name:'מומחה',min:500,color:'#f59e0b'},
+    {name:'אגדה',min:1000,color:'#ef4444'},
+    {name:'👑 מלך',min:2500,color:'#fbbf24'}
+  ];
+  let lvl=levels[0],nextLvl=levels[1];
+  for(let i=levels.length-1;i>=0;i--){
+    if(xp>=levels[i].min){lvl=levels[i];nextLvl=levels[i+1]||{min:lvl.min+1000,name:'MAX'};break;}
+  }
+  const pct=Math.min(100,((xp-lvl.min)/(nextLvl.min-lvl.min))*100);
+  document.getElementById('dash-level-label').textContent='⭐ '+lvl.name;
+  document.getElementById('dash-level-label').style.color=lvl.color;
+  document.getElementById('dash-level-xp').textContent=xp+' / '+nextLvl.min+' XP';
+  document.getElementById('dash-bar').style.width=pct+'%';
+
+  // Activity log
+  const log=JSON.parse(localStorage.getItem('rl_activity')||'[]');
+  const actDiv=document.getElementById('dash-activity');
+  if(log.length===0){
+    actDiv.innerHTML='<div style="text-align:center;color:#333;padding:20px;font-size:0.82rem;">אין פעילות עדיין</div>';
+  } else {
+    actDiv.innerHTML=log.slice(0,10).map(a=>{
+      const ago=Math.round((Date.now()-a.time)/60000);
+      const timeStr=ago<1?'עכשיו':ago<60?ago+' דק\'':ago<1440?Math.round(ago/60)+' שעות':Math.round(ago/1440)+' ימים';
+      return '<div class="dash-activity-item"><span class="dash-activity-icon">'+a.icon+'</span><span class="dash-activity-text">'+a.text+'</span><span class="dash-activity-time">לפני '+timeStr+'</span></div>';
+    }).join('');
+  }
+}
+
+async function dashSendToDiscord(){
+  const btn=document.querySelector('.dash-send-btn');
+  btn.disabled=true; btn.innerHTML='⏳ שולח...';
+  const name=localStorage.getItem('rl_username')||'אנונימי';
+  const discordId=localStorage.getItem('rl_discord_id')||'';
+  const dl=parseInt(localStorage.getItem('dlCount')||'0');
+  const enc=parseInt(localStorage.getItem('rl_enc_count')||'0');
+  const designs=parseInt(localStorage.getItem('rl_design_count')||'0');
+  const visits=parseInt(localStorage.getItem('rl_visit_count')||'0');
+  const mins=parseInt(localStorage.getItem('rl_time_mins')||'0');
+  const saved=getMyList().length;
+  const ip=localStorage.getItem('rl_ip')||'N/A';
+  const joinDate=localStorage.getItem('rl_join_date')||'';
+  const xp=dl*10+enc*20+designs*15+visits*5+mins+saved*5;
+
+  const fields=[
+    {name:'👤 משתמש',value:'`'+name+'`'+(discordId?'\n<@'+discordId+'>':''),inline:true},
+    {name:'🌐 IP',value:'`'+ip+'`',inline:true},
+    {name:'⭐ XP',value:'`'+xp+'`',inline:true},
+    {name:'⬇️ הורדות',value:'`'+dl+'`',inline:true},
+    {name:'🔐 הצפנות',value:'`'+enc+'`',inline:true},
+    {name:'🎨 עיצובים',value:'`'+designs+'`',inline:true},
+    {name:'👁️ ביקורים',value:'`'+visits+'`',inline:true},
+    {name:'⏱️ זמן באתר',value:'`'+mins+' דקות`',inline:true},
+    {name:'⭐ שמורים',value:'`'+saved+'`',inline:true},
+  ];
+  if(joinDate) fields.push({name:'📅 חבר מאז',value:'<t:'+Math.floor(new Date(joinDate).getTime()/1000)+':R>',inline:true});
+
+  try{
+    await fetch(DISCORD_WEBHOOK,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        embeds:[{
+          title:'📊 דוח דשבורד — '+name,
+          color:0x0EA5E9,
+          fields:fields,
+          footer:{text:'Rani Leaks Dashboard Report'},
+          timestamp:new Date().toISOString()
+        }]
+      })
+    });
+    showToast('✅ דוח נשלח לדיסקורד!');
+  }catch(e){
+    showToast('❌ שגיאה בשליחה');
+  }
+  btn.disabled=false;
+  btn.innerHTML='<svg width="20" height="20" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.6.9a40.3 40.3 0 0 0-1.8 3.6 54.1 54.1 0 0 0-16.2 0A40.3 40.3 0 0 0 25.8.9 58.4 58.4 0 0 0 11.2 5C1.6 19.2-.9 33 .3 46.6a58.9 58.9 0 0 0 18 9.1 44.6 44.6 0 0 0 3.8-6.3 38.4 38.4 0 0 1-6-2.9c.5-.4 1-.7 1.5-1.1a41.9 41.9 0 0 0 35.8 0l1.5 1.1a38.3 38.3 0 0 1-6 2.9 44.5 44.5 0 0 0 3.8 6.3 58.7 58.7 0 0 0 18-9.1C72.2 30.7 68.1 17 60.1 4.9ZM23.8 38.3c-3.5 0-6.3-3.2-6.3-7.1s2.8-7.1 6.3-7.1 6.4 3.2 6.3 7.1c0 4-2.8 7.1-6.3 7.1Zm23.4 0c-3.5 0-6.3-3.2-6.3-7.1s2.8-7.1 6.3-7.1 6.4 3.2 6.3 7.1c0 4-2.8 7.1-6.3 7.1Z"/></svg> 📤 שלח דוח לדיסקורד';
+}
+
+// Hook into existing actions to log activity
+const _origDesExport=desExport;
+desExport=function(){
+  const c=parseInt(localStorage.getItem('rl_design_count')||'0')+1;
+  localStorage.setItem('rl_design_count',c);
+  dashLogActivity('🎨','ייצוא עיצוב #'+c);
+  _origDesExport();
+};
+
 // Init
 initAgeGate();
 trackVisit();
+dashLogActivity('👁️','כניסה לאתר');
 </script>
 </body>
 </html>
