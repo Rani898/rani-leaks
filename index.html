@@ -3278,6 +3278,74 @@ function desExport(){
   canvas.addEventListener('touchend',function(){desDragging=false;});
 })();
 
+// Pre-load effects from repo
+const desPreloadEffects=[
+  // Small effects (אפקטים קטנים)
+  {cat:'small',name:'אפקט 1',src:'effects/small/1.gif'},
+  {cat:'small',name:'אפקט 2',src:'effects/small/2.gif'},
+  {cat:'small',name:'אפקט 3',src:'effects/small/3.gif'},
+  {cat:'small',name:'אפקט 4',src:'effects/small/4.gif'},
+  {cat:'small',name:'אפקט 5',src:'effects/small/5.gif'},
+  {cat:'small',name:'אפקט 6',src:'effects/small/6.gif'},
+  {cat:'small',name:'אפקט 7',src:'effects/small/7.gif'},
+  {cat:'small',name:'אפקט 8',src:'effects/small/8.png'},
+  {cat:'small',name:'אפקט 9',src:'effects/small/9.gif'},
+  {cat:'small',name:'אפקט 10',src:'effects/small/10.gif'},
+  {cat:'small',name:'אפקט 11',src:'effects/small/11.gif'},
+  {cat:'small',name:'אפקט 12',src:'effects/small/12.gif'},
+  {cat:'small',name:'אפקט 13',src:'effects/small/13.gif'},
+  {cat:'small',name:'אפקט 14',src:'effects/small/14.gif'},
+  {cat:'small',name:'אפקט 15',src:'effects/small/15.gif'},
+  {cat:'small',name:'אפקט 16',src:'effects/small/16.gif'},
+  {cat:'small',name:'אפקט 17',src:'effects/small/17.gif'},
+  {cat:'small',name:'אפקט 18',src:'effects/small/18.gif'},
+  // Lightning (ברקים)
+  {cat:'lightning',name:'ברק 1',src:'effects/lightning/1.png'},
+  {cat:'lightning',name:'ברק 2',src:'effects/lightning/2.gif'},
+  {cat:'lightning',name:'ברק 3',src:'effects/lightning/3.gif'},
+  {cat:'lightning',name:'ברק 4',src:'effects/lightning/4.gif'},
+  {cat:'lightning',name:'ברק 6',src:'effects/lightning/6.gif'},
+  {cat:'lightning',name:'ברק 7',src:'effects/lightning/7.gif'},
+  {cat:'lightning',name:'ברק 8',src:'effects/lightning/8.gif'},
+  {cat:'lightning',name:'ברק 9',src:'effects/lightning/9.gif'},
+  {cat:'lightning',name:'ברק 11',src:'effects/lightning/11.gif'},
+  // Stars & backgrounds (כוכבים ורקעים)
+  {cat:'stars',name:'רקע 1',src:'effects/stars/1.gif'},
+  {cat:'stars',name:'רקע 4',src:'effects/stars/4.gif'},
+  {cat:'stars',name:'רקע 5',src:'effects/stars/5.png'},
+  {cat:'stars',name:'רקע 6',src:'effects/stars/6.gif'},
+  {cat:'stars',name:'רקע 7',src:'effects/stars/7.gif'},
+  {cat:'stars',name:'רקע 8',src:'effects/stars/8.gif'},
+  {cat:'stars',name:'רקע 9',src:'effects/stars/9.gif'},
+  {cat:'stars',name:'רקע 11',src:'effects/stars/11.gif'},
+  {cat:'stars',name:'רקע 13',src:'effects/stars/13.gif'},
+  {cat:'stars',name:'רקע 16',src:'effects/stars/16.gif'},
+  {cat:'stars',name:'רקע 17',src:'effects/stars/17.gif'},
+  // Wings (כנפיים)
+  {cat:'wings',name:'כנפיים 1',src:'effects/wings/1.gif'},
+  {cat:'wings',name:'כנפיים 2',src:'effects/wings/2.png'},
+  {cat:'wings',name:'כנפיים 3',src:'effects/wings/3.gif'},
+  {cat:'wings',name:'כנפיים 5',src:'effects/wings/5.gif'},
+  {cat:'wings',name:'כנפיים 7',src:'effects/wings/7.gif'},
+  // Circles (עיגולים)
+  {cat:'circles',name:'עיגול 1',src:'effects/circles/1.gif'},
+  {cat:'circles',name:'עיגול 3',src:'effects/circles/3.gif'},
+  {cat:'circles',name:'עיגול 4',src:'effects/circles/4.gif'},
+  {cat:'circles',name:'עיגול 5',src:'effects/circles/5.gif'},
+  {cat:'circles',name:'עיגול 7',src:'effects/circles/7.gif'},
+  {cat:'circles',name:'עיגול 8',src:'effects/circles/8.gif'},
+  {cat:'circles',name:'עיגול 9',src:'effects/circles/9.gif'},
+  {cat:'circles',name:'עיגול 10',src:'effects/circles/10.gif'},
+  {cat:'circles',name:'עיגול 11',src:'effects/circles/11.gif'},
+  {cat:'circles',name:'עיגול 12',src:'effects/circles/12.gif'},
+  {cat:'circles',name:'עיגול 13',src:'effects/circles/13.gif'},
+  {cat:'circles',name:'עיגול 14',src:'effects/circles/14.gif'},
+];
+desPreloadEffects.forEach(fx=>{
+  const img=new Image();
+  img.src=fx.src;
+  desEffectsLib.push({img:img,name:fx.name,cat:fx.cat,src:fx.src});
+});
 desUpdateEffectsGrid();
 
 // Init
