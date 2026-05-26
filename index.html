@@ -1553,6 +1553,7 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
       <button class="enc-tab active" id="tab-encrypt" onclick="switchEncTab('encrypt')">🔒 הצפן</button>
       <button class="enc-tab" id="tab-decrypt" onclick="switchEncTab('decrypt')">🔓 פענח</button>
       <button class="enc-tab fivem-tab" id="tab-fivem" onclick="switchEncTab('fivem')">🎮 FiveM</button>
+      <button class="enc-tab" id="tab-external" onclick="switchEncTab('external')" style="color:#f59e0b;">🔓 חיצוני</button>
     </div>
   </div>
 
@@ -1716,6 +1717,75 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
       <div class="fivem-info-card"><div class="fi-icon">🌙</div><div class="fi-title">Lua Support</div><div class="fi-desc">תמיכה מלאה בקבצי Lua כולל fxmanifest.lua ו-resource manifests.</div></div>
       <div class="fivem-info-card"><div class="fi-icon">🛡️</div><div class="fi-title">AES-256-GCM</div><div class="fi-desc">אותה הצפנה צבאית בה משתמשים גופי ביטחון ברחבי העולם.</div></div>
       <div class="fivem-info-card"><div class="fi-icon">🔑</div><div class="fi-title">מפתח ייחודי</div><div class="fi-desc">כל סקריפט מקבל מפתח ייחודי — גם אם גנבו את הקובץ, לא יוכלו לקרוא אותו.</div></div>
+    </div>
+  </div>
+
+  <!-- EXTERNAL CRYPTO TOOLS -->
+  <div class="fivem-body" id="external-body" style="max-width:700px;">
+    <div style="text-align:center;margin-bottom:30px;">
+      <div style="font-size:3rem;margin-bottom:10px;filter:drop-shadow(0 0 20px rgba(245,158,11,0.5));">🔓</div>
+      <h2 style="font-family:'Bebas Neue',cursive;font-size:2.2rem;letter-spacing:3px;margin-bottom:8px;">כלי <span style="color:#f59e0b;text-shadow:0 0 20px rgba(245,158,11,0.5);">הצפנה חיצוניים</span></h2>
+      <p style="color:#666;font-size:0.88rem;">כלים לפענוח, המרה והצפנת טקסט — לא קשור להצפנת האתר</p>
+    </div>
+
+    <!-- BASE64 -->
+    <div style="background:rgba(245,158,11,0.04);border:1px solid rgba(245,158,11,0.15);border-radius:14px;padding:20px;margin-bottom:16px;">
+      <h3 style="font-size:0.82rem;color:#f59e0b;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;">🔤 Base64</h3>
+      <textarea id="ext-b64-input" placeholder="הכנס טקסט כאן..." style="width:100%;height:70px;background:#111;border:1px solid #2a2a2a;color:#fff;padding:10px;border-radius:8px;font-family:monospace;font-size:0.85rem;resize:vertical;outline:none;margin-bottom:8px;"></textarea>
+      <div style="display:flex;gap:8px;margin-bottom:8px;">
+        <button onclick="extB64('encode')" style="flex:1;padding:9px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);color:#fbbf24;border-radius:8px;font-family:'Heebo',sans-serif;font-weight:700;cursor:pointer;font-size:0.82rem;">🔒 הצפן Base64</button>
+        <button onclick="extB64('decode')" style="flex:1;padding:9px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);color:#fbbf24;border-radius:8px;font-family:'Heebo',sans-serif;font-weight:700;cursor:pointer;font-size:0.82rem;">🔓 פענח Base64</button>
+      </div>
+      <textarea id="ext-b64-output" readonly placeholder="תוצאה..." style="width:100%;height:70px;background:#0a0a0a;border:1px solid #222;color:#4ade80;padding:10px;border-radius:8px;font-family:monospace;font-size:0.85rem;resize:vertical;outline:none;"></textarea>
+      <button onclick="navigator.clipboard.writeText(document.getElementById('ext-b64-output').value);showToast('📋 הועתק!')" style="margin-top:6px;padding:6px 14px;background:rgba(255,255,255,0.05);border:1px solid #333;color:#888;border-radius:6px;font-size:0.72rem;cursor:pointer;">📋 העתק</button>
+    </div>
+
+    <!-- HASH GENERATOR -->
+    <div style="background:rgba(168,85,247,0.04);border:1px solid rgba(168,85,247,0.15);border-radius:14px;padding:20px;margin-bottom:16px;">
+      <h3 style="font-size:0.82rem;color:#a855f7;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;">#️⃣ Hash Generator</h3>
+      <textarea id="ext-hash-input" placeholder="הכנס טקסט ליצירת hash..." style="width:100%;height:60px;background:#111;border:1px solid #2a2a2a;color:#fff;padding:10px;border-radius:8px;font-family:monospace;font-size:0.85rem;resize:vertical;outline:none;margin-bottom:8px;"></textarea>
+      <div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;">
+        <button onclick="extHash('SHA-256')" style="flex:1;min-width:80px;padding:9px;background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.25);color:#c084fc;border-radius:8px;font-family:'Heebo',sans-serif;font-weight:700;cursor:pointer;font-size:0.78rem;">SHA-256</button>
+        <button onclick="extHash('SHA-384')" style="flex:1;min-width:80px;padding:9px;background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.25);color:#c084fc;border-radius:8px;font-family:'Heebo',sans-serif;font-weight:700;cursor:pointer;font-size:0.78rem;">SHA-384</button>
+        <button onclick="extHash('SHA-512')" style="flex:1;min-width:80px;padding:9px;background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.25);color:#c084fc;border-radius:8px;font-family:'Heebo',sans-serif;font-weight:700;cursor:pointer;font-size:0.78rem;">SHA-512</button>
+        <button onclick="extHash('SHA-1')" style="flex:1;min-width:80px;padding:9px;background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.25);color:#c084fc;border-radius:8px;font-family:'Heebo',sans-serif;font-weight:700;cursor:pointer;font-size:0.78rem;">SHA-1</button>
+      </div>
+      <div id="ext-hash-output" style="background:#0a0a0a;border:1px solid #222;color:#c084fc;padding:10px;border-radius:8px;font-family:monospace;font-size:0.75rem;word-break:break-all;min-height:36px;cursor:pointer;" onclick="navigator.clipboard.writeText(this.textContent);showToast('📋 הועתק!')"></div>
+    </div>
+
+    <!-- HEX / TEXT -->
+    <div style="background:rgba(14,165,233,0.04);border:1px solid rgba(14,165,233,0.15);border-radius:14px;padding:20px;margin-bottom:16px;">
+      <h3 style="font-size:0.82rem;color:#0ea5e9;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;">🔢 Hex ↔ Text</h3>
+      <textarea id="ext-hex-input" placeholder="הכנס טקסט או hex..." style="width:100%;height:60px;background:#111;border:1px solid #2a2a2a;color:#fff;padding:10px;border-radius:8px;font-family:monospace;font-size:0.85rem;resize:vertical;outline:none;margin-bottom:8px;"></textarea>
+      <div style="display:flex;gap:8px;margin-bottom:8px;">
+        <button onclick="extHex('toHex')" style="flex:1;padding:9px;background:rgba(14,165,233,0.1);border:1px solid rgba(14,165,233,0.25);color:#7dd3fc;border-radius:8px;font-family:'Heebo',sans-serif;font-weight:700;cursor:pointer;font-size:0.82rem;">Text → Hex</button>
+        <button onclick="extHex('toText')" style="flex:1;padding:9px;background:rgba(14,165,233,0.1);border:1px solid rgba(14,165,233,0.25);color:#7dd3fc;border-radius:8px;font-family:'Heebo',sans-serif;font-weight:700;cursor:pointer;font-size:0.82rem;">Hex → Text</button>
+      </div>
+      <textarea id="ext-hex-output" readonly placeholder="תוצאה..." style="width:100%;height:60px;background:#0a0a0a;border:1px solid #222;color:#7dd3fc;padding:10px;border-radius:8px;font-family:monospace;font-size:0.85rem;resize:vertical;outline:none;"></textarea>
+    </div>
+
+    <!-- AES EXTERNAL -->
+    <div style="background:rgba(229,9,20,0.04);border:1px solid rgba(229,9,20,0.15);border-radius:14px;padding:20px;margin-bottom:16px;">
+      <h3 style="font-size:0.82rem;color:var(--red);font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;">🔐 AES הצפנה/פענוח טקסט</h3>
+      <textarea id="ext-aes-input" placeholder="הכנס טקסט להצפנה או טקסט מוצפן לפענוח..." style="width:100%;height:70px;background:#111;border:1px solid #2a2a2a;color:#fff;padding:10px;border-radius:8px;font-family:monospace;font-size:0.85rem;resize:vertical;outline:none;margin-bottom:8px;"></textarea>
+      <input id="ext-aes-key" type="text" placeholder="🔑 מפתח/סיסמה..." style="width:100%;padding:10px;background:#111;border:1px solid #2a2a2a;color:#fff;border-radius:8px;font-family:monospace;font-size:0.85rem;outline:none;margin-bottom:8px;">
+      <div style="display:flex;gap:8px;margin-bottom:8px;">
+        <button onclick="extAes('encrypt')" style="flex:1;padding:9px;background:rgba(229,9,20,0.1);border:1px solid rgba(229,9,20,0.25);color:#ff8888;border-radius:8px;font-family:'Heebo',sans-serif;font-weight:700;cursor:pointer;font-size:0.82rem;">🔒 הצפן AES</button>
+        <button onclick="extAes('decrypt')" style="flex:1;padding:9px;background:rgba(229,9,20,0.1);border:1px solid rgba(229,9,20,0.25);color:#ff8888;border-radius:8px;font-family:'Heebo',sans-serif;font-weight:700;cursor:pointer;font-size:0.82rem;">🔓 פענח AES</button>
+      </div>
+      <textarea id="ext-aes-output" readonly placeholder="תוצאה..." style="width:100%;height:70px;background:#0a0a0a;border:1px solid #222;color:#4ade80;padding:10px;border-radius:8px;font-family:monospace;font-size:0.85rem;resize:vertical;outline:none;"></textarea>
+      <button onclick="navigator.clipboard.writeText(document.getElementById('ext-aes-output').value);showToast('📋 הועתק!')" style="margin-top:6px;padding:6px 14px;background:rgba(255,255,255,0.05);border:1px solid #333;color:#888;border-radius:6px;font-size:0.72rem;cursor:pointer;">📋 העתק</button>
+    </div>
+
+    <!-- URL ENCODE/DECODE -->
+    <div style="background:rgba(70,211,105,0.04);border:1px solid rgba(70,211,105,0.15);border-radius:14px;padding:20px;margin-bottom:30px;">
+      <h3 style="font-size:0.82rem;color:#46d369;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;">🌐 URL Encode / Decode</h3>
+      <textarea id="ext-url-input" placeholder="הכנס URL או טקסט..." style="width:100%;height:60px;background:#111;border:1px solid #2a2a2a;color:#fff;padding:10px;border-radius:8px;font-family:monospace;font-size:0.85rem;resize:vertical;outline:none;margin-bottom:8px;"></textarea>
+      <div style="display:flex;gap:8px;margin-bottom:8px;">
+        <button onclick="document.getElementById('ext-url-output').value=encodeURIComponent(document.getElementById('ext-url-input').value);dashLogActivity('🌐','URL Encode')" style="flex:1;padding:9px;background:rgba(70,211,105,0.1);border:1px solid rgba(70,211,105,0.25);color:#4ade80;border-radius:8px;font-family:'Heebo',sans-serif;font-weight:700;cursor:pointer;font-size:0.82rem;">Encode</button>
+        <button onclick="try{document.getElementById('ext-url-output').value=decodeURIComponent(document.getElementById('ext-url-input').value)}catch(e){document.getElementById('ext-url-output').value='❌ שגיאה'};dashLogActivity('🌐','URL Decode')" style="flex:1;padding:9px;background:rgba(70,211,105,0.1);border:1px solid rgba(70,211,105,0.25);color:#4ade80;border-radius:8px;font-family:'Heebo',sans-serif;font-weight:700;cursor:pointer;font-size:0.82rem;">Decode</button>
+      </div>
+      <textarea id="ext-url-output" readonly placeholder="תוצאה..." style="width:100%;height:60px;background:#0a0a0a;border:1px solid #222;color:#4ade80;padding:10px;border-radius:8px;font-family:monospace;font-size:0.85rem;resize:vertical;outline:none;"></textarea>
     </div>
   </div>
 </div>
@@ -2596,21 +2666,32 @@ function closeEncPage(){
 function switchEncTab(mode){
   encMode=mode;
   const isFivem=mode==='fivem';
+  const isExternal=mode==='external';
   document.getElementById('tab-encrypt').classList.toggle('active',mode==='encrypt');
   document.getElementById('tab-decrypt').classList.toggle('active',mode==='decrypt');
   document.getElementById('tab-fivem').classList.toggle('active',isFivem);
+  document.getElementById('tab-external').classList.toggle('active',isExternal);
   // show/hide bodies
   const encBody=document.getElementById('enc-body');
   const fivemBody=document.getElementById('fivem-body');
+  const extBody=document.getElementById('external-body');
+  // Hide all first
+  encBody.classList.add('hidden');
+  fivemBody.classList.remove('active');
+  extBody.classList.remove('active');
+  if(window._fvLightningStop) window._fvLightningStop();
+
+  if(isExternal){
+    extBody.classList.add('active');
+    dashLogActivity('🔓','פתח כלי הצפנה חיצוניים');
+    return;
+  }
   if(isFivem){
-    encBody.classList.add('hidden');
     fivemBody.classList.add('active');
     if(window._fvLightningStart) window._fvLightningStart();
     return;
   }
   encBody.classList.remove('hidden');
-  fivemBody.classList.remove('active');
-  if(window._fvLightningStop) window._fvLightningStop();
   const isEnc=mode==='encrypt';
   document.getElementById('confirm-field').style.display=isEnc?'block':'none';
   const btn=document.getElementById('enc-action-btn');
@@ -3838,6 +3919,67 @@ function dashRefresh(){
 }
 
 // dashSendToDiscord removed - auto-reporting is now built into dashLogActivity
+
+// ===== EXTERNAL CRYPTO TOOLS =====
+function extB64(mode){
+  const input=document.getElementById('ext-b64-input').value;
+  if(!input){showToast('⚠️ הכנס טקסט');return;}
+  try{
+    if(mode==='encode') document.getElementById('ext-b64-output').value=btoa(unescape(encodeURIComponent(input)));
+    else document.getElementById('ext-b64-output').value=decodeURIComponent(escape(atob(input)));
+    dashLogActivity('🔤','Base64 '+mode);
+  }catch(e){document.getElementById('ext-b64-output').value='❌ שגיאה — טקסט לא תקין';}
+}
+
+async function extHash(algo){
+  const input=document.getElementById('ext-hash-input').value;
+  if(!input){showToast('⚠️ הכנס טקסט');return;}
+  const data=new TextEncoder().encode(input);
+  const hash=await crypto.subtle.digest(algo,data);
+  const hex=Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,'0')).join('');
+  document.getElementById('ext-hash-output').textContent=hex;
+  dashLogActivity('#️⃣','Hash '+algo);
+}
+
+function extHex(mode){
+  const input=document.getElementById('ext-hex-input').value;
+  if(!input){showToast('⚠️ הכנס טקסט');return;}
+  try{
+    if(mode==='toHex'){
+      document.getElementById('ext-hex-output').value=Array.from(new TextEncoder().encode(input)).map(b=>b.toString(16).padStart(2,'0')).join(' ');
+    } else {
+      const hex=input.replace(/\s/g,'');
+      const bytes=hex.match(/.{1,2}/g).map(b=>parseInt(b,16));
+      document.getElementById('ext-hex-output').value=new TextDecoder().decode(new Uint8Array(bytes));
+    }
+    dashLogActivity('🔢','Hex '+mode);
+  }catch(e){document.getElementById('ext-hex-output').value='❌ שגיאה';}
+}
+
+async function extAes(mode){
+  const input=document.getElementById('ext-aes-input').value;
+  const key=document.getElementById('ext-aes-key').value;
+  if(!input||!key){showToast('⚠️ הכנס טקסט ומפתח');return;}
+  try{
+    const keyData=await crypto.subtle.importKey('raw',
+      await crypto.subtle.digest('SHA-256',new TextEncoder().encode(key)),
+      {name:'AES-GCM'},false,[mode==='encrypt'?'encrypt':'decrypt']);
+    if(mode==='encrypt'){
+      const iv=crypto.getRandomValues(new Uint8Array(12));
+      const encrypted=await crypto.subtle.encrypt({name:'AES-GCM',iv:iv},keyData,new TextEncoder().encode(input));
+      const combined=new Uint8Array(iv.length+encrypted.byteLength);
+      combined.set(iv);combined.set(new Uint8Array(encrypted),iv.length);
+      document.getElementById('ext-aes-output').value=btoa(String.fromCharCode(...combined));
+    } else {
+      const data=Uint8Array.from(atob(input),c=>c.charCodeAt(0));
+      const iv=data.slice(0,12);
+      const encrypted=data.slice(12);
+      const decrypted=await crypto.subtle.decrypt({name:'AES-GCM',iv:iv},keyData,encrypted);
+      document.getElementById('ext-aes-output').value=new TextDecoder().decode(decrypted);
+    }
+    dashLogActivity('🔐','AES '+mode+' חיצוני');
+  }catch(e){document.getElementById('ext-aes-output').value='❌ שגיאה — מפתח שגוי או טקסט לא תקין';}
+}
 
 // Hook into existing actions to log activity
 const _origDesExport=desExport;
