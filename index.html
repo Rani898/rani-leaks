@@ -1433,7 +1433,7 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
       <h2>ברוכים הבאים ל<span>קזינו</span></h2>
       <p style="color:#666;font-size:0.85rem;">הימר עם מטבעות וירטואליים — מרוויחים מטבעות על פעילות באתר!</p>
       <div style="margin-top:12px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
-        <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.15);padding:6px 14px;border-radius:8px;font-size:0.7rem;color:#fbbf24;">🎁 100 מטבעות בונוס יומי</div>
+        <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.15);padding:6px 14px;border-radius:8px;font-size:0.7rem;color:#fbbf24;">🎁 50 מטבעות בונוס יומי (VIP = יותר!)</div>
         <button onclick="casDailyBonus()" style="background:#f59e0b;color:#000;border:none;padding:6px 18px;border-radius:8px;font-family:'Heebo',sans-serif;font-size:0.78rem;font-weight:800;cursor:pointer;">🎁 אסוף בונוס!</button>
       </div>
     </div>
@@ -1446,7 +1446,7 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
         <div class="cas-game-desc">בחר עץ או פלי — x2 על ניצחון</div>
         <div class="cas-bet-row">
           <span class="cas-bet-label">הימור:</span>
-          <input class="cas-bet-input" id="cas-flip-bet" type="number" value="10" min="1">
+          <input class="cas-bet-input" id="cas-flip-bet" type="number" value="10" min="1" max="200">
           <span class="cas-bet-label">🪙</span>
         </div>
         <div style="display:flex;gap:8px;justify-content:center;margin-bottom:10px;">
@@ -1464,7 +1464,7 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
         <div class="cas-game-desc">מעל 7 = x2 | בדיוק 7 = x5 | שאר = הפסד</div>
         <div class="cas-bet-row">
           <span class="cas-bet-label">הימור:</span>
-          <input class="cas-bet-input" id="cas-dice-bet" type="number" value="10" min="1">
+          <input class="cas-bet-input" id="cas-dice-bet" type="number" value="10" min="1" max="200">
           <span class="cas-bet-label">🪙</span>
         </div>
         <div style="display:flex;gap:12px;justify-content:center;margin:10px 0;font-size:2.5rem;">
@@ -1482,7 +1482,7 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
         <div class="cas-game-desc">3 זהים = x10 | 2 זהים = x3</div>
         <div class="cas-bet-row">
           <span class="cas-bet-label">הימור:</span>
-          <input class="cas-bet-input" id="cas-slots-bet" type="number" value="10" min="1">
+          <input class="cas-bet-input" id="cas-slots-bet" type="number" value="10" min="1" max="200">
           <span class="cas-bet-label">🪙</span>
         </div>
         <div class="cas-slots-display">
@@ -1501,7 +1501,7 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
         <div class="cas-game-desc">אדום/שחור = x2 | ירוק = x14</div>
         <div class="cas-bet-row">
           <span class="cas-bet-label">הימור:</span>
-          <input class="cas-bet-input" id="cas-roul-bet" type="number" value="10" min="1">
+          <input class="cas-bet-input" id="cas-roul-bet" type="number" value="10" min="1" max="200">
           <span class="cas-bet-label">🪙</span>
         </div>
         <div class="cas-color-btns">
@@ -4419,8 +4419,25 @@ desExport=function(){
   _origDesExport();
 };
 
-// ===== RANI PANEL + VIP SYSTEM =====
+// ===== RANI PANEL + VIP SYSTEM (CLOUD) =====
+const CLOUD_URL='https://jsonblob.com/api/jsonBlob/019e65e6-627b-7eb9-af45-c007452327ab';
 let admLoggedIn=false;
+let cloudData={vip_codes:[],bans:{},vip_users:{},broadcast:null};
+
+// Cloud sync - read
+async function cloudLoad(){
+  try{
+    const r=await fetch(CLOUD_URL,{headers:{'Accept':'application/json'}});
+    if(r.ok) cloudData=await r.json();
+  }catch(e){console.log('cloud load err',e);}
+}
+// Cloud sync - write
+async function cloudSave(){
+  try{
+    await fetch(CLOUD_URL,{method:'PUT',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(cloudData)});
+  }catch(e){console.log('cloud save err',e);}
+}
+
 function admGetPass(){return localStorage.getItem('rl_adm_pass')||'rani2024';}
 
 function openAdmin(){
@@ -4428,7 +4445,7 @@ function openAdmin(){
   if(admLoggedIn){
     document.getElementById('adm-login-gate').style.display='none';
     document.getElementById('adm-main-content').style.display='block';
-    admRefreshAll();
+    cloudLoad().then(()=>admRefreshAll());
   }else{
     document.getElementById('adm-login-gate').style.display='';
     document.getElementById('adm-main-content').style.display='none';
@@ -4446,7 +4463,7 @@ function admTryLogin(){
     document.getElementById('adm-login-gate').style.display='none';
     document.getElementById('adm-main-content').style.display='block';
     document.getElementById('adm-login-status').innerHTML='<span style="color:#4ade80;">🔓 מחובר</span>';
-    admRefreshAll();
+    cloudLoad().then(()=>admRefreshAll());
     dashLogActivity('👑','כניסה לפאנל רני');
     if(inp) inp.value='';
   }else{
@@ -4454,24 +4471,15 @@ function admTryLogin(){
     if(inp){inp.style.borderColor='#ef4444';setTimeout(()=>{inp.style.borderColor='';},1500);}
   }
 }
-// Enter key on password input
 document.addEventListener('keydown',function(e){
-  if(e.key==='Enter'){
-    const inp=document.getElementById('adm-pass-input');
-    if(inp&&document.activeElement===inp) admTryLogin();
-  }
+  if(e.key==='Enter'){const inp=document.getElementById('adm-pass-input');if(inp&&document.activeElement===inp) admTryLogin();}
 });
 
-function admRefreshAll(){
-  admRefreshCodes();admRefreshVipUsers();admRefreshBanList();admRefreshStats();
-}
+function admRefreshAll(){admRefreshCodes();admRefreshVipUsers();admRefreshBanList();admRefreshStats();}
 function admRefreshStats(){
-  const users=admGetVipUsers();
-  const codes=admGetCodes().filter(c=>c.usedBy.length<c.maxUses);
-  const visits=localStorage.getItem('rl_total_visits')||'0';
-  const el1=document.getElementById('adm-stat-vips');if(el1)el1.textContent=Object.keys(users).length;
-  const el2=document.getElementById('adm-stat-codes');if(el2)el2.textContent=codes.length;
-  const el3=document.getElementById('adm-stat-visits');if(el3)el3.textContent=visits;
+  const el1=document.getElementById('adm-stat-vips');if(el1)el1.textContent=Object.keys(cloudData.vip_users||{}).length;
+  const el2=document.getElementById('adm-stat-codes');if(el2)el2.textContent=(cloudData.vip_codes||[]).filter(c=>c.usedBy.length<c.maxUses).length;
+  const el3=document.getElementById('adm-stat-visits');if(el3)el3.textContent=localStorage.getItem('rl_total_visits')||'0';
 }
 
 function admChangePass(){
@@ -4480,25 +4488,6 @@ function admChangePass(){
   localStorage.setItem('rl_adm_pass',newPass);
   alert('✅ קוד גישה שונה!');
   admSendToDiscord('🔑 קוד גישה שונה','קוד חדש הוגדר לפאנל רני');
-}
-
-// VIP Codes stored in localStorage as JSON array
-function admGetCodes(){try{return JSON.parse(localStorage.getItem('rl_vip_codes')||'[]');}catch(e){return[];}}
-function admSaveCodes(codes){localStorage.setItem('rl_vip_codes',JSON.stringify(codes));}
-
-function admGetVipUsers(){try{return JSON.parse(localStorage.getItem('rl_vip_users')||'{}');}catch(e){return{};}}
-function admSaveVipUsers(users){localStorage.setItem('rl_vip_users',JSON.stringify(users));}
-
-function admCreateVipCode(){
-  const type=document.getElementById('adm-vip-type').value;
-  const uses=parseInt(document.getElementById('adm-vip-uses').value)||1;
-  const days=parseInt(document.getElementById('adm-vip-days').value)||30;
-  const code='VIP-'+type.charAt(0).toUpperCase()+'-'+Math.random().toString(36).substr(2,8).toUpperCase();
-  const codes=admGetCodes();
-  codes.push({code,type,maxUses:uses,days,usedBy:[],created:Date.now()});
-  admSaveCodes(codes);
-  admRefreshCodes();admRefreshStats();
-  admSendToDiscord('🎫 קוד VIP חדש','קוד: `'+code+'`\nסוג: **'+admVipLabel(type)+'**\nשימושים: '+uses+'\nימים: '+days);
 }
 
 function admVipLabel(type){
@@ -4520,8 +4509,22 @@ function admVipBonus(type){
   return 150;
 }
 
+// VIP CODES — cloud storage
+async function admCreateVipCode(){
+  const type=document.getElementById('adm-vip-type').value;
+  const uses=parseInt(document.getElementById('adm-vip-uses').value)||1;
+  const days=parseInt(document.getElementById('adm-vip-days').value)||30;
+  const code='VIP-'+type.charAt(0).toUpperCase()+'-'+Math.random().toString(36).substr(2,8).toUpperCase();
+  await cloudLoad();
+  if(!cloudData.vip_codes) cloudData.vip_codes=[];
+  cloudData.vip_codes.push({code,type,maxUses:uses,days,usedBy:[],created:Date.now()});
+  await cloudSave();
+  admRefreshCodes();admRefreshStats();
+  admSendToDiscord('🎫 קוד VIP חדש','קוד: `'+code+'`\nסוג: **'+admVipLabel(type)+'**\nשימושים: '+uses+'\nימים: '+days);
+}
+
 function admRefreshCodes(){
-  const codes=admGetCodes();
+  const codes=cloudData.vip_codes||[];
   const el=document.getElementById('adm-code-list');
   if(!el) return;
   if(!codes.length){el.innerHTML='<div style="color:#444;font-size:0.8rem;text-align:center;">אין קודים עדיין</div>';return;}
@@ -4531,72 +4534,65 @@ function admRefreshCodes(){
   }).join('');
 }
 
-function admDeleteCode(i){
-  const codes=admGetCodes();
-  codes.splice(i,1);
-  admSaveCodes(codes);
+async function admDeleteCode(i){
+  await cloudLoad();
+  cloudData.vip_codes.splice(i,1);
+  await cloudSave();
   admRefreshCodes();
 }
 
-function admResetAllCodes(){
+async function admResetAllCodes(){
   if(!confirm('למחוק את כל הקודים?')) return;
-  localStorage.setItem('rl_vip_codes','[]');
+  cloudData.vip_codes=[];
+  await cloudSave();
   admRefreshCodes();
 }
 
-function admGrantVip(){
+// GRANT/REVOKE VIP — cloud
+async function admGrantVip(){
   const user=document.getElementById('adm-direct-user').value.trim();
   const type=document.getElementById('adm-direct-type').value;
   if(!user){document.getElementById('adm-direct-msg').innerHTML='<span style="color:#f87171;">❌ הכנס שם או ID</span>';return;}
-  const users=admGetVipUsers();
-  users[user]={type,grantedAt:Date.now(),by:'admin'};
-  admSaveVipUsers(users);
+  await cloudLoad();
+  if(!cloudData.vip_users) cloudData.vip_users={};
+  cloudData.vip_users[user]={type,grantedAt:Date.now(),by:'admin'};
+  await cloudSave();
   document.getElementById('adm-direct-msg').innerHTML='<span style="color:#4ade80;">✅ VIP '+admVipLabel(type)+' ניתן ל-'+user+'</span>';
-  admRefreshVipUsers();
+  admRefreshVipUsers();admRefreshStats();
   admSendToDiscord('👑 VIP ניתן','משתמש: **'+user+'**\nסוג: '+admVipLabel(type));
-  // If this is the current user, activate locally
-  const myName=localStorage.getItem('rl_username')||'';
-  const myId=localStorage.getItem('rl_discord_id')||'';
-  if(user===myName||user===myId){
-    localStorage.setItem('rl_vip',type);
-    vipUpdateUI();
-  }
 }
 
-function admRevokeVip(){
+async function admRevokeVip(){
   const user=document.getElementById('adm-direct-user').value.trim();
   if(!user) return;
-  const users=admGetVipUsers();
-  delete users[user];
-  admSaveVipUsers(users);
+  await cloudLoad();
+  if(cloudData.vip_users) delete cloudData.vip_users[user];
+  await cloudSave();
   document.getElementById('adm-direct-msg').innerHTML='<span style="color:#fbbf24;">❌ VIP הוסר מ-'+user+'</span>';
-  admRefreshVipUsers();
+  admRefreshVipUsers();admRefreshStats();
   admSendToDiscord('❌ VIP הוסר','משתמש: **'+user+'**');
-  const myName=localStorage.getItem('rl_username')||'';
-  const myId=localStorage.getItem('rl_discord_id')||'';
-  if(user===myName||user===myId){
-    localStorage.removeItem('rl_vip');
-    vipUpdateUI();
-  }
 }
 
-function admGiveCoins(){
+// GIVE COINS — cloud + local for matching user
+async function admGiveCoins(){
   const user=document.getElementById('adm-coins-user').value.trim();
   const amount=parseInt(document.getElementById('adm-coins-amount').value)||0;
   if(!user||amount<1){document.getElementById('adm-coins-msg').innerHTML='<span style="color:#f87171;">❌ הכנס פרטים תקינים</span>';return;}
-  // If current user matches, add coins
+  // Store in cloud for target user to pick up
+  await cloudLoad();
+  if(!cloudData.pending_coins) cloudData.pending_coins={};
+  cloudData.pending_coins[user]=(cloudData.pending_coins[user]||0)+amount;
+  await cloudSave();
+  // If current user matches, add locally too
   const myName=localStorage.getItem('rl_username')||'';
   const myId=localStorage.getItem('rl_discord_id')||'';
-  if(user===myName||user===myId){
-    const c=casGetCoins()+amount;
-    casSetCoins(c);
-  }
+  if(user===myName||user===myId) casSetCoins(casGetCoins()+amount);
   document.getElementById('adm-coins-msg').innerHTML='<span style="color:#4ade80;">✅ '+amount+' 🪙 ניתנו ל-'+user+'</span>';
   admSendToDiscord('🪙 מטבעות ניתנו','משתמש: **'+user+'**\nכמות: **'+amount+'** 🪙');
 }
 
 function admRefreshVipUsers(){
-  const users=admGetVipUsers();
+  const users=cloudData.vip_users||{};
   const el=document.getElementById('adm-vip-users');
   if(!el) return;
   const keys=Object.keys(users);
@@ -4607,12 +4603,72 @@ function admRefreshVipUsers(){
   }).join('');
 }
 
-function admBroadcastMsg(){
+// BAN — cloud
+async function admBanUser(){
+  const user=document.getElementById('adm-ban-user').value.trim();
+  const reason=document.getElementById('adm-ban-reason').value.trim()||'ללא סיבה';
+  if(!user){document.getElementById('adm-ban-msg').innerHTML='<span style="color:#f87171;">❌ הכנס שם או ID</span>';return;}
+  await cloudLoad();
+  if(!cloudData.bans) cloudData.bans={};
+  cloudData.bans[user]={reason,date:Date.now()};
+  await cloudSave();
+  document.getElementById('adm-ban-msg').innerHTML='<span style="color:#f87171;">🚫 '+user+' נחסם — '+reason+'</span>';
+  admRefreshBanList();
+  admSendToDiscord('🚫 משתמש נחסם','משתמש: **'+user+'**\nסיבה: '+reason);
+}
+async function admUnbanUser(){
+  const user=document.getElementById('adm-ban-user').value.trim();
+  if(!user) return;
+  await cloudLoad();
+  if(cloudData.bans) delete cloudData.bans[user];
+  await cloudSave();
+  document.getElementById('adm-ban-msg').innerHTML='<span style="color:#4ade80;">✅ '+user+' שוחרר</span>';
+  admRefreshBanList();
+  admSendToDiscord('✅ באן הוסר','משתמש: **'+user+'**');
+}
+function admRefreshBanList(){
+  const bans=cloudData.bans||{};
+  const el=document.getElementById('adm-ban-list');
+  if(!el) return;
+  const keys=Object.keys(bans);
+  if(!keys.length){el.innerHTML='';return;}
+  el.innerHTML='<div style="font-size:0.72rem;color:#666;margin-bottom:6px;">חסומים:</div>'+keys.map(k=>'<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.12);border-radius:8px;margin-bottom:4px;font-size:0.78rem;"><span style="color:#f87171;">🚫 '+k+'</span><span style="color:#555;">'+bans[k].reason+'</span></div>').join('');
+}
+
+// XP
+async function admGiveXP(){
+  const user=document.getElementById('adm-xp-user').value.trim();
+  const amount=parseInt(document.getElementById('adm-xp-amount').value)||0;
+  if(!user||amount<1){document.getElementById('adm-xp-msg').innerHTML='<span style="color:#f87171;">❌ הכנס פרטים תקינים</span>';return;}
+  const myName=localStorage.getItem('rl_username')||'';
+  const myId=localStorage.getItem('rl_discord_id')||'';
+  if(user===myName||user===myId){
+    const xp=parseInt(localStorage.getItem('rl_xp')||'0')+amount;
+    localStorage.setItem('rl_xp',''+xp);
+  }
+  document.getElementById('adm-xp-msg').innerHTML='<span style="color:#4ade80;">✅ '+amount+' XP ניתנו ל-'+user+'</span>';
+  admSendToDiscord('⚡ XP ניתן','משתמש: **'+user+'**\nכמות: **'+amount+'** XP');
+}
+
+// BROADCAST — cloud
+async function admBroadcastMsg(){
   const text=document.getElementById('adm-broadcast-text').value.trim();
   if(!text){alert('הכנס הודעה');return;}
-  localStorage.setItem('rl_broadcast',JSON.stringify({text,time:Date.now()}));
+  await cloudLoad();
+  cloudData.broadcast={text,time:Date.now()};
+  await cloudSave();
   admSendToDiscord('📢 הודעה שודרה','**'+text+'**');
-  alert('✅ הודעה נשלחה!');
+  alert('✅ הודעה נשלחה לכל המשתמשים!');
+}
+
+// Export
+function admExportData(){
+  const data={...cloudData,exportDate:new Date().toISOString()};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download='rani-panel-export-'+Date.now()+'.json';a.click();
+  URL.revokeObjectURL(url);
 }
 
 async function admSendToDiscord(title,desc){
@@ -4624,15 +4680,17 @@ async function admSendToDiscord(title,desc){
   }catch(e){}
 }
 
-// VIP REDEEM
+// VIP REDEEM — reads from cloud
 function openVipRedeem(){document.getElementById('vip-redeem-overlay').classList.add('open');}
 function closeVipRedeem(){document.getElementById('vip-redeem-overlay').classList.remove('open');}
 
-function vipRedeemCode(){
+async function vipRedeemCode(){
   const input=document.getElementById('vip-redeem-input').value.trim().toUpperCase();
   const msgEl=document.getElementById('vip-redeem-msg');
   if(!input){msgEl.innerHTML='<span style="color:#f87171;">❌ הכנס קוד</span>';return;}
-  const codes=admGetCodes();
+  msgEl.innerHTML='<span style="color:#888;">⏳ בודק...</span>';
+  await cloudLoad();
+  const codes=cloudData.vip_codes||[];
   const idx=codes.findIndex(c=>c.code===input);
   if(idx===-1){msgEl.innerHTML='<span style="color:#f87171;">❌ קוד לא נמצא</span>';return;}
   const code=codes[idx];
@@ -4643,10 +4701,12 @@ function vipRedeemCode(){
   if(code.usedBy.includes(userId)){msgEl.innerHTML='<span style="color:#f87171;">❌ כבר השתמשת בקוד הזה</span>';return;}
   // Redeem!
   code.usedBy.push(userId);
-  codes[idx]=code;
-  admSaveCodes(codes);
+  cloudData.vip_codes[idx]=code;
+  // Also mark user as VIP in cloud
+  if(!cloudData.vip_users) cloudData.vip_users={};
+  cloudData.vip_users[userId]={type:code.type,grantedAt:Date.now(),by:'code:'+code.code};
+  await cloudSave();
   localStorage.setItem('rl_vip',code.type);
-  // Add bonus coins
   const bonus=admVipBonus(code.type);
   casSetCoins(casGetCoins()+bonus);
   vipUpdateUI();
@@ -4661,93 +4721,47 @@ function vipUpdateUI(){
   const type=vipGetType();
   const badge=document.getElementById('profile-vip-badge');
   if(badge){
-    if(type){
-      badge.style.display='inline-flex';
-      badge.textContent='👑 '+admVipLabel(type);
-      badge.className='plan vip-badge';
-    }else{
-      badge.style.display='none';
-    }
+    if(type){badge.style.display='inline-flex';badge.textContent='👑 '+admVipLabel(type);badge.className='plan vip-badge';}
+    else{badge.style.display='none';}
   }
 }
 
-// Ban system
-function admGetBans(){try{return JSON.parse(localStorage.getItem('rl_bans')||'{}');}catch(e){return{};}}
-function admSaveBans(b){localStorage.setItem('rl_bans',JSON.stringify(b));}
-
-function admBanUser(){
-  const user=document.getElementById('adm-ban-user').value.trim();
-  const reason=document.getElementById('adm-ban-reason').value.trim()||'ללא סיבה';
-  if(!user){document.getElementById('adm-ban-msg').innerHTML='<span style="color:#f87171;">❌ הכנס שם או ID</span>';return;}
-  const bans=admGetBans();
-  bans[user]={reason,date:Date.now()};
-  admSaveBans(bans);
-  document.getElementById('adm-ban-msg').innerHTML='<span style="color:#f87171;">🚫 '+user+' נחסם — '+reason+'</span>';
-  admRefreshBanList();
-  admSendToDiscord('🚫 משתמש נחסם','משתמש: **'+user+'**\nסיבה: '+reason);
-}
-function admUnbanUser(){
-  const user=document.getElementById('adm-ban-user').value.trim();
-  if(!user) return;
-  const bans=admGetBans();
-  delete bans[user];
-  admSaveBans(bans);
-  document.getElementById('adm-ban-msg').innerHTML='<span style="color:#4ade80;">✅ '+user+' שוחרר</span>';
-  admRefreshBanList();
-  admSendToDiscord('✅ באן הוסר','משתמש: **'+user+'**');
-}
-function admRefreshBanList(){
-  const bans=admGetBans();
-  const el=document.getElementById('adm-ban-list');
-  if(!el) return;
-  const keys=Object.keys(bans);
-  if(!keys.length){el.innerHTML='';return;}
-  el.innerHTML='<div style="font-size:0.72rem;color:#666;margin-bottom:6px;">חסומים:</div>'+keys.map(k=>'<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.12);border-radius:8px;margin-bottom:4px;font-size:0.78rem;"><span style="color:#f87171;">🚫 '+k+'</span><span style="color:#555;">'+bans[k].reason+'</span></div>').join('');
-}
-
-// XP system
-function admGiveXP(){
-  const user=document.getElementById('adm-xp-user').value.trim();
-  const amount=parseInt(document.getElementById('adm-xp-amount').value)||0;
-  if(!user||amount<1){document.getElementById('adm-xp-msg').innerHTML='<span style="color:#f87171;">❌ הכנס פרטים תקינים</span>';return;}
+// Check cloud on page load — VIP status, bans, broadcast, pending coins
+async function cloudCheckUser(){
+  await cloudLoad();
   const myName=localStorage.getItem('rl_username')||'';
   const myId=localStorage.getItem('rl_discord_id')||'';
-  if(user===myName||user===myId){
-    const xp=parseInt(localStorage.getItem('rl_xp')||'0')+amount;
-    localStorage.setItem('rl_xp',''+xp);
+  const me=myId||myName;
+  if(!me) return;
+  // Check ban
+  if(cloudData.bans&&cloudData.bans[me]){
+    document.body.innerHTML='<div style="position:fixed;inset:0;background:#0a0a0a;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#f87171;font-family:Heebo,sans-serif;text-align:center;padding:20px;z-index:9999;"><div style="font-size:5rem;">🚫</div><h1 style="font-size:2rem;margin:20px 0;">נחסמת מהאתר</h1><p style="color:#888;font-size:0.9rem;">סיבה: '+cloudData.bans[me].reason+'</p><p style="color:#444;font-size:0.75rem;margin-top:20px;">פנה לאדמין אם אתה חושב שזו טעות</p></div>';
+    return;
   }
-  document.getElementById('adm-xp-msg').innerHTML='<span style="color:#4ade80;">✅ '+amount+' XP ניתנו ל-'+user+'</span>';
-  admSendToDiscord('⚡ XP ניתן','משתמש: **'+user+'**\nכמות: **'+amount+'** XP');
-}
-
-// Export data
-function admExportData(){
-  const data={
-    vipUsers:admGetVipUsers(),
-    codes:admGetCodes(),
-    bans:admGetBans(),
-    totalVisits:localStorage.getItem('rl_total_visits')||'0',
-    exportDate:new Date().toISOString()
-  };
-  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url;a.download='rani-panel-export-'+Date.now()+'.json';a.click();
-  URL.revokeObjectURL(url);
-}
-
-// Check broadcast messages
-function vipCheckBroadcast(){
-  try{
-    const b=JSON.parse(localStorage.getItem('rl_broadcast')||'null');
-    if(!b) return;
+  // Check VIP from cloud
+  if(cloudData.vip_users&&cloudData.vip_users[me]){
+    localStorage.setItem('rl_vip',cloudData.vip_users[me].type);
+    vipUpdateUI();
+  }
+  // Check pending coins
+  if(cloudData.pending_coins&&cloudData.pending_coins[me]){
+    const amount=cloudData.pending_coins[me];
+    casSetCoins(casGetCoins()+amount);
+    delete cloudData.pending_coins[me];
+    await cloudSave();
+    setTimeout(()=>{alert('🪙 קיבלת '+amount+' מטבעות מהאדמין!');},1000);
+  }
+  // Check broadcast
+  if(cloudData.broadcast){
     const seen=localStorage.getItem('rl_broadcast_seen')||'0';
-    if(b.time>parseInt(seen)){
-      localStorage.setItem('rl_broadcast_seen',''+b.time);
-      setTimeout(()=>{alert('📢 הודעה מהאדמין:\n\n'+b.text);},1500);
+    if(cloudData.broadcast.time>parseInt(seen)){
+      localStorage.setItem('rl_broadcast_seen',''+cloudData.broadcast.time);
+      setTimeout(()=>{alert('📢 הודעה מהאדמין:\n\n'+cloudData.broadcast.text);},1500);
     }
-  }catch(e){}
+  }
 }
+
+function vipCheckBroadcast(){cloudCheckUser();}
 
 // ===== CASINO =====
 let casFlipSide='heads';
@@ -4766,12 +4780,13 @@ function closeCasino(){document.getElementById('casino-page').classList.remove('
 
 function casVipMulti(){
   const t=vipGetType();
-  if(t==='diamond') return 5;
-  if(t==='gold') return 3;
-  if(t==='silver') return 2;
-  if(t==='bronze') return 1.5;
+  if(t==='diamond') return 1.5;
+  if(t==='gold') return 1.3;
+  if(t==='silver') return 1.2;
+  if(t==='bronze') return 1.1;
   return 1;
 }
+const CAS_MAX_BET=200;
 
 function casDailyBonus(){
   const last=localStorage.getItem('rl_daily_bonus');
@@ -4782,7 +4797,7 @@ function casDailyBonus(){
   }
   localStorage.setItem('rl_daily_bonus',today);
   const vt=vipGetType();
-  const base=vt?admVipBonus(vt):100;
+  const base=vt?Math.floor(50*casVipMulti()):50;
   const coins=casGetCoins()+base;
   casSetCoins(coins);
   casShowResult('cas-flip-result','🎁 קיבלת '+base+' מטבעות בונוס!'+(vt?' (VIP '+admVipLabel(vt)+')':''),'win');
@@ -4807,6 +4822,7 @@ function casFlipPlay(){
   const bet=parseInt(document.getElementById('cas-flip-bet').value)||0;
   const coins=casGetCoins();
   if(bet<1){casShowResult('cas-flip-result','❌ הימור מינימלי: 1','lose');return;}
+  if(bet>CAS_MAX_BET){casShowResult('cas-flip-result','❌ הימור מקסימלי: '+CAS_MAX_BET,'lose');return;}
   if(bet>coins){casShowResult('cas-flip-result','❌ אין מספיק מטבעות! יש לך '+coins,'lose');return;}
   casPlaying=true;
   const result=Math.random()<0.5?'heads':'tails';
@@ -4832,6 +4848,7 @@ function casDicePlay(){
   const bet=parseInt(document.getElementById('cas-dice-bet').value)||0;
   const coins=casGetCoins();
   if(bet<1){casShowResult('cas-dice-result','❌ הימור מינימלי: 1','lose');return;}
+  if(bet>CAS_MAX_BET){casShowResult('cas-dice-result','❌ הימור מקסימלי: '+CAS_MAX_BET,'lose');return;}
   if(bet>coins){casShowResult('cas-dice-result','❌ אין מספיק מטבעות! יש לך '+coins,'lose');return;}
   casPlaying=true;
   const d1=Math.floor(Math.random()*6)+1;
@@ -4864,6 +4881,7 @@ function casSlotsPlay(){
   const bet=parseInt(document.getElementById('cas-slots-bet').value)||0;
   const coins=casGetCoins();
   if(bet<1){casShowResult('cas-slots-result','❌ הימור מינימלי: 1','lose');return;}
+  if(bet>CAS_MAX_BET){casShowResult('cas-slots-result','❌ הימור מקסימלי: '+CAS_MAX_BET,'lose');return;}
   if(bet>coins){casShowResult('cas-slots-result','❌ אין מספיק מטבעות! יש לך '+coins,'lose');return;}
   casPlaying=true;
   const symbols=['🍒','🍋','🔔','💎','7️⃣','🍀','⭐'];
@@ -4917,6 +4935,7 @@ function casRoulPlay(){
   const bet=parseInt(document.getElementById('cas-roul-bet').value)||0;
   const coins=casGetCoins();
   if(bet<1){casShowResult('cas-roul-result','❌ הימור מינימלי: 1','lose');return;}
+  if(bet>CAS_MAX_BET){casShowResult('cas-roul-result','❌ הימור מקסימלי: '+CAS_MAX_BET,'lose');return;}
   if(bet>coins){casShowResult('cas-roul-result','❌ אין מספיק מטבעות! יש לך '+coins,'lose');return;}
   casPlaying=true;
   const wheel=document.getElementById('cas-wheel');
@@ -4983,7 +5002,7 @@ function casRoulPlay(){
   dashLogActivity=function(icon,text){
     origLog(icon,text);
     if(!text.includes('קזינו')&&!text.includes('מטבע')&&!text.includes('סלוטים')&&!text.includes('קוביות')&&!text.includes('רולטה')&&!text.includes('בונוס')){
-      const c=casGetCoins()+2;
+      const c=casGetCoins()+1;
       casSetCoins(c);
     }
   };
