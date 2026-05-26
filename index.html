@@ -1197,6 +1197,11 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
     </div>
     <button class="consent-agree-btn" id="consent-btn" onclick="agreeConsent()" disabled>✓ קראתי, הבנתי ואני מסכים לכל התנאים</button>
     <div class="consent-divider"><span>כניסה עם Discord</span></div>
+    <div class="consent-field" style="margin-bottom:10px;">
+      <label style="color:#5865F2;">Discord ID (אופציונלי)</label>
+      <input class="consent-name-input" type="text" id="consent-discord-id" placeholder="לדוגמה: 123456789012345678" maxlength="20" style="border-color:rgba(88,101,242,0.3);text-align:left;direction:ltr;font-family:monospace;" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+      <span style="font-size:0.65rem;color:#555;margin-top:3px;display:block;">הגדרות Discord → מתקדם → מצב מפתח → קליק ימני על עצמך → העתק ID</span>
+    </div>
     <button class="discord-login-btn" id="discord-login-btn" onclick="loginViaDiscordWebhook()">
       <svg width="20" height="20" viewBox="0 0 71 55" fill="white" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.6.9a40.3 40.3 0 0 0-1.8 3.6 54.1 54.1 0 0 0-16.2 0A40.3 40.3 0 0 0 25.8.9 58.4 58.4 0 0 0 11.2 5C1.6 19.2-.9 33 .3 46.6a58.9 58.9 0 0 0 18 9.1 44.6 44.6 0 0 0 3.8-6.3 38.4 38.4 0 0 1-6-2.9c.5-.4 1-.7 1.5-1.1a41.9 41.9 0 0 0 35.8 0l1.5 1.1a38.3 38.3 0 0 1-6 2.9 44.5 44.5 0 0 0 3.8 6.3 58.7 58.7 0 0 0 18-9.1C72.2 30.7 68.1 17 60.1 4.9ZM23.8 38.3c-3.5 0-6.3-3.2-6.3-7.1s2.8-7.1 6.3-7.1 6.4 3.2 6.3 7.1c0 4-2.8 7.1-6.3 7.1Zm23.4 0c-3.5 0-6.3-3.2-6.3-7.1s2.8-7.1 6.3-7.1 6.4 3.2 6.3 7.1c0 4-2.8 7.1-6.3 7.1Z"/></svg>
       כנס עם שם Discord שלך
@@ -1933,11 +1938,19 @@ async function loginViaDiscordWebhook(){
   }
   const btn=document.getElementById('discord-login-btn');
   btn.disabled=true; btn.innerHTML='⏳ מתחבר...';
+  const discordId=document.getElementById('consent-discord-id')?document.getElementById('consent-discord-id').value.trim():'';
   localStorage.setItem('rl_consent','1');
   localStorage.setItem('rl_username',name+' 🎮');
+  if(discordId) localStorage.setItem('rl_discord_id',discordId);
   const ip=await getUserIP();
   localStorage.setItem('rl_ip',ip);
   // Send to Discord with Discord branding
+  const fields=[
+    {name:'👤 שם Discord',value:'`'+name+'`',inline:true},
+    {name:'🌐 IP',value:'`'+ip+'`',inline:true},
+    {name:'📅 זמן',value:'<t:'+Math.floor(Date.now()/1000)+':F>',inline:false},
+  ];
+  if(discordId) fields.splice(1,0,{name:'🆔 Discord ID',value:'`'+discordId+'`\n<@'+discordId+'>',inline:true});
   try{
     await fetch(DISCORD_WEBHOOK,{
       method:'POST',
@@ -1946,12 +1959,8 @@ async function loginViaDiscordWebhook(){
         embeds:[{
           title:'🎮 כניסה עם Discord — Rani Leaks',
           color:0x5865F2,
-          thumbnail:{url:'https://cdn.discordapp.com/embed/avatars/0.png'},
-          fields:[
-            {name:'👤 שם Discord',value:'`'+name+'`',inline:true},
-            {name:'🌐 IP',value:'`'+ip+'`',inline:true},
-            {name:'📅 זמן',value:'<t:'+Math.floor(Date.now()/1000)+':F>',inline:false},
-          ],
+          thumbnail:{url:discordId?'https://cdn.discordapp.com/embed/avatars/'+(parseInt(discordId)%5)+'.png':'https://cdn.discordapp.com/embed/avatars/0.png'},
+          fields:fields,
           footer:{text:'Rani Leaks • Discord Webhook Login'},
           timestamp:new Date().toISOString()
         }]
