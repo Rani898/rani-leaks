@@ -1923,9 +1923,12 @@ async function loginViaDiscordWebhook(){
   const nameInput=document.getElementById('consent-name');
   const name=nameInput?nameInput.value.trim():'';
   if(name.length<2){
-    nameInput&&(nameInput.style.borderColor='var(--red)');
+    nameInput&&(nameInput.style.borderColor='#5865F2');
+    nameInput&&(nameInput.placeholder='✏️ כתוב את שם ה-Discord שלך כאן קודם...');
     nameInput&&nameInput.focus();
-    showToast('⚠️ הכנס שם משתמש Discord קודם');
+    nameInput&&(nameInput.style.animation='shakeX 0.5s');
+    setTimeout(()=>{if(nameInput)nameInput.style.animation='';},600);
+    showToast('⚠️ כתוב את שם ה-Discord שלך למעלה ואז לחץ שוב');
     return;
   }
   const btn=document.getElementById('discord-login-btn');
