@@ -1055,6 +1055,38 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
   padding:4px 10px;border-radius:8px;font-size:0.68rem;color:#888;
   backdrop-filter:blur(8px);
 }
+.des-preset-btn{
+  padding:8px 6px;background:rgba(88,101,242,0.1);border:1px solid rgba(88,101,242,0.25);
+  color:#8b9aff;border-radius:8px;font-family:'Heebo',sans-serif;font-size:0.72rem;font-weight:600;
+  cursor:pointer;transition:all 0.2s;text-align:center;
+}
+.des-preset-btn:hover{background:rgba(88,101,242,0.2);border-color:rgba(88,101,242,0.5);color:#fff;box-shadow:0 0 14px rgba(88,101,242,0.15);}
+.des-ai-btn{
+  width:100%;padding:11px;
+  background:linear-gradient(135deg,rgba(168,85,247,0.15),rgba(236,72,153,0.15));
+  border:1px solid rgba(168,85,247,0.3);color:#e9d5ff;border-radius:10px;
+  font-family:'Heebo',sans-serif;font-size:0.85rem;font-weight:700;
+  cursor:pointer;transition:all 0.25s;text-align:center;
+  text-shadow:0 0 12px rgba(168,85,247,0.4);
+  animation:aiGlow 2s ease-in-out infinite alternate;
+}
+@keyframes aiGlow{
+  0%{box-shadow:0 0 8px rgba(168,85,247,0.1);}
+  100%{box-shadow:0 0 22px rgba(168,85,247,0.25),0 0 40px rgba(236,72,153,0.1);}
+}
+.des-ai-btn:hover{
+  background:linear-gradient(135deg,rgba(168,85,247,0.25),rgba(236,72,153,0.25));
+  border-color:rgba(168,85,247,0.5);color:#fff;
+  box-shadow:0 0 30px rgba(168,85,247,0.3),0 0 60px rgba(236,72,153,0.15);
+  transform:scale(1.02);
+}
+.des-ai-mini-btn{
+  padding:7px 6px;
+  background:rgba(168,85,247,0.06);border:1px solid rgba(168,85,247,0.15);
+  color:#c084fc;border-radius:7px;font-family:'Heebo',sans-serif;font-size:0.7rem;font-weight:600;
+  cursor:pointer;transition:all 0.2s;text-align:center;
+}
+.des-ai-mini-btn:hover{background:rgba(168,85,247,0.15);border-color:rgba(168,85,247,0.35);color:#fff;}
 @media(max-width:800px){
   .des-layout{flex-direction:column-reverse;}
   .des-sidebar{width:100%;min-width:unset;max-height:45vh;border-left:none;border-top:1px solid rgba(168,85,247,0.12);}
@@ -1544,9 +1576,28 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
     </div>
     <div class="des-sidebar">
       <div class="des-sidebar-section">
+        <h3>🎯 תבניות Discord</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;">
+          <button class="des-preset-btn" onclick="desSetPreset(512,512,'Discord PFP')">👤 תמונת פרופיל</button>
+          <button class="des-preset-btn" onclick="desSetPreset(512,512,'Discord Icon')">🖥️ אייקון שרת</button>
+          <button class="des-preset-btn" onclick="desSetPreset(960,540,'Discord Banner')">🏳️ באנר</button>
+          <button class="des-preset-btn" onclick="desSetPreset(128,128,'Discord Emoji')">😀 אימוג׳י</button>
+        </div>
+      </div>
+      <div class="des-sidebar-section">
         <h3>📷 תמונת רקע</h3>
         <button class="des-upload-btn" onclick="document.getElementById('des-bg-input').click()">📂 העלה תמונת רקע</button>
         <input type="file" id="des-bg-input" accept="image/*" style="display:none" onchange="desLoadBg(this.files[0])">
+      </div>
+      <div class="des-sidebar-section">
+        <h3>🤖 AI התאמה אוטומטית</h3>
+        <button class="des-ai-btn" onclick="desAutoFit()">✨ התאם אפקטים אוטומטית</button>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:8px;">
+          <button class="des-ai-mini-btn" onclick="desAutoAdd('wings')">🕊️ הוסף כנפיים</button>
+          <button class="des-ai-mini-btn" onclick="desAutoAdd('lightning')">⚡ הוסף ברקים</button>
+          <button class="des-ai-mini-btn" onclick="desAutoAdd('circles')">⭕ הוסף עיגול</button>
+          <button class="des-ai-mini-btn" onclick="desAutoAdd('stars')">🌟 הוסף רקע</button>
+        </div>
       </div>
       <div class="des-sidebar-section">
         <h3>✨ הוסף אפקטים</h3>
@@ -3272,6 +3323,90 @@ function desExport(){
 
   canvas.addEventListener('touchend',function(){desDragging=false;});
 })();
+
+// ===== DISCORD PRESETS =====
+function desSetPreset(w,h,label){
+  const canvas=document.getElementById('des-canvas');
+  canvas.width=w; canvas.height=h;
+  document.getElementById('des-size-info').textContent=w+' × '+h+' — '+label;
+  // If there's a bg layer, resize it to fill
+  if(desLayers.length>0 && desLayers[0]._isBg){
+    desLayers[0].w=w; desLayers[0].h=h;
+    desLayers[0].x=0; desLayers[0].y=0;
+  }
+  document.getElementById('des-empty-msg').style.display=desLayers.length?'none':'';
+  desRender();
+  showToast('🎯 תבנית '+label+' — '+w+'×'+h);
+}
+
+// ===== AI AUTO-FIT =====
+function desAutoAdd(cat){
+  const canvas=document.getElementById('des-canvas');
+  const cw=canvas.width, ch=canvas.height;
+  // Pick random effect from category
+  const catEffects=desEffectsLib.filter(f=>f.cat===cat);
+  if(!catEffects.length){showToast('⚠️ אין אפקטים בקטגוריה');return;}
+  const fx=catEffects[Math.floor(Math.random()*catEffects.length)];
+  const img=new Image();
+  img.onload=function(){
+    let lx,ly,lw,lh;
+    if(cat==='wings'){
+      // Wings: center, ~60% of canvas width
+      lw=Math.round(cw*0.6);
+      lh=Math.round(lw*(img.height/img.width));
+      lx=Math.round((cw-lw)/2);
+      ly=Math.round((ch-lh)/2);
+    } else if(cat==='lightning'){
+      // Lightning: top area, ~40% width
+      lw=Math.round(cw*0.4);
+      lh=Math.round(lw*(img.height/img.width));
+      lx=Math.round(cw*0.15+Math.random()*cw*0.3);
+      ly=Math.round(ch*0.02);
+    } else if(cat==='circles'){
+      // Circles: center, ~35% of canvas
+      lw=Math.round(cw*0.35);
+      lh=Math.round(lw*(img.height/img.width));
+      lx=Math.round((cw-lw)/2);
+      ly=Math.round((ch-lh)/2);
+    } else if(cat==='stars'){
+      // Stars/backgrounds: full canvas overlay
+      lw=cw; lh=ch;
+      lx=0; ly=0;
+    } else {
+      // Small effects: random position, ~20% size
+      lw=Math.round(cw*0.2);
+      lh=Math.round(lw*(img.height/img.width));
+      lx=Math.round(Math.random()*(cw-lw));
+      ly=Math.round(Math.random()*(ch-lh));
+    }
+    desLayers.push({img:img,x:lx,y:ly,w:lw,h:lh,rot:0,name:fx.name,_isBg:false});
+    desSelectedLayer=desLayers.length-1;
+    desRender(); desUpdateLayers();
+    showToast('✨ '+fx.name+' הוסף אוטומטית');
+  };
+  img.src=fx.src;
+}
+
+function desAutoFit(){
+  const canvas=document.getElementById('des-canvas');
+  if(desLayers.length===0){showToast('⚠️ העלה תמונת רקע קודם');return;}
+  // Remove old non-bg layers
+  desLayers=desLayers.filter(l=>l._isBg);
+  // Auto-add one from each category with smart placement
+  const order=['stars','wings','circles','lightning','small'];
+  let delay=0;
+  order.forEach((cat,i)=>{
+    const catEffects=desEffectsLib.filter(f=>f.cat===cat);
+    if(!catEffects.length) return;
+    setTimeout(()=>{
+      desAutoAdd(cat);
+    },delay);
+    delay+=300;
+  });
+  setTimeout(()=>{
+    showToast('🤖 AI סיים להתאים אפקטים!');
+  },delay+200);
+}
 
 // Pre-load effects from repo
 const desPreloadEffects=[
