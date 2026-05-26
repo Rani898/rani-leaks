@@ -935,6 +935,132 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
 .admin-nav-btn{background:rgba(229,9,20,0.1);border:1px solid rgba(229,9,20,0.25);color:var(--red);padding:7px 14px;border-radius:7px;font-family:'Heebo',sans-serif;font-size:0.78rem;font-weight:700;cursor:pointer;transition:all 0.15s;}
 .admin-nav-btn:hover{background:rgba(229,9,20,0.2);}
 
+/* ===== IMAGE DESIGNER PAGE ===== */
+.designer-page{
+  position:fixed;inset:0;z-index:300;
+  background:#050505;
+  overflow-y:auto;transform:translateY(100%);
+  transition:transform 0.45s cubic-bezier(.2,.8,.3,1);
+  scrollbar-width:thin;scrollbar-color:#2a2a2a transparent;
+}
+.designer-page::before{
+  content:'';position:fixed;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 60% 40% at 20% 10%,rgba(168,85,247,0.08) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 35% at 80% 20%,rgba(236,72,153,0.06) 0%,transparent 60%),
+    radial-gradient(ellipse 70% 50% at 50% 90%,rgba(14,165,233,0.05) 0%,transparent 50%);
+}
+.designer-page.open{transform:translateY(0);}
+.des-topbar{
+  position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;justify-content:space-between;padding:12px 3vw;
+  background:rgba(5,5,5,0.92);backdrop-filter:blur(24px);
+  border-bottom:1px solid rgba(168,85,247,0.2);
+}
+.des-topbar-title{font-family:'Bebas Neue',cursive;font-size:1.5rem;color:#a855f7;letter-spacing:3px;text-shadow:0 0 22px rgba(168,85,247,0.6);display:flex;align-items:center;gap:10px;}
+.des-close-btn{
+  background:rgba(168,85,247,0.06);border:1px solid rgba(168,85,247,0.2);color:#c084fc;
+  padding:8px 20px;border-radius:8px;font-family:'Heebo',sans-serif;
+  font-size:0.88rem;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:8px;
+}
+.des-close-btn:hover{background:rgba(168,85,247,0.15);color:#fff;border-color:rgba(168,85,247,0.4);box-shadow:0 0 20px rgba(168,85,247,0.15);}
+.des-layout{display:flex;height:calc(100vh - 52px);position:relative;z-index:1;}
+.des-sidebar{
+  width:280px;min-width:280px;background:rgba(10,10,10,0.95);border-left:1px solid rgba(168,85,247,0.12);
+  overflow-y:auto;scrollbar-width:thin;scrollbar-color:#2a2a2a transparent;
+  display:flex;flex-direction:column;
+}
+.des-sidebar-section{padding:14px;border-bottom:1px solid rgba(255,255,255,0.05);}
+.des-sidebar-section h3{font-size:0.72rem;font-weight:700;color:#a855f7;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.des-upload-btn{
+  width:100%;padding:10px;background:rgba(168,85,247,0.08);border:2px dashed rgba(168,85,247,0.25);
+  color:#c084fc;border-radius:10px;font-family:'Heebo',sans-serif;font-size:0.82rem;font-weight:600;
+  cursor:pointer;transition:all 0.2s;text-align:center;
+}
+.des-upload-btn:hover{background:rgba(168,85,247,0.15);border-color:rgba(168,85,247,0.5);color:#fff;box-shadow:0 0 18px rgba(168,85,247,0.1);}
+.des-cat-btn{
+  display:flex;align-items:center;gap:8px;width:100%;padding:9px 12px;
+  background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);
+  color:#ccc;border-radius:8px;font-family:'Heebo',sans-serif;font-size:0.82rem;
+  cursor:pointer;transition:all 0.15s;margin-bottom:4px;
+}
+.des-cat-btn:hover{background:rgba(168,85,247,0.1);border-color:rgba(168,85,247,0.25);color:#fff;}
+.des-cat-btn.active{background:rgba(168,85,247,0.12);border-color:rgba(168,85,247,0.3);color:#e9d5ff;}
+.des-cat-icon{font-size:1.1rem;width:24px;text-align:center;}
+.des-effects-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:8px 0;max-height:250px;overflow-y:auto;
+  scrollbar-width:thin;scrollbar-color:#2a2a2a transparent;
+}
+.des-effect-thumb{
+  aspect-ratio:1;border-radius:8px;overflow:hidden;cursor:grab;
+  border:2px solid transparent;transition:all 0.2s;position:relative;
+  background:#111;display:flex;align-items:center;justify-content:center;
+}
+.des-effect-thumb:hover{border-color:rgba(168,85,247,0.5);box-shadow:0 0 14px rgba(168,85,247,0.2);transform:scale(1.04);}
+.des-effect-thumb img,.des-effect-thumb video{width:100%;height:100%;object-fit:cover;}
+.des-effect-thumb .des-eff-label{
+  position:absolute;bottom:0;left:0;right:0;padding:3px 5px;
+  background:rgba(0,0,0,0.75);font-size:0.6rem;color:#aaa;text-align:center;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.des-canvas-area{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:repeating-conic-gradient(#151515 0% 25%, #0f0f0f 0% 50%) 50%/20px 20px;
+  position:relative;overflow:hidden;
+}
+.des-canvas-wrap{position:relative;box-shadow:0 0 60px rgba(0,0,0,0.5);}
+.des-canvas-wrap canvas{display:block;cursor:crosshair;}
+.des-toolbar{
+  position:absolute;bottom:20px;left:50%;transform:translateX(-50%);
+  display:flex;gap:6px;padding:8px 14px;
+  background:rgba(10,10,10,0.9);border:1px solid rgba(168,85,247,0.2);
+  border-radius:14px;backdrop-filter:blur(16px);
+  box-shadow:0 4px 30px rgba(0,0,0,0.5),0 0 20px rgba(168,85,247,0.08);
+}
+.des-tool-btn{
+  width:38px;height:38px;border-radius:9px;border:1px solid rgba(255,255,255,0.08);
+  background:rgba(255,255,255,0.04);color:#aaa;font-size:1rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:all 0.15s;position:relative;
+}
+.des-tool-btn:hover{background:rgba(168,85,247,0.15);color:#fff;border-color:rgba(168,85,247,0.3);}
+.des-tool-btn.active{background:rgba(168,85,247,0.2);color:#e9d5ff;border-color:rgba(168,85,247,0.4);box-shadow:0 0 12px rgba(168,85,247,0.2);}
+.des-tool-btn[title]:hover::after{
+  content:attr(title);position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);
+  padding:4px 10px;background:#1a1a1a;border:1px solid #333;border-radius:6px;
+  font-size:0.68rem;color:#ccc;white-space:nowrap;pointer-events:none;
+}
+.des-tool-sep{width:1px;background:rgba(255,255,255,0.1);margin:4px 2px;}
+.des-empty-canvas{
+  text-align:center;color:#444;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+.des-empty-canvas .des-empty-icon{font-size:4rem;margin-bottom:14px;opacity:0.5;}
+.des-empty-canvas p{font-size:0.9rem;}
+.des-layers-panel{padding:14px;flex:1;overflow-y:auto;}
+.des-layer-item{
+  display:flex;align-items:center;gap:8px;padding:8px 10px;
+  background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);
+  border-radius:8px;margin-bottom:4px;cursor:pointer;transition:all 0.15s;font-size:0.78rem;color:#aaa;
+}
+.des-layer-item:hover{background:rgba(168,85,247,0.08);border-color:rgba(168,85,247,0.2);}
+.des-layer-item.selected{background:rgba(168,85,247,0.12);border-color:rgba(168,85,247,0.35);color:#e9d5ff;}
+.des-layer-thumb{width:32px;height:32px;border-radius:6px;overflow:hidden;background:#111;flex-shrink:0;}
+.des-layer-thumb img{width:100%;height:100%;object-fit:cover;}
+.des-layer-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.des-layer-del{background:none;border:none;color:#555;cursor:pointer;font-size:0.9rem;padding:2px 6px;border-radius:4px;transition:all 0.15s;}
+.des-layer-del:hover{color:#f87171;background:rgba(248,113,113,0.1);}
+.des-size-info{
+  position:absolute;top:12px;right:12px;
+  background:rgba(10,10,10,0.85);border:1px solid rgba(168,85,247,0.15);
+  padding:4px 10px;border-radius:8px;font-size:0.68rem;color:#888;
+  backdrop-filter:blur(8px);
+}
+@media(max-width:800px){
+  .des-layout{flex-direction:column-reverse;}
+  .des-sidebar{width:100%;min-width:unset;max-height:45vh;border-left:none;border-top:1px solid rgba(168,85,247,0.12);}
+  .des-toolbar{bottom:auto;top:10px;}
+}
+
 /* ===== RESPONSIVE ===== */
 @media(max-width:700px){
   .nav-links{display:none;}
@@ -1069,6 +1195,7 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
     <li><a href="#">תוכנות</a></li>
     <li><a href="#" onclick="openProfile();return false">המועדפים שלי</a></li>
     <li><a href="#" onclick="openEncPage();return false" style="color:#38bdf8;text-shadow:0 0 10px rgba(14,165,233,0.4);">🔐 הצפנה</a></li>
+    <li><a href="#" onclick="openDesigner();return false" style="color:#a855f7;text-shadow:0 0 10px rgba(168,85,247,0.4);">🎨 עיצוב תמונות</a></li>
   </ul>
   <div class="nav-right">
     <input class="nav-search" type="text" placeholder="🔍 חפש קבצים..." id="searchInput" oninput="handleSearch(this.value)">
@@ -1383,6 +1510,60 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
       <div class="fivem-info-card"><div class="fi-icon">🌙</div><div class="fi-title">Lua Support</div><div class="fi-desc">תמיכה מלאה בקבצי Lua כולל fxmanifest.lua ו-resource manifests.</div></div>
       <div class="fivem-info-card"><div class="fi-icon">🛡️</div><div class="fi-title">AES-256-GCM</div><div class="fi-desc">אותה הצפנה צבאית בה משתמשים גופי ביטחון ברחבי העולם.</div></div>
       <div class="fivem-info-card"><div class="fi-icon">🔑</div><div class="fi-title">מפתח ייחודי</div><div class="fi-desc">כל סקריפט מקבל מפתח ייחודי — גם אם גנבו את הקובץ, לא יוכלו לקרוא אותו.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- IMAGE DESIGNER PAGE -->
+<div class="designer-page" id="designer-page">
+  <div class="des-topbar">
+    <div class="des-topbar-title">🎨 IMAGE DESIGNER</div>
+    <button class="des-close-btn" onclick="closeDesigner()">✕ סגור</button>
+  </div>
+  <div class="des-layout">
+    <div class="des-canvas-area" id="des-canvas-area">
+      <div class="des-canvas-wrap" id="des-canvas-wrap">
+        <canvas id="des-canvas" width="800" height="600"></canvas>
+        <div class="des-empty-canvas" id="des-empty-msg">
+          <div class="des-empty-icon">🖼️</div>
+          <p>העלה תמונת רקע כדי להתחיל</p>
+        </div>
+      </div>
+      <div class="des-size-info" id="des-size-info">800 × 600</div>
+      <div class="des-toolbar">
+        <button class="des-tool-btn active" id="dt-move" title="הזז" onclick="desTool='move';desUpdateToolbar()">✋</button>
+        <button class="des-tool-btn" id="dt-resize" title="שנה גודל" onclick="desTool='resize';desUpdateToolbar()">⤡</button>
+        <button class="des-tool-btn" id="dt-rotate" title="סובב" onclick="desTool='rotate';desUpdateToolbar()">🔄</button>
+        <div class="des-tool-sep"></div>
+        <button class="des-tool-btn" title="קדימה" onclick="desLayerForward()">⬆</button>
+        <button class="des-tool-btn" title="אחורה" onclick="desLayerBackward()">⬇</button>
+        <button class="des-tool-btn" title="מחק" onclick="desDeleteLayer()" style="color:#f87171;">🗑️</button>
+        <div class="des-tool-sep"></div>
+        <button class="des-tool-btn" title="ייצא תמונה" onclick="desExport()" style="color:#4ade80;">💾</button>
+      </div>
+    </div>
+    <div class="des-sidebar">
+      <div class="des-sidebar-section">
+        <h3>📷 תמונת רקע</h3>
+        <button class="des-upload-btn" onclick="document.getElementById('des-bg-input').click()">📂 העלה תמונת רקע</button>
+        <input type="file" id="des-bg-input" accept="image/*" style="display:none" onchange="desLoadBg(this.files[0])">
+      </div>
+      <div class="des-sidebar-section">
+        <h3>✨ הוסף אפקטים</h3>
+        <button class="des-upload-btn" onclick="document.getElementById('des-fx-input').click()" style="margin-bottom:10px;">📂 העלה אפקט (PNG/GIF)</button>
+        <input type="file" id="des-fx-input" accept="image/*" style="display:none" onchange="desAddEffect(this.files[0])" multiple>
+        <div class="des-cat-btn active" onclick="desShowCat('all',this)"><span class="des-cat-icon">📁</span> כל האפקטים</div>
+        <div class="des-cat-btn" onclick="desShowCat('small',this)"><span class="des-cat-icon">💫</span> אפקטים קטנים</div>
+        <div class="des-cat-btn" onclick="desShowCat('lightning',this)"><span class="des-cat-icon">⚡</span> ברקים</div>
+        <div class="des-cat-btn" onclick="desShowCat('stars',this)"><span class="des-cat-icon">🌟</span> כוכבים ורקעים</div>
+        <div class="des-cat-btn" onclick="desShowCat('wings',this)"><span class="des-cat-icon">🕊️</span> כנפיים</div>
+        <div class="des-cat-btn" onclick="desShowCat('circles',this)"><span class="des-cat-icon">⭕</span> עיגולים</div>
+        <div class="des-effects-grid" id="des-effects-grid"></div>
+      </div>
+      <div class="des-sidebar-section">
+        <h3>📑 שכבות</h3>
+        <div id="des-layers-list" class="des-layers-panel"></div>
+      </div>
     </div>
   </div>
 </div>
@@ -1998,7 +2179,7 @@ function fillRows(){
 
   // show/hide empty state
   const emptyRow=document.getElementById('empty-state-row');
-  const realRow=document.getElementById('real-files-row');
+  const realRowCheck=document.getElementById('real-files-row');
   const hasReal=getRealFiles().length>0;
   if(emptyRow) emptyRow.style.display=hasReal?'none':'block';
 }
@@ -2770,6 +2951,334 @@ function copyFivemLua(){
     showToast('📋 הועתק!');
   });
 }
+
+// ===== IMAGE DESIGNER =====
+let desLayers=[];
+let desSelectedLayer=-1;
+let desTool='move';
+let desDragging=false;
+let desDragStart={x:0,y:0};
+let desLayerStart={x:0,y:0,w:0,h:0,rot:0};
+let desEffectsLib=[];
+let desCurrentCat='all';
+
+function openDesigner(){
+  closeModal();closeProfile();
+  document.getElementById('designer-page').classList.add('open');
+  document.body.style.overflow='hidden';
+  desRender();
+}
+function closeDesigner(){
+  document.getElementById('designer-page').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+function desLoadBg(file){
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=function(e){
+    const img=new Image();
+    img.onload=function(){
+      // Set canvas to image size (max 1200)
+      let w=img.width, h=img.height;
+      if(w>1200){const r=1200/w;w=1200;h=Math.round(h*r);}
+      if(h>900){const r=900/h;h=Math.round(h*r);w=Math.round(w*r);}
+      const canvas=document.getElementById('des-canvas');
+      canvas.width=w; canvas.height=h;
+      document.getElementById('des-size-info').textContent=w+' × '+h;
+      // Insert bg as layer 0
+      if(desLayers.length>0 && desLayers[0]._isBg){
+        desLayers[0]={img:img,x:0,y:0,w:w,h:h,rot:0,name:'רקע',_isBg:true};
+      } else {
+        desLayers.unshift({img:img,x:0,y:0,w:w,h:h,rot:0,name:'רקע',_isBg:true});
+      }
+      document.getElementById('des-empty-msg').style.display='none';
+      desSelectedLayer=0;
+      desRender();
+      desUpdateLayers();
+    };
+    img.src=e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function desAddEffect(file){
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=function(e){
+    const img=new Image();
+    img.onload=function(){
+      let w=img.width, h=img.height;
+      const canvas=document.getElementById('des-canvas');
+      // Scale effect to ~30% of canvas
+      const maxDim=Math.max(canvas.width,canvas.height)*0.3;
+      if(Math.max(w,h)>maxDim){const r=maxDim/Math.max(w,h);w=Math.round(w*r);h=Math.round(h*r);}
+      const layer={
+        img:img,
+        x:Math.round((canvas.width-w)/2),
+        y:Math.round((canvas.height-h)/2),
+        w:w,h:h,rot:0,
+        name:file.name.replace(/\.[^.]+$/,''),
+        _isBg:false
+      };
+      desLayers.push(layer);
+      desSelectedLayer=desLayers.length-1;
+      // Also add to effects library
+      desEffectsLib.push({img:img,name:file.name,cat:desCurrentCat==='all'?'small':desCurrentCat,src:e.target.result});
+      desRender();
+      desUpdateLayers();
+      desUpdateEffectsGrid();
+    };
+    img.src=e.target.result;
+  };
+  reader.readAsDataURL(file);
+  // Reset input so same file can be re-added
+  document.getElementById('des-fx-input').value='';
+}
+
+function desAddFromLib(idx){
+  const fx=desEffectsLib[idx];
+  if(!fx) return;
+  const img=new Image();
+  img.onload=function(){
+    let w=img.width, h=img.height;
+    const canvas=document.getElementById('des-canvas');
+    const maxDim=Math.max(canvas.width,canvas.height)*0.3;
+    if(Math.max(w,h)>maxDim){const r=maxDim/Math.max(w,h);w=Math.round(w*r);h=Math.round(h*r);}
+    desLayers.push({
+      img:img,
+      x:Math.round((canvas.width-w)/2),
+      y:Math.round((canvas.height-h)/2),
+      w:w,h:h,rot:0,
+      name:fx.name.replace(/\.[^.]+$/,''),
+      _isBg:false
+    });
+    desSelectedLayer=desLayers.length-1;
+    desRender();
+    desUpdateLayers();
+  };
+  img.src=fx.src;
+}
+
+function desRender(){
+  const canvas=document.getElementById('des-canvas');
+  const ctx=canvas.getContext('2d');
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  // Transparent bg pattern
+  ctx.fillStyle='#111';
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  for(let i=0;i<desLayers.length;i++){
+    const L=desLayers[i];
+    ctx.save();
+    ctx.translate(L.x+L.w/2, L.y+L.h/2);
+    ctx.rotate(L.rot*Math.PI/180);
+    ctx.drawImage(L.img, -L.w/2, -L.h/2, L.w, L.h);
+    ctx.restore();
+    // Selection outline
+    if(i===desSelectedLayer){
+      ctx.save();
+      ctx.translate(L.x+L.w/2, L.y+L.h/2);
+      ctx.rotate(L.rot*Math.PI/180);
+      ctx.strokeStyle='#a855f7';
+      ctx.lineWidth=2;
+      ctx.setLineDash([6,4]);
+      ctx.strokeRect(-L.w/2-2,-L.h/2-2,L.w+4,L.h+4);
+      ctx.setLineDash([]);
+      // Corner handles
+      const hs=6;
+      ctx.fillStyle='#a855f7';
+      [[-L.w/2,-L.h/2],[L.w/2,-L.h/2],[-L.w/2,L.h/2],[L.w/2,L.h/2]].forEach(([cx,cy])=>{
+        ctx.fillRect(cx-hs/2,cy-hs/2,hs,hs);
+      });
+      ctx.restore();
+    }
+  }
+}
+
+function desUpdateLayers(){
+  const list=document.getElementById('des-layers-list');
+  list.innerHTML='';
+  for(let i=desLayers.length-1;i>=0;i--){
+    const L=desLayers[i];
+    const div=document.createElement('div');
+    div.className='des-layer-item'+(i===desSelectedLayer?' selected':'');
+    div.onclick=function(){desSelectedLayer=i;desRender();desUpdateLayers();};
+    div.innerHTML='<div class="des-layer-thumb"><img src="'+L.img.src+'"></div>'
+      +'<span class="des-layer-name">'+(L._isBg?'🖼️ ':'✨ ')+L.name+'</span>'
+      +(L._isBg?'':'<button class="des-layer-del" onclick="event.stopPropagation();desDeleteLayerAt('+i+')">✕</button>');
+    list.appendChild(div);
+  }
+}
+
+function desUpdateEffectsGrid(){
+  const grid=document.getElementById('des-effects-grid');
+  grid.innerHTML='';
+  const filtered=desCurrentCat==='all'?desEffectsLib:desEffectsLib.filter(f=>f.cat===desCurrentCat);
+  filtered.forEach((fx,i)=>{
+    const realIdx=desEffectsLib.indexOf(fx);
+    const div=document.createElement('div');
+    div.className='des-effect-thumb';
+    div.onclick=function(){desAddFromLib(realIdx);};
+    div.innerHTML='<img src="'+fx.src+'" draggable="false"><div class="des-eff-label">'+fx.name.replace(/\.[^.]+$/,'')+'</div>';
+    grid.appendChild(div);
+  });
+  if(filtered.length===0){
+    grid.innerHTML='<div style="grid-column:1/-1;text-align:center;color:#444;font-size:0.75rem;padding:16px;">העלה אפקטים כדי שיופיעו פה</div>';
+  }
+}
+
+function desShowCat(cat,btn){
+  desCurrentCat=cat;
+  document.querySelectorAll('.des-cat-btn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  desUpdateEffectsGrid();
+}
+
+function desUpdateToolbar(){
+  document.getElementById('dt-move').classList.toggle('active',desTool==='move');
+  document.getElementById('dt-resize').classList.toggle('active',desTool==='resize');
+  document.getElementById('dt-rotate').classList.toggle('active',desTool==='rotate');
+}
+
+function desLayerForward(){
+  if(desSelectedLayer<0||desSelectedLayer>=desLayers.length-1) return;
+  [desLayers[desSelectedLayer],desLayers[desSelectedLayer+1]]=[desLayers[desSelectedLayer+1],desLayers[desSelectedLayer]];
+  desSelectedLayer++;
+  desRender();desUpdateLayers();
+}
+function desLayerBackward(){
+  if(desSelectedLayer<=0) return;
+  [desLayers[desSelectedLayer],desLayers[desSelectedLayer-1]]=[desLayers[desSelectedLayer-1],desLayers[desSelectedLayer]];
+  desSelectedLayer--;
+  desRender();desUpdateLayers();
+}
+function desDeleteLayer(){
+  if(desSelectedLayer<0) return;
+  desDeleteLayerAt(desSelectedLayer);
+}
+function desDeleteLayerAt(idx){
+  if(idx<0||idx>=desLayers.length) return;
+  desLayers.splice(idx,1);
+  if(desSelectedLayer>=desLayers.length) desSelectedLayer=desLayers.length-1;
+  if(desLayers.length===0) document.getElementById('des-empty-msg').style.display='';
+  desRender();desUpdateLayers();
+}
+
+function desExport(){
+  if(desLayers.length===0){showToast('⚠️ אין שכבות לייצוא');return;}
+  const canvas=document.getElementById('des-canvas');
+  // Render without selection
+  const prevSel=desSelectedLayer;
+  desSelectedLayer=-1;
+  desRender();
+  canvas.toBlob(function(blob){
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url;a.download='rani-design-'+Date.now()+'.png';
+    a.click();
+    URL.revokeObjectURL(url);
+    desSelectedLayer=prevSel;
+    desRender();
+    showToast('✅ התמונה יוצאה בהצלחה!');
+  },'image/png');
+}
+
+// Canvas mouse events
+(function(){
+  const canvas=document.getElementById('des-canvas');
+  if(!canvas) return;
+
+  function getCanvasXY(e){
+    const rect=canvas.getBoundingClientRect();
+    const scaleX=canvas.width/rect.width;
+    const scaleY=canvas.height/rect.height;
+    return {x:(e.clientX-rect.left)*scaleX, y:(e.clientY-rect.top)*scaleY};
+  }
+
+  function hitTest(x,y){
+    // Check layers from top to bottom
+    for(let i=desLayers.length-1;i>=0;i--){
+      const L=desLayers[i];
+      // Simple AABB hit (ignoring rotation for simplicity)
+      if(x>=L.x && x<=L.x+L.w && y>=L.y && y<=L.y+L.h) return i;
+    }
+    return -1;
+  }
+
+  canvas.addEventListener('mousedown',function(e){
+    const pos=getCanvasXY(e);
+    const hit=hitTest(pos.x,pos.y);
+    if(hit>=0){
+      desSelectedLayer=hit;
+      desDragging=true;
+      desDragStart={x:pos.x,y:pos.y};
+      const L=desLayers[hit];
+      desLayerStart={x:L.x,y:L.y,w:L.w,h:L.h,rot:L.rot};
+    } else {
+      desSelectedLayer=-1;
+    }
+    desRender();desUpdateLayers();
+  });
+
+  canvas.addEventListener('mousemove',function(e){
+    if(!desDragging||desSelectedLayer<0) return;
+    const pos=getCanvasXY(e);
+    const dx=pos.x-desDragStart.x;
+    const dy=pos.y-desDragStart.y;
+    const L=desLayers[desSelectedLayer];
+
+    if(desTool==='move'){
+      L.x=desLayerStart.x+dx;
+      L.y=desLayerStart.y+dy;
+    } else if(desTool==='resize'){
+      const newW=Math.max(20,desLayerStart.w+dx);
+      const newH=Math.max(20,desLayerStart.h+dy);
+      L.w=newW; L.h=newH;
+    } else if(desTool==='rotate'){
+      L.rot=desLayerStart.rot+dx*0.5;
+    }
+    desRender();
+  });
+
+  canvas.addEventListener('mouseup',function(){desDragging=false;});
+  canvas.addEventListener('mouseleave',function(){desDragging=false;});
+
+  // Touch support
+  canvas.addEventListener('touchstart',function(e){
+    e.preventDefault();
+    const t=e.touches[0];
+    const pos=getCanvasXY(t);
+    const hit=hitTest(pos.x,pos.y);
+    if(hit>=0){
+      desSelectedLayer=hit;
+      desDragging=true;
+      desDragStart={x:pos.x,y:pos.y};
+      const L=desLayers[hit];
+      desLayerStart={x:L.x,y:L.y,w:L.w,h:L.h,rot:L.rot};
+    } else {
+      desSelectedLayer=-1;
+    }
+    desRender();desUpdateLayers();
+  },{passive:false});
+
+  canvas.addEventListener('touchmove',function(e){
+    e.preventDefault();
+    if(!desDragging||desSelectedLayer<0) return;
+    const t=e.touches[0];
+    const pos=getCanvasXY(t);
+    const dx=pos.x-desDragStart.x;
+    const dy=pos.y-desDragStart.y;
+    const L=desLayers[desSelectedLayer];
+    if(desTool==='move'){L.x=desLayerStart.x+dx;L.y=desLayerStart.y+dy;}
+    else if(desTool==='resize'){L.w=Math.max(20,desLayerStart.w+dx);L.h=Math.max(20,desLayerStart.h+dy);}
+    else if(desTool==='rotate'){L.rot=desLayerStart.rot+dx*0.5;}
+    desRender();
+  },{passive:false});
+
+  canvas.addEventListener('touchend',function(){desDragging=false;});
+})();
+
+desUpdateEffectsGrid();
 
 // Init
 initConsent();
