@@ -1094,9 +1094,25 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
 }
 
 /* ===== RESPONSIVE ===== */
+/* Hamburger menu */
+.nav-hamburger{
+  display:none;background:none;border:none;color:#ccc;font-size:1.5rem;cursor:pointer;
+  padding:4px 8px;border-radius:8px;transition:all 0.2s;
+}
+.nav-hamburger:hover{background:rgba(255,255,255,0.08);color:#fff;}
 @media(max-width:700px){
-  .nav-links{display:none;}
-  .nav-search{width:130px;}
+  .nav-links{
+    display:none;position:fixed;top:64px;left:0;right:0;
+    background:rgba(11,11,11,0.97);backdrop-filter:blur(24px);
+    flex-direction:column;padding:12px 20px;gap:2px;
+    border-bottom:1px solid var(--border);z-index:99;
+    box-shadow:0 10px 30px rgba(0,0,0,0.5);
+  }
+  .nav-links.mobile-open{display:flex;}
+  .nav-links a{padding:12px 14px;font-size:0.95rem;border-radius:10px;}
+  .nav-hamburger{display:block;}
+  .nav-search{width:100px;}
+  .nav-search:focus{width:140px;}
 }
 
 @keyframes shakeX{0%,100%{transform:translateX(0);}20%{transform:translateX(-8px);}40%{transform:translateX(8px);}60%{transform:translateX(-5px);}80%{transform:translateX(5px);}}
@@ -1376,15 +1392,16 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
 <!-- NAV -->
 <nav id="navbar">
   <div class="logo" onclick="closeAll()">Rani Leaks</div>
+  <button class="nav-hamburger" onclick="document.querySelector('.nav-links').classList.toggle('mobile-open')">☰</button>
   <ul class="nav-links">
     <li><a href="#" class="active">ראשי</a></li>
     <li><a href="#">מסמכים</a></li>
     <li><a href="#">וידאו</a></li>
     <li><a href="#">תוכנות</a></li>
     <li><a href="#" onclick="openProfile();return false">המועדפים שלי</a></li>
-    <li><a href="#" onclick="openEncPage();return false" style="color:#38bdf8;text-shadow:0 0 10px rgba(14,165,233,0.4);">🔐 הצפנה</a></li>
-    <li><a href="#" onclick="openDesigner();return false" style="color:#a855f7;text-shadow:0 0 10px rgba(168,85,247,0.4);">🎨 עיצוב תמונות</a></li>
-    <li><a href="#" onclick="openDash();return false" style="color:#0ea5e9;text-shadow:0 0 10px rgba(14,165,233,0.4);">📊 דשבורד</a></li>
+    <li><a href="#" onclick="openEncPage();document.querySelector('.nav-links').classList.remove('mobile-open');return false" style="color:#38bdf8;text-shadow:0 0 10px rgba(14,165,233,0.4);">🔐 הצפנה</a></li>
+    <li><a href="#" onclick="openDesigner();document.querySelector('.nav-links').classList.remove('mobile-open');return false" style="color:#a855f7;text-shadow:0 0 10px rgba(168,85,247,0.4);">🎨 עיצוב תמונות</a></li>
+    <li><a href="#" onclick="openDash();document.querySelector('.nav-links').classList.remove('mobile-open');return false" style="color:#0ea5e9;text-shadow:0 0 10px rgba(14,165,233,0.4);">📊 דשבורד</a></li>
   </ul>
   <div class="nav-right">
     <input class="nav-search" type="text" placeholder="🔍 חפש קבצים..." id="searchInput" oninput="handleSearch(this.value)">
