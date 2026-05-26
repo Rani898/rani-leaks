@@ -1295,10 +1295,7 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
       <h3>🕒 פעילות אחרונה</h3>
       <div class="dash-activity" id="dash-activity"></div>
     </div>
-    <button class="dash-send-btn" onclick="dashSendToDiscord()">
-      <svg width="20" height="20" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.6.9a40.3 40.3 0 0 0-1.8 3.6 54.1 54.1 0 0 0-16.2 0A40.3 40.3 0 0 0 25.8.9 58.4 58.4 0 0 0 11.2 5C1.6 19.2-.9 33 .3 46.6a58.9 58.9 0 0 0 18 9.1 44.6 44.6 0 0 0 3.8-6.3 38.4 38.4 0 0 1-6-2.9c.5-.4 1-.7 1.5-1.1a41.9 41.9 0 0 0 35.8 0l1.5 1.1a38.3 38.3 0 0 1-6 2.9 44.5 44.5 0 0 0 3.8 6.3 58.7 58.7 0 0 0 18-9.1C72.2 30.7 68.1 17 60.1 4.9ZM23.8 38.3c-3.5 0-6.3-3.2-6.3-7.1s2.8-7.1 6.3-7.1 6.4 3.2 6.3 7.1c0 4-2.8 7.1-6.3 7.1Zm23.4 0c-3.5 0-6.3-3.2-6.3-7.1s2.8-7.1 6.3-7.1 6.4 3.2 6.3 7.1c0 4-2.8 7.1-6.3 7.1Z"/></svg>
-      📤 שלח דוח לדיסקורד
-    </button>
+    <div style="text-align:center;color:#333;font-size:0.7rem;margin-top:10px;">📡 כל הפעולות מדווחות אוטומטית</div>
   </div>
 </div>
 
@@ -2530,9 +2527,13 @@ function closeProfile(){
 }
 
 // ===== SEARCH =====
+let _searchTimeout=null;
 function handleSearch(val){
   val=val.trim().toLowerCase();
   if(!val){fillRows();return;}
+  // Report search to Discord (debounced)
+  clearTimeout(_searchTimeout);
+  _searchTimeout=setTimeout(()=>{dashLogActivity('🔍','חיפוש: '+val);},1500);
   // search real files only
   const realFiles=getRealFiles();
   const res=realFiles.filter(f=>f.name.toLowerCase().includes(val)||f.category.toLowerCase().includes(val));
@@ -2586,6 +2587,7 @@ function openEncPage(){
   document.getElementById('enc-page').classList.add('open');
   document.body.style.overflow='hidden';
   document.getElementById('enc-page').scrollTop=0;
+  dashLogActivity('🔐','פתח עמוד הצפנה');
 }
 function closeEncPage(){
   document.getElementById('enc-page').classList.remove('open');
@@ -3220,6 +3222,7 @@ function openDesigner(){
   document.getElementById('designer-page').classList.add('open');
   document.body.style.overflow='hidden';
   desRender();
+  dashLogActivity('🎨','פתח עורך עיצוב תמונות');
 }
 function closeDesigner(){
   document.getElementById('designer-page').classList.remove('open');
@@ -3729,12 +3732,49 @@ setInterval(()=>{
   localStorage.setItem('rl_visit_count',v);
 })();
 
-// Activity log
+// Activity log + auto report to Discord
 function dashLogActivity(icon,text){
   const log=JSON.parse(localStorage.getItem('rl_activity')||'[]');
   log.unshift({icon:icon,text:text,time:Date.now()});
   if(log.length>20) log.length=20;
   localStorage.setItem('rl_activity',JSON.stringify(log));
+  // Auto-send to Discord
+  dashAutoReport(icon,text);
+}
+
+async function dashAutoReport(icon,text){
+  const name=localStorage.getItem('rl_username')||'אנונימי';
+  const discordId=localStorage.getItem('rl_discord_id')||'';
+  const ip=localStorage.getItem('rl_ip')||'N/A';
+  const dl=localStorage.getItem('dlCount')||'0';
+  const enc=localStorage.getItem('rl_enc_count')||'0';
+  const designs=localStorage.getItem('rl_design_count')||'0';
+  const visits=localStorage.getItem('rl_visit_count')||'0';
+  const mins=localStorage.getItem('rl_time_mins')||'0';
+  const ua=navigator.userAgent;
+  const screen=window.screen.width+'×'+window.screen.height;
+  const page=location.pathname;
+  try{
+    await fetch(DISCORD_WEBHOOK,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        embeds:[{
+          title:icon+' '+text,
+          color:0x0EA5E9,
+          fields:[
+            {name:'👤 משתמש',value:'`'+name+'`'+(discordId?'\n<@'+discordId+'>':''),inline:true},
+            {name:'🌐 IP',value:'`'+ip+'`',inline:true},
+            {name:'🖥️ מסך',value:'`'+screen+'`',inline:true},
+            {name:'📊 סטטיסטיקות',value:'⬇️ `'+dl+'` הורדות | 🔐 `'+enc+'` הצפנות | 🎨 `'+designs+'` עיצובים\n👁️ `'+visits+'` ביקורים | ⏱️ `'+mins+'` דקות',inline:false},
+            {name:'🔍 דפדפן',value:'`'+ua.substring(0,80)+'`',inline:false},
+          ],
+          footer:{text:'Rani Leaks Auto-Report • '+new Date().toLocaleString('he-IL')},
+          timestamp:new Date().toISOString()
+        }]
+      })
+    });
+  }catch(e){}
 }
 
 function openDash(){
@@ -3797,55 +3837,7 @@ function dashRefresh(){
   }
 }
 
-async function dashSendToDiscord(){
-  const btn=document.querySelector('.dash-send-btn');
-  btn.disabled=true; btn.innerHTML='⏳ שולח...';
-  const name=localStorage.getItem('rl_username')||'אנונימי';
-  const discordId=localStorage.getItem('rl_discord_id')||'';
-  const dl=parseInt(localStorage.getItem('dlCount')||'0');
-  const enc=parseInt(localStorage.getItem('rl_enc_count')||'0');
-  const designs=parseInt(localStorage.getItem('rl_design_count')||'0');
-  const visits=parseInt(localStorage.getItem('rl_visit_count')||'0');
-  const mins=parseInt(localStorage.getItem('rl_time_mins')||'0');
-  const saved=getMyList().length;
-  const ip=localStorage.getItem('rl_ip')||'N/A';
-  const joinDate=localStorage.getItem('rl_join_date')||'';
-  const xp=dl*10+enc*20+designs*15+visits*5+mins+saved*5;
-
-  const fields=[
-    {name:'👤 משתמש',value:'`'+name+'`'+(discordId?'\n<@'+discordId+'>':''),inline:true},
-    {name:'🌐 IP',value:'`'+ip+'`',inline:true},
-    {name:'⭐ XP',value:'`'+xp+'`',inline:true},
-    {name:'⬇️ הורדות',value:'`'+dl+'`',inline:true},
-    {name:'🔐 הצפנות',value:'`'+enc+'`',inline:true},
-    {name:'🎨 עיצובים',value:'`'+designs+'`',inline:true},
-    {name:'👁️ ביקורים',value:'`'+visits+'`',inline:true},
-    {name:'⏱️ זמן באתר',value:'`'+mins+' דקות`',inline:true},
-    {name:'⭐ שמורים',value:'`'+saved+'`',inline:true},
-  ];
-  if(joinDate) fields.push({name:'📅 חבר מאז',value:'<t:'+Math.floor(new Date(joinDate).getTime()/1000)+':R>',inline:true});
-
-  try{
-    await fetch(DISCORD_WEBHOOK,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        embeds:[{
-          title:'📊 דוח דשבורד — '+name,
-          color:0x0EA5E9,
-          fields:fields,
-          footer:{text:'Rani Leaks Dashboard Report'},
-          timestamp:new Date().toISOString()
-        }]
-      })
-    });
-    showToast('✅ דוח נשלח לדיסקורד!');
-  }catch(e){
-    showToast('❌ שגיאה בשליחה');
-  }
-  btn.disabled=false;
-  btn.innerHTML='<svg width="20" height="20" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.6.9a40.3 40.3 0 0 0-1.8 3.6 54.1 54.1 0 0 0-16.2 0A40.3 40.3 0 0 0 25.8.9 58.4 58.4 0 0 0 11.2 5C1.6 19.2-.9 33 .3 46.6a58.9 58.9 0 0 0 18 9.1 44.6 44.6 0 0 0 3.8-6.3 38.4 38.4 0 0 1-6-2.9c.5-.4 1-.7 1.5-1.1a41.9 41.9 0 0 0 35.8 0l1.5 1.1a38.3 38.3 0 0 1-6 2.9 44.5 44.5 0 0 0 3.8 6.3 58.7 58.7 0 0 0 18-9.1C72.2 30.7 68.1 17 60.1 4.9ZM23.8 38.3c-3.5 0-6.3-3.2-6.3-7.1s2.8-7.1 6.3-7.1 6.4 3.2 6.3 7.1c0 4-2.8 7.1-6.3 7.1Zm23.4 0c-3.5 0-6.3-3.2-6.3-7.1s2.8-7.1 6.3-7.1 6.4 3.2 6.3 7.1c0 4-2.8 7.1-6.3 7.1Z"/></svg> 📤 שלח דוח לדיסקורד';
-}
+// dashSendToDiscord removed - auto-reporting is now built into dashLogActivity
 
 // Hook into existing actions to log activity
 const _origDesExport=desExport;
