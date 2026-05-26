@@ -1209,6 +1209,73 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
 .cas-color-btn.active{transform:scale(1.08);box-shadow:0 0 15px currentColor;}
 @media(max-width:600px){.cas-games{grid-template-columns:1fr;}}
 
+/* ===== ADMIN PAGE ===== */
+.admin-page{
+  position:fixed;inset:0;z-index:400;background:#050505;overflow-y:auto;
+  transform:translateY(100%);transition:transform 0.45s cubic-bezier(.2,.8,.3,1);
+  scrollbar-width:thin;scrollbar-color:#2a2a2a transparent;
+}
+.admin-page::before{
+  content:'';position:fixed;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 60% 40% at 30% 10%,rgba(168,85,247,0.1) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 35% at 70% 20%,rgba(245,158,11,0.06) 0%,transparent 60%);
+}
+.admin-page.open{transform:translateY(0);}
+.adm-topbar{
+  position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:14px 5vw;
+  background:rgba(5,5,5,0.92);backdrop-filter:blur(24px);border-bottom:1px solid rgba(168,85,247,0.3);
+}
+.adm-topbar-title{font-family:'Bebas Neue',cursive;font-size:1.6rem;color:#a855f7;letter-spacing:3px;text-shadow:0 0 22px rgba(168,85,247,0.6);}
+.adm-close{background:rgba(168,85,247,0.06);border:1px solid rgba(168,85,247,0.2);color:#c084fc;padding:8px 20px;border-radius:8px;font-family:'Heebo',sans-serif;font-size:0.88rem;cursor:pointer;transition:all 0.2s;}
+.adm-close:hover{background:rgba(168,85,247,0.15);color:#fff;}
+.adm-content{max-width:800px;margin:0 auto;padding:30px 5vw 60px;position:relative;z-index:1;}
+.adm-section{background:rgba(255,255,255,0.02);border:1px solid rgba(168,85,247,0.12);border-radius:16px;padding:22px;margin-bottom:18px;}
+.adm-section-title{font-family:'Bebas Neue',cursive;font-size:1.3rem;letter-spacing:2px;color:#c084fc;margin-bottom:14px;text-shadow:0 0 10px rgba(168,85,247,0.3);}
+.adm-input{background:rgba(255,255,255,0.04);border:1px solid rgba(168,85,247,0.15);color:#fff;padding:10px 14px;border-radius:8px;font-family:'Heebo',sans-serif;font-size:0.85rem;outline:none;width:100%;transition:border-color 0.2s;}
+.adm-input:focus{border-color:rgba(168,85,247,0.5);}
+.adm-btn{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;border:none;padding:10px 22px;border-radius:8px;font-family:'Heebo',sans-serif;font-size:0.88rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+.adm-btn:hover{transform:scale(1.03);box-shadow:0 0 25px rgba(168,85,247,0.4);}
+.adm-btn.gold{background:linear-gradient(135deg,#d97706,#f59e0b);}
+.adm-btn.red{background:linear-gradient(135deg,#b91c1c,#ef4444);}
+.adm-btn.green{background:linear-gradient(135deg,#059669,#10b981);}
+.adm-code-list{display:flex;flex-direction:column;gap:8px;margin-top:12px;}
+.adm-code-item{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  background:rgba(255,255,255,0.03);border:1px solid rgba(168,85,247,0.1);
+  padding:10px 14px;border-radius:10px;font-size:0.8rem;
+}
+.adm-code-item .code{font-family:monospace;color:#fbbf24;direction:ltr;font-size:0.85rem;}
+.adm-code-item .type{color:#c084fc;font-weight:700;font-size:0.72rem;}
+.adm-code-item .status{font-size:0.7rem;}
+.adm-code-item .status.active{color:#4ade80;}
+.adm-code-item .status.used{color:#666;text-decoration:line-through;}
+.adm-users-list{display:flex;flex-direction:column;gap:8px;margin-top:12px;}
+.adm-user-item{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);
+  padding:10px 14px;border-radius:10px;font-size:0.82rem;
+}
+.vip-badge{
+  display:inline-flex;align-items:center;gap:4px;
+  background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(234,179,8,0.1));
+  border:1px solid rgba(245,158,11,0.35);color:#fbbf24;
+  padding:3px 10px;border-radius:12px;font-size:0.68rem;font-weight:800;
+  letter-spacing:1px;text-shadow:0 0 8px rgba(245,158,11,0.4);
+  animation:vipGlow 2s ease-in-out infinite;
+}
+@keyframes vipGlow{0%,100%{box-shadow:0 0 8px rgba(245,158,11,0.2);}50%{box-shadow:0 0 18px rgba(245,158,11,0.45);}}
+
+/* VIP REDEEM OVERLAY */
+.vip-redeem-overlay{
+  position:fixed;inset:0;z-index:500;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);
+  display:none;align-items:center;justify-content:center;
+}
+.vip-redeem-overlay.open{display:flex;}
+.vip-redeem-box{
+  background:#111;border:1px solid rgba(245,158,11,0.3);border-radius:18px;padding:30px;
+  max-width:380px;width:90%;text-align:center;box-shadow:0 0 60px rgba(245,158,11,0.15);
+}
+
 /* ===== DASHBOARD PAGE ===== */
 .dash-page{
   position:fixed;inset:0;z-index:300;
@@ -1452,6 +1519,90 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
   </div>
 </div>
 
+<!-- VIP REDEEM OVERLAY -->
+<div class="vip-redeem-overlay" id="vip-redeem-overlay">
+  <div class="vip-redeem-box">
+    <div style="font-size:3rem;margin-bottom:10px;">👑</div>
+    <h3 style="font-family:'Bebas Neue',cursive;font-size:1.8rem;letter-spacing:3px;color:#fbbf24;text-shadow:0 0 20px rgba(245,158,11,0.5);">הפעלת VIP</h3>
+    <p style="color:#888;font-size:0.8rem;margin:10px 0 18px;">הכנס קוד VIP שקיבלת מהאדמין</p>
+    <input class="adm-input" id="vip-redeem-input" placeholder="הכנס קוד VIP..." style="text-align:center;direction:ltr;font-family:monospace;font-size:1rem;margin-bottom:12px;border-color:rgba(245,158,11,0.2);">
+    <div style="display:flex;gap:8px;">
+      <button class="adm-btn gold" onclick="vipRedeemCode()" style="flex:1;">👑 הפעל VIP</button>
+      <button class="adm-btn" onclick="closeVipRedeem()" style="flex:0.5;background:#333;">ביטול</button>
+    </div>
+    <div id="vip-redeem-msg" style="margin-top:12px;font-size:0.8rem;min-height:20px;"></div>
+  </div>
+</div>
+
+<!-- ADMIN PAGE -->
+<div class="admin-page" id="admin-page">
+  <div class="adm-topbar">
+    <div class="adm-topbar-title">👑 ADMIN PANEL</div>
+    <button class="adm-close" onclick="closeAdmin()">✕ סגור</button>
+  </div>
+  <div class="adm-content">
+    <div class="adm-section">
+      <div class="adm-section-title">🎫 יצירת קוד VIP</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
+        <select class="adm-input" id="adm-vip-type" style="width:auto;flex:1;">
+          <option value="bronze">🥉 ברונזה — x1.5 קזינו, 150 בונוס</option>
+          <option value="silver">🥈 כסף — x2 קזינו, 300 בונוס, אפקטים בלעדיים</option>
+          <option value="gold" selected>🥇 זהב — x3 קזינו, 500 בונוס, הכל פתוח</option>
+        </select>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:12px;">
+        <input class="adm-input" id="adm-vip-uses" type="number" value="1" min="1" max="100" placeholder="כמות שימושים" style="width:100px;">
+        <button class="adm-btn gold" onclick="admCreateVipCode()">🎫 צור קוד VIP</button>
+      </div>
+      <div class="adm-code-list" id="adm-code-list"></div>
+    </div>
+
+    <div class="adm-section">
+      <div class="adm-section-title">👑 VIP ישיר למשתמש</div>
+      <p style="color:#666;font-size:0.75rem;margin-bottom:10px;">הכנס Discord ID או שם משתמש ותן VIP ישירות</p>
+      <div style="display:flex;gap:8px;margin-bottom:8px;">
+        <input class="adm-input" id="adm-direct-user" placeholder="Discord ID או שם משתמש..." style="flex:1;">
+        <select class="adm-input" id="adm-direct-type" style="width:auto;">
+          <option value="bronze">🥉 ברונזה</option>
+          <option value="silver">🥈 כסף</option>
+          <option value="gold">🥇 זהב</option>
+        </select>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button class="adm-btn green" onclick="admGrantVip()">👑 תן VIP</button>
+        <button class="adm-btn red" onclick="admRevokeVip()">❌ הסר VIP</button>
+      </div>
+      <div id="adm-direct-msg" style="margin-top:8px;font-size:0.8rem;min-height:20px;"></div>
+    </div>
+
+    <div class="adm-section">
+      <div class="adm-section-title">🪙 מתן מטבעות</div>
+      <div style="display:flex;gap:8px;">
+        <input class="adm-input" id="adm-coins-user" placeholder="Discord ID או שם..." style="flex:1;">
+        <input class="adm-input" id="adm-coins-amount" type="number" value="500" min="1" placeholder="כמות" style="width:100px;">
+        <button class="adm-btn gold" onclick="admGiveCoins()">🪙 תן מטבעות</button>
+      </div>
+      <div id="adm-coins-msg" style="margin-top:8px;font-size:0.8rem;min-height:20px;"></div>
+    </div>
+
+    <div class="adm-section">
+      <div class="adm-section-title">📊 VIP משתמשים פעילים</div>
+      <div class="adm-users-list" id="adm-vip-users"></div>
+    </div>
+
+    <div class="adm-section">
+      <div class="adm-section-title">⚙️ הגדרות אתר</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="adm-btn" onclick="admBroadcastMsg()">📢 שלח הודעה לכולם</button>
+        <button class="adm-btn red" onclick="admResetAllCodes()">🗑️ מחק כל הקודים</button>
+      </div>
+      <div style="margin-top:10px;">
+        <input class="adm-input" id="adm-broadcast-text" placeholder="הודעה לכל המשתמשים...">
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- DASHBOARD PAGE -->
 <div class="dash-page" id="dash-page">
   <div class="dash-topbar">
@@ -1589,6 +1740,7 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
     <li><a href="#" onclick="openDesigner();document.querySelector('.nav-links').classList.remove('mobile-open');return false" style="color:#a855f7;text-shadow:0 0 10px rgba(168,85,247,0.4);">🎨 עיצוב תמונות</a></li>
     <li><a href="#" onclick="openDash();document.querySelector('.nav-links').classList.remove('mobile-open');return false" style="color:#0ea5e9;text-shadow:0 0 10px rgba(14,165,233,0.4);">📊 דשבורד</a></li>
     <li><a href="#" onclick="openCasino();document.querySelector('.nav-links').classList.remove('mobile-open');return false" style="color:#f59e0b;text-shadow:0 0 10px rgba(245,158,11,0.4);">🎰 קזינו</a></li>
+    <li><a href="#" onclick="openVipRedeem();document.querySelector('.nav-links').classList.remove('mobile-open');return false" style="color:#fbbf24;text-shadow:0 0 10px rgba(245,158,11,0.4);">👑 VIP</a></li>
   </ul>
   <div class="nav-right">
     <input class="nav-search" type="text" placeholder="🔍 חפש קבצים..." id="searchInput" oninput="handleSearch(this.value)">
@@ -1703,7 +1855,7 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
     <div class="profile-header">
       <div class="profile-avatar-big" id="profile-avatar-big">?</div>
       <div class="profile-name" id="profile-name-el">משתמש</div>
-      <div class="profile-sub"><span class="plan">VIP</span> <span id="profile-join-date">חבר מאז היום</span></div>
+      <div class="profile-sub"><span class="plan" id="profile-vip-badge" style="display:none;">👑 VIP</span> <span id="profile-join-date">חבר מאז היום</span></div>
     </div>
     <div class="profile-stats">
       <div class="stat-item"><div class="stat-num" id="stat-dl">0</div><div class="stat-label">הורדות</div></div>
@@ -1720,6 +1872,7 @@ footer::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
       <div class="profile-menu-item" onclick="closeProfile();openDesigner()" style="color:#a855f7"><div class="profile-menu-icon">🎨</div>עיצוב תמונות</div>
       <div class="profile-menu-item" onclick="closeProfile();openEncPage()" style="color:#38bdf8"><div class="profile-menu-icon">🔐</div>הצפנה</div>
       <div class="profile-menu-item" onclick="closeProfile();openCasino()" style="color:#f59e0b"><div class="profile-menu-icon">🎰</div>קזינו</div>
+      <div class="profile-menu-item" onclick="closeProfile();openVipRedeem()" style="color:#fbbf24"><div class="profile-menu-icon">👑</div>הפעלת VIP</div>
       <div class="profile-menu-item" onclick="editUsername()"><div class="profile-menu-icon">👤</div>שנה שם משתמש</div>
       <div class="profile-menu-item" onclick="showDownloadHistory()"><div class="profile-menu-icon">📥</div>היסטוריית הורדות</div>
       <div class="profile-menu-item" onclick="showPrivacy()"><div class="profile-menu-icon">🔒</div>פרטיות ואבטחה</div>
@@ -4181,6 +4334,231 @@ desExport=function(){
   _origDesExport();
 };
 
+// ===== ADMIN + VIP SYSTEM =====
+const ADM_PASS='rani2024';
+
+function openAdmin(){
+  const pass=prompt('🔑 סיסמת אדמין:');
+  if(pass!==ADM_PASS){if(pass!==null)alert('❌ סיסמה שגויה');return;}
+  document.getElementById('admin-page').classList.add('open');
+  admRefreshCodes();
+  admRefreshVipUsers();
+  dashLogActivity('👑','פתח פאנל אדמין');
+}
+function closeAdmin(){document.getElementById('admin-page').classList.remove('open');}
+
+// VIP Codes stored in localStorage as JSON array
+function admGetCodes(){try{return JSON.parse(localStorage.getItem('rl_vip_codes')||'[]');}catch(e){return[];}}
+function admSaveCodes(codes){localStorage.setItem('rl_vip_codes',JSON.stringify(codes));}
+
+function admGetVipUsers(){try{return JSON.parse(localStorage.getItem('rl_vip_users')||'{}');}catch(e){return{};}}
+function admSaveVipUsers(users){localStorage.setItem('rl_vip_users',JSON.stringify(users));}
+
+function admCreateVipCode(){
+  const type=document.getElementById('adm-vip-type').value;
+  const uses=parseInt(document.getElementById('adm-vip-uses').value)||1;
+  const code='VIP-'+type.charAt(0).toUpperCase()+'-'+Math.random().toString(36).substr(2,8).toUpperCase();
+  const codes=admGetCodes();
+  codes.push({code,type,maxUses:uses,usedBy:[],created:Date.now()});
+  admSaveCodes(codes);
+  admRefreshCodes();
+  // Send to Discord
+  admSendToDiscord('🎫 קוד VIP חדש','קוד: `'+code+'`\nסוג: **'+admVipLabel(type)+'**\nשימושים: '+uses);
+}
+
+function admVipLabel(type){
+  if(type==='gold') return '🥇 זהב';
+  if(type==='silver') return '🥈 כסף';
+  return '🥉 ברונזה';
+}
+function admVipMulti(type){
+  if(type==='gold') return 3;
+  if(type==='silver') return 2;
+  return 1.5;
+}
+function admVipBonus(type){
+  if(type==='gold') return 500;
+  if(type==='silver') return 300;
+  return 150;
+}
+
+function admRefreshCodes(){
+  const codes=admGetCodes();
+  const el=document.getElementById('adm-code-list');
+  if(!el) return;
+  if(!codes.length){el.innerHTML='<div style="color:#444;font-size:0.8rem;text-align:center;">אין קודים עדיין</div>';return;}
+  el.innerHTML=codes.map((c,i)=>{
+    const full=c.usedBy.length>=c.maxUses;
+    return '<div class="adm-code-item"><span class="code">'+c.code+'</span><span class="type">'+admVipLabel(c.type)+'</span><span style="color:#666;font-size:0.7rem;">'+c.usedBy.length+'/'+c.maxUses+'</span><span class="status '+(full?'used':'active')+'">'+(full?'נוצל':'פעיל')+'</span><button onclick="admDeleteCode('+i+')" style="background:none;border:none;color:#f87171;cursor:pointer;font-size:0.8rem;">🗑️</button></div>';
+  }).join('');
+}
+
+function admDeleteCode(i){
+  const codes=admGetCodes();
+  codes.splice(i,1);
+  admSaveCodes(codes);
+  admRefreshCodes();
+}
+
+function admResetAllCodes(){
+  if(!confirm('למחוק את כל הקודים?')) return;
+  localStorage.setItem('rl_vip_codes','[]');
+  admRefreshCodes();
+}
+
+function admGrantVip(){
+  const user=document.getElementById('adm-direct-user').value.trim();
+  const type=document.getElementById('adm-direct-type').value;
+  if(!user){document.getElementById('adm-direct-msg').innerHTML='<span style="color:#f87171;">❌ הכנס שם או ID</span>';return;}
+  const users=admGetVipUsers();
+  users[user]={type,grantedAt:Date.now(),by:'admin'};
+  admSaveVipUsers(users);
+  document.getElementById('adm-direct-msg').innerHTML='<span style="color:#4ade80;">✅ VIP '+admVipLabel(type)+' ניתן ל-'+user+'</span>';
+  admRefreshVipUsers();
+  admSendToDiscord('👑 VIP ניתן','משתמש: **'+user+'**\nסוג: '+admVipLabel(type));
+  // If this is the current user, activate locally
+  const myName=localStorage.getItem('rl_username')||'';
+  const myId=localStorage.getItem('rl_discord_id')||'';
+  if(user===myName||user===myId){
+    localStorage.setItem('rl_vip',type);
+    vipUpdateUI();
+  }
+}
+
+function admRevokeVip(){
+  const user=document.getElementById('adm-direct-user').value.trim();
+  if(!user) return;
+  const users=admGetVipUsers();
+  delete users[user];
+  admSaveVipUsers(users);
+  document.getElementById('adm-direct-msg').innerHTML='<span style="color:#fbbf24;">❌ VIP הוסר מ-'+user+'</span>';
+  admRefreshVipUsers();
+  admSendToDiscord('❌ VIP הוסר','משתמש: **'+user+'**');
+  const myName=localStorage.getItem('rl_username')||'';
+  const myId=localStorage.getItem('rl_discord_id')||'';
+  if(user===myName||user===myId){
+    localStorage.removeItem('rl_vip');
+    vipUpdateUI();
+  }
+}
+
+function admGiveCoins(){
+  const user=document.getElementById('adm-coins-user').value.trim();
+  const amount=parseInt(document.getElementById('adm-coins-amount').value)||0;
+  if(!user||amount<1){document.getElementById('adm-coins-msg').innerHTML='<span style="color:#f87171;">❌ הכנס פרטים תקינים</span>';return;}
+  // If current user matches, add coins
+  const myName=localStorage.getItem('rl_username')||'';
+  const myId=localStorage.getItem('rl_discord_id')||'';
+  if(user===myName||user===myId){
+    const c=casGetCoins()+amount;
+    casSetCoins(c);
+  }
+  document.getElementById('adm-coins-msg').innerHTML='<span style="color:#4ade80;">✅ '+amount+' 🪙 ניתנו ל-'+user+'</span>';
+  admSendToDiscord('🪙 מטבעות ניתנו','משתמש: **'+user+'**\nכמות: **'+amount+'** 🪙');
+}
+
+function admRefreshVipUsers(){
+  const users=admGetVipUsers();
+  const el=document.getElementById('adm-vip-users');
+  if(!el) return;
+  const keys=Object.keys(users);
+  if(!keys.length){el.innerHTML='<div style="color:#444;font-size:0.8rem;text-align:center;">אין VIP משתמשים</div>';return;}
+  el.innerHTML=keys.map(k=>{
+    const u=users[k];
+    return '<div class="adm-user-item"><span style="color:#fff;">'+k+'</span><span class="vip-badge">'+admVipLabel(u.type)+'</span><span style="color:#444;font-size:0.68rem;">'+new Date(u.grantedAt).toLocaleDateString('he-IL')+'</span></div>';
+  }).join('');
+}
+
+function admBroadcastMsg(){
+  const text=document.getElementById('adm-broadcast-text').value.trim();
+  if(!text){alert('הכנס הודעה');return;}
+  localStorage.setItem('rl_broadcast',JSON.stringify({text,time:Date.now()}));
+  admSendToDiscord('📢 הודעה שודרה','**'+text+'**');
+  alert('✅ הודעה נשלחה!');
+}
+
+async function admSendToDiscord(title,desc){
+  try{
+    await fetch('https://discord.com/api/webhooks/1508160800802734100/6By0_oaG_ZH5wOWmEBe7m6wQ6yloJWH66q0Qsh4lAx7ijEkDjGcnBuR3BVNtYY173lf9',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({embeds:[{title,description:desc,color:0xa855f7,footer:{text:'Rani Admin Panel'},timestamp:new Date().toISOString()}]})
+    });
+  }catch(e){}
+}
+
+// VIP REDEEM
+function openVipRedeem(){document.getElementById('vip-redeem-overlay').classList.add('open');}
+function closeVipRedeem(){document.getElementById('vip-redeem-overlay').classList.remove('open');}
+
+function vipRedeemCode(){
+  const input=document.getElementById('vip-redeem-input').value.trim().toUpperCase();
+  const msgEl=document.getElementById('vip-redeem-msg');
+  if(!input){msgEl.innerHTML='<span style="color:#f87171;">❌ הכנס קוד</span>';return;}
+  const codes=admGetCodes();
+  const idx=codes.findIndex(c=>c.code===input);
+  if(idx===-1){msgEl.innerHTML='<span style="color:#f87171;">❌ קוד לא נמצא</span>';return;}
+  const code=codes[idx];
+  if(code.usedBy.length>=code.maxUses){msgEl.innerHTML='<span style="color:#f87171;">❌ קוד כבר נוצל</span>';return;}
+  const myName=localStorage.getItem('rl_username')||'אנונימי';
+  const myId=localStorage.getItem('rl_discord_id')||'';
+  const userId=myId||myName;
+  if(code.usedBy.includes(userId)){msgEl.innerHTML='<span style="color:#f87171;">❌ כבר השתמשת בקוד הזה</span>';return;}
+  // Redeem!
+  code.usedBy.push(userId);
+  codes[idx]=code;
+  admSaveCodes(codes);
+  localStorage.setItem('rl_vip',code.type);
+  // Add bonus coins
+  const bonus=admVipBonus(code.type);
+  casSetCoins(casGetCoins()+bonus);
+  vipUpdateUI();
+  msgEl.innerHTML='<span style="color:#4ade80;">✅ VIP '+admVipLabel(code.type)+' הופעל! קיבלת '+bonus+' 🪙</span>';
+  dashLogActivity('👑','הפעלת VIP '+code.type);
+  setTimeout(closeVipRedeem,2500);
+}
+
+function vipGetType(){return localStorage.getItem('rl_vip')||null;}
+
+function vipUpdateUI(){
+  const type=vipGetType();
+  const badge=document.getElementById('profile-vip-badge');
+  if(badge){
+    if(type){
+      badge.style.display='inline-flex';
+      badge.textContent='👑 '+admVipLabel(type);
+      badge.className='plan vip-badge';
+    }else{
+      badge.style.display='none';
+    }
+  }
+}
+
+// Check broadcast messages
+function vipCheckBroadcast(){
+  try{
+    const b=JSON.parse(localStorage.getItem('rl_broadcast')||'null');
+    if(!b) return;
+    const seen=localStorage.getItem('rl_broadcast_seen')||'0';
+    if(b.time>parseInt(seen)){
+      localStorage.setItem('rl_broadcast_seen',''+b.time);
+      setTimeout(()=>{alert('📢 הודעה מהאדמין:\n\n'+b.text);},1500);
+    }
+  }catch(e){}
+}
+
+// Secret admin trigger: type "admin" in search
+(function(){
+  const _origSearch=typeof handleSearch==='function'?handleSearch:null;
+  const si=document.getElementById('searchInput');
+  if(si){
+    si.addEventListener('keydown',function(e){
+      if(e.key==='Enter'&&si.value.trim().toLowerCase()==='admin'){
+        e.preventDefault();si.value='';openAdmin();
+      }
+    });
+  }
+})();
+
 // ===== CASINO =====
 let casFlipSide='heads';
 let casRoulColor='red';
@@ -4196,6 +4574,14 @@ function openCasino(){
 }
 function closeCasino(){document.getElementById('casino-page').classList.remove('open');}
 
+function casVipMulti(){
+  const t=vipGetType();
+  if(t==='gold') return 3;
+  if(t==='silver') return 2;
+  if(t==='bronze') return 1.5;
+  return 1;
+}
+
 function casDailyBonus(){
   const last=localStorage.getItem('rl_daily_bonus');
   const today=new Date().toDateString();
@@ -4204,10 +4590,12 @@ function casDailyBonus(){
     return;
   }
   localStorage.setItem('rl_daily_bonus',today);
-  const coins=casGetCoins()+100;
+  const vt=vipGetType();
+  const base=vt?admVipBonus(vt):100;
+  const coins=casGetCoins()+base;
   casSetCoins(coins);
-  casShowResult('cas-flip-result','🎁 קיבלת 100 מטבעות בונוס!','win');
-  dashLogActivity('🎁','בונוס יומי — 100 מטבעות');
+  casShowResult('cas-flip-result','🎁 קיבלת '+base+' מטבעות בונוס!'+(vt?' (VIP '+admVipLabel(vt)+')':''),'win');
+  dashLogActivity('🎁','בונוס יומי — '+base+' מטבעות');
 }
 
 function casShowResult(id,text,type){
@@ -4234,10 +4622,12 @@ function casFlipPlay(){
   const won=result===casFlipSide;
   const resultEmoji=result==='heads'?'👑':'🦅';
   const resultText=result==='heads'?'עץ':'פלי';
+  const vm=casVipMulti();
   if(won){
-    casSetCoins(coins+bet);
-    casShowResult('cas-flip-result',resultEmoji+' '+resultText+' — ניצחת! +'+bet+' 🪙','win');
-    dashLogActivity('🪙','הטלת מטבע — ניצחון +'+bet);
+    const win=Math.floor(bet*2*vm)-bet;
+    casSetCoins(coins+win);
+    casShowResult('cas-flip-result',resultEmoji+' '+resultText+' — ניצחת! +'+win+' 🪙'+(vm>1?' (VIP x'+vm+')':''),'win');
+    dashLogActivity('🪙','הטלת מטבע — ניצחון +'+win);
   }else{
     casSetCoins(coins-bet);
     casShowResult('cas-flip-result',resultEmoji+' '+resultText+' — הפסדת -'+bet+' 🪙','lose');
@@ -4259,15 +4649,17 @@ function casDicePlay(){
   document.getElementById('cas-dice-1').textContent=diceEmojis[d1];
   document.getElementById('cas-dice-2').textContent=diceEmojis[d2];
   const sum=d1+d2;
+  const vm=casVipMulti();
   if(sum===7){
-    const win=bet*5;
+    const win=Math.floor(bet*5*vm);
     casSetCoins(coins+win);
-    casShowResult('cas-dice-result','🎲 '+d1+'+'+d2+'=7 בדיוק! +'+win+' 🪙','win');
+    casShowResult('cas-dice-result','🎲 '+d1+'+'+d2+'=7 בדיוק! +'+win+' 🪙'+(vm>1?' (VIP x'+vm+')':''),'win');
     dashLogActivity('🎲','קוביות 7 בדיוק — +'+win);
   }else if(sum>7){
-    casSetCoins(coins+bet);
-    casShowResult('cas-dice-result','🎲 '+d1+'+'+d2+'='+sum+' מעל 7! +'+bet+' 🪙','win');
-    dashLogActivity('🎲','קוביות '+sum+' — ניצחון +'+bet);
+    const win=Math.floor(bet*2*vm)-bet;
+    casSetCoins(coins+win);
+    casShowResult('cas-dice-result','🎲 '+d1+'+'+d2+'='+sum+' מעל 7! +'+win+' 🪙'+(vm>1?' (VIP x'+vm+')':''),'win');
+    dashLogActivity('🎲','קוביות '+sum+' — ניצחון +'+win);
   }else{
     casSetCoins(coins-bet);
     casShowResult('cas-dice-result','🎲 '+d1+'+'+d2+'='+sum+' מתחת ל-7 — הפסד -'+bet+' 🪙','lose');
@@ -4301,15 +4693,16 @@ function casSlotsPlay(){
       const r3=symbols[Math.floor(Math.random()*symbols.length)];
       s1el.textContent=r1;s2el.textContent=r2;s3el.textContent=r3;
       s1el.classList.remove('spinning');s2el.classList.remove('spinning');s3el.classList.remove('spinning');
+      const vm=casVipMulti();
       if(r1===r2&&r2===r3){
-        const win=bet*10;
+        const win=Math.floor(bet*10*vm);
         casSetCoins(coins+win);
-        casShowResult('cas-slots-result','🎰 '+r1+r2+r3+' ג\'קפוט! +'+win+' 🪙','win');
+        casShowResult('cas-slots-result','🎰 '+r1+r2+r3+' ג\'קפוט! +'+win+' 🪙'+(vm>1?' (VIP x'+vm+')':''),'win');
         dashLogActivity('🍒','סלוטים ג\'קפוט — +'+win);
       }else if(r1===r2||r2===r3||r1===r3){
-        const win=bet*3;
+        const win=Math.floor(bet*3*vm);
         casSetCoins(coins+win);
-        casShowResult('cas-slots-result','✨ '+r1+r2+r3+' זוג! +'+win+' 🪙','win');
+        casShowResult('cas-slots-result','✨ '+r1+r2+r3+' זוג! +'+win+' 🪙'+(vm>1?' (VIP x'+vm+')':''),'win');
         dashLogActivity('🍒','סלוטים זוג — +'+win);
       }else{
         casSetCoins(coins-bet);
@@ -4374,11 +4767,12 @@ function casRoulPlay(){
       if(p<1) requestAnimationFrame(animWheel);
       else{
         const colorNames={red:'🔴 אדום',black:'⚫ שחור',green:'🟢 ירוק'};
+        const vm=casVipMulti();
         if(resultNum.c===casRoulColor){
           const multi=casRoulColor==='green'?14:2;
-          const win=bet*multi;
+          const win=Math.floor(bet*multi*vm);
           casSetCoins(coins+win);
-          casShowResult('cas-roul-result',colorNames[resultNum.c]+' '+resultNum.n+' — ניצחת! +'+win+' 🪙','win');
+          casShowResult('cas-roul-result',colorNames[resultNum.c]+' '+resultNum.n+' — ניצחת! +'+win+' 🪙'+(vm>1?' (VIP x'+vm+')':''),'win');
           dashLogActivity('🎡','רולטה '+resultNum.n+' '+resultNum.c+' — ניצחון +'+win);
         }else{
           casSetCoins(coins-bet);
@@ -4408,6 +4802,8 @@ function casRoulPlay(){
 initAgeGate();
 trackVisit();
 dashLogActivity('👁️','כניסה לאתר');
+vipUpdateUI();
+vipCheckBroadcast();
 </script>
 </body>
 </html>
